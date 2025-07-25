@@ -69,9 +69,9 @@ const birdieArt = `
 
 const foxyArt = `
 >(')____,
-  (\`))    \\
-   /\\\`--' \\
-   \\\\\\\\ \\\\\\`----'\\
+  (\`))    \\\\
+   /\\\`--' \\\\
+   \\\\\\\\ \\\\\\`----'\\\\
 `;
 
 
@@ -368,5 +368,3 @@ export default function DeutschDrillClient() {
     </>
   );
 }
-
-    
