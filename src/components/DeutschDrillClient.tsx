@@ -139,7 +139,6 @@ export default function DeutschDrillClient() {
     setUserAnswer('');
     setReadingFeedback(null);
 
-    // Short delay to give feedback to the user
     await new Promise(resolve => setTimeout(resolve, 300));
 
     try {
@@ -186,32 +185,13 @@ export default function DeutschDrillClient() {
     if (!userAnswer || !exercise) return;
     playSound('E4');
     
-    if (activity === 'reading' && exercise.isMcq) {
-        // This logic path is for hardcoded MCQ reading questions.
-        // AI evaluation is now only for open questions, which are not currently generated.
-    } else if (activity === 'reading' && !exercise.isMcq) {
-        setIsChecking(true);
-        try {
-            const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
-            setReadingFeedback(result);
-        } catch (error) {
-            console.error('Error evaluating response:', error);
-            toast({
-                title: 'Error',
-                description: 'Failed to evaluate your response. Please try again.',
-                variant: 'destructive',
-            });
-        } finally {
-            setIsChecking(false);
-        }
-    }
     setShowResult(true);
   };
   
   const isCorrect = exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
-    <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20">
+    <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20">
       <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
         <CardHeader>
             <TabsList className="grid w-full grid-cols-2 bg-muted/50">
@@ -222,7 +202,7 @@ export default function DeutschDrillClient() {
         <CardContent className="space-y-6 px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 space-y-2">
-                    <Label htmlFor="level">Language Level</Label>
+                    <Label htmlFor="level" className="text-muted-foreground">Language Level</Label>
                     <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
                         <SelectTrigger id="level" className="w-full">
                             <SelectValue placeholder="Select level" />
@@ -236,7 +216,7 @@ export default function DeutschDrillClient() {
                 </div>
                 {activity === 'grammar' && (
                     <div className="flex-1 space-y-2">
-                         <Label htmlFor="grammar-type">Exercise Type</Label>
+                         <Label htmlFor="grammar-type" className="text-muted-foreground">Exercise Type</Label>
                          <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
                             <SelectTrigger id="grammar-type" className="w-full">
                                 <SelectValue placeholder="Select type" />
@@ -252,7 +232,7 @@ export default function DeutschDrillClient() {
           
             <Separator/>
 
-            <div className="min-h-[200px] p-4 rounded-lg bg-background border border-border flex items-center justify-center text-center">
+            <div className="min-h-[200px] p-4 rounded-lg bg-background/70 border-2 border-dashed border-border flex items-center justify-center text-center">
                 {isLoading ? (
                     <div className="space-y-2 w-full">
                         <Skeleton className="h-4 w-3/4 mx-auto" />
@@ -261,14 +241,14 @@ export default function DeutschDrillClient() {
                     </div>
                 ) : exercise ? (
                     <div className="text-left w-full space-y-4">
-                        <p className="text-lg font-medium font-headline whitespace-pre-wrap">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
+                        <p className="text-xl font-medium font-headline whitespace-pre-wrap">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
                         {exercise.isMcq && exercise.options ? (
-                             <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="space-y-2 pt-2" disabled={showResult}>
+                             <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="space-y-3 pt-2" disabled={showResult}>
                                 {exercise.options.map((option) => (
-                                    <div key={option.id} className="flex items-center space-x-2">
+                                    <Label key={option.id} htmlFor={option.id} className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${userAnswer === option.id ? 'bg-primary/20 border-primary' : 'border-border hover:border-accent'}`}>
                                         <RadioGroupItem value={option.id} id={option.id} />
-                                        <Label htmlFor={option.id} className="cursor-pointer">{option.label}</Label>
-                                    </div>
+                                        <span>{option.label}</span>
+                                    </Label>
                                 ))}
                              </RadioGroup>
                         ) : (
@@ -277,48 +257,34 @@ export default function DeutschDrillClient() {
                                 onChange={(e) => setUserAnswer(e.target.value)}
                                 placeholder="Your answer..."
                                 disabled={showResult}
+                                className="text-lg"
                             />
                         )}
                     </div>
                 ) : (
-                    <p className="text-muted-foreground">Select your options and click "New Challenge" to begin.</p>
+                    <p className="text-muted-foreground text-lg">Select your options and click "New Challenge" to begin!</p>
                 )}
             </div>
 
             {showResult && exercise && (
-                <div className={`p-4 rounded-lg flex items-center gap-3 border ${isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
-                    {isCorrect ? <CheckCircle className="h-5 w-5"/> : <XCircle className="h-5 w-5"/>}
-                    <p className="font-medium">
+                <div className={`p-4 rounded-lg flex items-center gap-3 border-2 font-bold text-lg ${isCorrect ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-red-500/10 text-red-600 border-red-500/20'}`}>
+                    {isCorrect ? <CheckCircle className="h-6 w-6"/> : <XCircle className="h-6 w-6"/>}
+                    <p>
                         {isCorrect ? "Correct! Well done." : `Not quite. The correct answer is: ${exercise.answer}`}
                     </p>
                 </div>
-            )}
-             {showResult && activity === 'reading' && !exercise?.isMcq && (
-                isChecking ? (
-                    <div className="space-y-2 w-full">
-                        <Skeleton className="h-4 w-1/4 mx-auto" />
-                        <Skeleton className="h-4 w-1/2 mx-auto" />
-                    </div>
-                ) : readingFeedback && (
-                    <div className={`p-4 rounded-lg flex items-start gap-3 border ${readingFeedback.isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
-                        {readingFeedback.isCorrect ? <CheckCircle className="h-5 w-5 mt-1"/> : <XCircle className="h-5 w-5 mt-1"/>}
-                        <p className="font-medium">
-                            {readingFeedback.feedback}
-                        </p>
-                    </div>
-                )
             )}
         </CardContent>
         <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
           <Button 
             onClick={handleCheckAnswer} 
             disabled={!userAnswer || showResult || isLoading || isChecking}
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto text-lg py-6"
             variant="outline"
           >
             {isChecking ? 'Checking...' : 'Check Answer'}
           </Button>
-          <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto">
+          <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto text-lg py-6">
             {isLoading ? "Generating..." : "New Challenge"}
           </Button>
         </CardFooter>
