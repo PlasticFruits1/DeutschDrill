@@ -69,9 +69,9 @@ const birdieArt = `
 
 const foxyArt = `
 >(')____,
-  (\`))    \\\\
-   /\\\`--' \\\\
-   \\\\\\\\ \\\\\\`----'\\\\
+  (\\\`))    \\\\\\\\
+   /\\\\\\\`--' \\\\\\\\
+   \\\\\\\\\\\\ \\\\\\\\\\\\\`----'\\\\\\\\
 `;
 
 
@@ -337,25 +337,38 @@ export default function DeutschDrillClient() {
                     started={started}
                 />
             </CardContent>
-            <CardFooter className={`flex flex-col-reverse sm:flex-row gap-4 px-4 sm:px-6 pb-6 ${started ? 'justify-between' : 'justify-center'}`}>
-            {started && (
-                <Button 
-                    onClick={handleCheckAnswer} 
-                    disabled={!userAnswer || showResult || isLoading || isChecking}
-                    className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 scale-100 data-[state=selected]:scale-110"
-                    variant={userAnswer ? 'default' : 'outline'}
-                    data-state={userAnswer ? 'selected' : 'default'}
-                >
-                    {isChecking ? 'Checking...' : 'Check Answer'}
-                </Button>
+            <CardFooter className="flex flex-col-reverse sm:flex-row gap-4 px-4 sm:px-6 pb-6">
+            {!started ? (
+                <div className="flex justify-center w-full">
+                    <Button 
+                        onClick={handleGenerate} 
+                        disabled={isLoading || isChecking} 
+                        className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                    >
+                        {isLoading ? "Generating..." : "Start Challenge"}
+                    </Button>
+                </div>
+            ) : (
+                <div className="flex justify-between w-full">
+                    <Button 
+                        onClick={handleCheckAnswer} 
+                        disabled={!userAnswer || showResult || isLoading || isChecking}
+                        className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 scale-100 data-[state=selected]:scale-110"
+                        variant={userAnswer ? 'default' : 'outline'}
+                        data-state={userAnswer ? 'selected' : 'default'}
+                    >
+                        {isChecking ? 'Checking...' : 'Check Answer'}
+                    </Button>
+                    <Button 
+                        onClick={handleGenerate} 
+                        disabled={isLoading || isChecking} 
+                        className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        variant="secondary"
+                    >
+                        {isLoading ? "Generating..." : "New Challenge"}
+                    </Button>
+                </div>
             )}
-            <Button 
-                onClick={handleGenerate} 
-                disabled={isLoading || isChecking} 
-                className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-            >
-                {isLoading ? "Generating..." : "Start Challenge"}
-            </Button>
             </CardFooter>
           </Tabs>
         </Card>
