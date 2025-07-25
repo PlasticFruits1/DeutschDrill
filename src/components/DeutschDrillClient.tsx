@@ -76,7 +76,7 @@ const hardcodedReadingPrompts = {
         { prompt: 'Die Globalisierung führt dazu, dass die Weltwirtschaft immer enger zusammenwächst. Einerseits bietet dies viele Chancen, wie zum Beispiel einen größeren Markt für Unternehmen und mehr Produktvielfalt für Verbraucher. Andererseits gibt es auch Risiken, wie die zunehmende Konkurrenz für lokale Anbieter. Was ist ein Vorteil der Globalisierung?', options: [{id: 'A', label: 'Lokale Anbieter haben weniger Konkurrenz'}, {id: 'B', label: 'Unternehmen haben einen kleineren Markt'}, {id: 'C', label: 'Verbraucher haben mehr Auswahl'}, {id: 'D', 'label': 'Die Weltwirtschaft schrumpft'}], answer: 'C' },
     ],
     C1: [
-        { prompt: 'Künstliche Intelligenz (KI) ist ein transformatives Feld der Informatik, das weitreichende Auswirkungen auf die Gesellschaft hat. Während KI das Potenzenzial birgt, komplexe Probleme zu lösen und die menschliche Effizienz zu steigern, wirft sie auch ethische Fragen hinsichtlich Datenschutz, Voreingenommenheit von Algorithmen und der Zukunft der Arbeit auf. Welche Herausforderung wird im Text genannt?', options: [{id: 'A', label: 'Mangel an komplexen Problemen'}, {id: 'B', label: 'Steigerung der menschlichen Effizienz'}, {id: 'C', label: 'Ethische Bedenken bezüglich KI'}, {id: 'D', label: 'Die sinkende Bedeutung der Informatik'}], answer: 'C' },
+        { prompt: 'Künstliche Intelligenz (KI) ist ein transformatives Feld der Informatik, das weitreichende Auswirkungen auf die Gesellschaft hat. Während KI das Potenzenzial birgt, komplexe Probleme zu lösen und die menschliche Effizienz zu steigern, wirft sie auch ethische Fragen hinsichtlich Datenschutz, Voreingenommenheit von Algorithmen und der Zukunft der Arbeit auf. Welche Herausforderung wird im Text genannt?', options: [{id: 'A', label: 'Mangel an komplexen Problemen'}, {id: 'B', label: 'Steigerung der menschlichen Effizienz'}, {id: 'C', label: 'Ethische Bedenken bezüglich KI'}, {id: 'D', 'label': 'Die sinkende Bedeutung der Informatik'}], answer: 'C' },
     ]
 };
 
@@ -214,71 +214,75 @@ export default function DeutschDrillClient() {
   return (
     <>
       {character && <PlayerCharacter characterSrc={character.src} characterHint={character.hint} />}
-      <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
-        <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
-          <CardHeader>
-              <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
-              <TabsList className="grid w-full grid-cols-2 bg-primary/10 rounded-full h-12">
-                  <TabsTrigger value="grammar" className="rounded-full text-base font-bold"><Sparkles className="mr-2 h-5 w-5" /> Grammar</TabsTrigger>
-                  <TabsTrigger value="reading" className="rounded-full text-base font-bold"><BookOpen className="mr-2 h-5 w-5" /> Reading</TabsTrigger>
-              </TabsList>
-          </CardHeader>
-          <CardContent className="space-y-6 px-4 sm:px-6">
-              <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1 space-y-2">
-                      <Label htmlFor="level" className="text-muted-foreground font-bold px-3">Language Level</Label>
-                      <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
-                          <SelectTrigger id="level" className="w-full rounded-full h-12 text-base">
-                              <SelectValue placeholder="Select level" />
-                          </SelectTrigger>
-                          <SelectContent>
-                              <SelectItem value="A1">A1 (Beginner)</SelectItem>
-                              <SelectItem value="B1">B1 (Intermediate)</SelectItem>
-                              <SelectItem value="C1">C1 (Advanced)</SelectItem>
-                          </SelectContent>
-                      </Select>
-                  </div>
-                  {activity === 'grammar' && (
-                      <div className="flex-1 space-y-2">
-                           <Label htmlFor="grammar-type" className="text-muted-foreground font-bold px-3">Exercise Type</Label>
-                           <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
-                              <SelectTrigger id="grammar-type" className="w-full rounded-full h-12 text-base">
-                                  <SelectValue placeholder="Select type" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                  <SelectItem value="fill-in-the-blank">Fill-in-the-Blank</SelectItem>
-                                  <SelectItem value="multiple-choice">Multiple Choice</SelectItem>
-                              </SelectContent>
-                          </Select>
-                      </div>
-                  )}
-              </div>
-            
-              <ExerciseArea
-                  isLoading={isLoading}
-                  exercise={exercise}
-                  userAnswer={userAnswer}
-                  setUserAnswer={setUserAnswer}
-                  showResult={showResult}
-                  isCorrect={isCorrect}
-                  streak={streak}
-              />
-          </CardContent>
-          <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
-            <Button 
-              onClick={handleCheckAnswer} 
-              disabled={!userAnswer || showResult || isLoading || isChecking}
-              className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-              variant="outline"
-            >
-              {isChecking ? 'Checking...' : 'Check Answer'}
-            </Button>
-            <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-              {isLoading ? "Generating..." : "New Challenge"}
-            </Button>
-          </CardFooter>
-        </Tabs>
-      </Card>
+      <div className="flex flex-row-reverse items-start gap-8">
+        <Card className="flex-1 shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
+          <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
+            <CardHeader>
+                <TabsList className="grid w-full grid-cols-2 bg-primary/10 rounded-full h-12">
+                    <TabsTrigger value="grammar" className="rounded-full text-base font-bold"><Sparkles className="mr-2 h-5 w-5" /> Grammar</TabsTrigger>
+                    <TabsTrigger value="reading" className="rounded-full text-base font-bold"><BookOpen className="mr-2 h-5 w-5" /> Reading</TabsTrigger>
+                </TabsList>
+            </CardHeader>
+            <CardContent className="space-y-6 px-4 sm:px-6">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1 space-y-2">
+                        <Label htmlFor="level" className="text-muted-foreground font-bold px-3">Language Level</Label>
+                        <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
+                            <SelectTrigger id="level" className="w-full rounded-full h-12 text-base">
+                                <SelectValue placeholder="Select level" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="A1">A1 (Beginner)</SelectItem>
+                                <SelectItem value="B1">B1 (Intermediate)</SelectItem>
+                                <SelectItem value="C1">C1 (Advanced)</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    {activity === 'grammar' && (
+                        <div className="flex-1 space-y-2">
+                             <Label htmlFor="grammar-type" className="text-muted-foreground font-bold px-3">Exercise Type</Label>
+                             <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
+                                <SelectTrigger id="grammar-type" className="w-full rounded-full h-12 text-base">
+                                    <SelectValue placeholder="Select type" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="fill-in-the-blank">Fill-in-the-Blank</SelectItem>
+                                    <SelectItem value="multiple-choice">Multiple Choice</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    )}
+                </div>
+              
+                <ExerciseArea
+                    isLoading={isLoading}
+                    exercise={exercise}
+                    userAnswer={userAnswer}
+                    setUserAnswer={setUserAnswer}
+                    showResult={showResult}
+                    isCorrect={isCorrect}
+                    streak={streak}
+                />
+            </CardContent>
+            <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
+              <Button 
+                onClick={handleCheckAnswer} 
+                disabled={!userAnswer || showResult || isLoading || isChecking}
+                className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                variant="outline"
+              >
+                {isChecking ? 'Checking...' : 'Check Answer'}
+              </Button>
+              <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                {isLoading ? "Generating..." : "New Challenge"}
+              </Button>
+            </CardFooter>
+          </Tabs>
+        </Card>
+        <div className="w-64">
+          <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
+        </div>
+      </div>
     </>
   );
 }
