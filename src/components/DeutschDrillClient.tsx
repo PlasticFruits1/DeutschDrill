@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import PlayerCharacter from '@/components/PlayerCharacter';
 import LevelingSystem from '@/components/LevelingSystem';
 import ExerciseArea from '@/components/ExerciseArea';
+import PetDisplay from '@/components/PetDisplay';
 
 // Type definitions
 export type Level = 'A1' | 'B1' | 'C1';
@@ -81,11 +82,11 @@ const hardcodedReadingPrompts = {
 };
 
 const levelSystem = [
-  { level: 1, expRequired: 0, character: null },
-  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}},
-  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}},
-  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}},
-  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}},
+  { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'pixel egg'} },
+  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cracked egg'} },
+  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'baby creature'} },
+  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'teen creature'} },
+  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'adult creature'} },
 ];
 
 
@@ -106,6 +107,7 @@ export default function DeutschDrillClient() {
   
   const [playerLevel, setPlayerLevel] = useState(1);
   const [character, setCharacter] = useState<{src: string, hint: string} | null>(null);
+  const [pet, setPet] = useState<{src: string, hint: string} | null>(levelSystem[0].pet);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -122,13 +124,16 @@ export default function DeutschDrillClient() {
 
     useEffect(() => {
         const currentLevelData = levelSystem.slice().reverse().find(l => exp >= l.expRequired);
-        if (currentLevelData && currentLevelData.level > playerLevel) {
-            setPlayerLevel(currentLevelData.level);
-            setCharacter(currentLevelData.character);
-            toast({
-                title: 'Level Up!',
-                description: `You've reached level ${currentLevelData.level} and unlocked a new friend!`,
-            });
+        if (currentLevelData) {
+            setPet(currentLevelData.pet);
+            if (currentLevelData.level > playerLevel) {
+                setPlayerLevel(currentLevelData.level);
+                setCharacter(currentLevelData.character);
+                toast({
+                    title: 'Level Up!',
+                    description: `You've reached level ${currentLevelData.level} and unlocked a new friend!`,
+                });
+            }
         }
     }, [exp, playerLevel, toast]);
 
@@ -215,6 +220,11 @@ export default function DeutschDrillClient() {
     <>
       {character && <PlayerCharacter characterSrc={character.src} characterHint={character.hint} />}
       <div className="flex flex-row items-stretch gap-8">
+        {pet && (
+          <div className="w-48">
+            <PetDisplay petSrc={pet.src} petHint={pet.hint} level={playerLevel} />
+          </div>
+        )}
         <div className="w-24">
           <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
         </div>
