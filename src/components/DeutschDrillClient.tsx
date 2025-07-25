@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import PlayerCharacter from '@/components/PlayerCharacter';
 import LevelingSystem from '@/components/LevelingSystem';
 import ExerciseArea from '@/components/ExerciseArea';
 import PetDisplay from '@/components/PetDisplay';
@@ -70,18 +69,18 @@ const birdieArt = `
 
 const foxyArt = `
 >(')____,
-  (\`)    \\
-   /\`--' \\
-  \\\\ \`----'\\
+  (\\\`)    \\
+   /\\\\\`--' \\
+  \\\\ \\\\\`----'\\
 `;
 
 
 const levelSystem = [
-  { level: 1, expRequired: 0, character: null, pet: {art: eggbertArt, name: 'Eggbert'} },
-  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {art: catleArt, name: 'Catle'} },
-  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {art: doggoArt, name: 'Doggo'} },
-  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {art: birdieArt, name: 'Birdie'} },
-  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {art: foxyArt, name: 'Foxy'} },
+  { level: 1, expRequired: 0, pet: {art: eggbertArt, name: 'Eggbert'} },
+  { level: 2, expRequired: 100, pet: {art: catleArt, name: 'Catle'} },
+  { level: 3, expRequired: 250, pet: {art: doggoArt, name: 'Doggo'} },
+  { level: 4, expRequired: 500, pet: {art: birdieArt, name: 'Birdie'} },
+  { level: 5, expRequired: 1000, pet: {art: foxyArt, name: 'Foxy'} },
 ];
 
 type Pet = {
@@ -105,7 +104,6 @@ export default function DeutschDrillClient() {
   const { toast } = useToast();
   
   const [playerLevel, setPlayerLevel] = useState(1);
-  const [character, setCharacter] = useState<{src: string, hint: string} | null>(null);
   const [pet, setPet] = useState<Pet>(levelSystem[0].pet);
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
 
@@ -128,7 +126,6 @@ export default function DeutschDrillClient() {
             setPet(currentLevelData.pet);
             if (currentLevelData.level > playerLevel) {
                 setPlayerLevel(currentLevelData.level);
-                setCharacter(currentLevelData.character);
                 toast({
                     title: 'Level Up!',
                     description: `You've reached level ${currentLevelData.level} and unlocked a new friend!`,
@@ -262,10 +259,9 @@ export default function DeutschDrillClient() {
 
   return (
     <>
-      {character && <PlayerCharacter characterSrc={character.src} characterHint={character.hint} />}
       <div className="flex flex-row items-stretch gap-8">
         <div className="w-24">
-          <LevelingSystem playerLevel={playerLevel} exp={exp} />
+          <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
         </div>
         <Card className="flex-1 shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
           <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
