@@ -71,7 +71,7 @@ const foxyArt = `
 >(')____,
   (\`))    \\
    /\\\\\`--' \\
-   \\\\ \\ \\\`----'\\
+   \\\\\\\\ \\\\\\`----'\\
 `;
 
 
@@ -177,7 +177,7 @@ export default function DeutschDrillClient() {
             const parts = result.exercise.split('\n').filter(p => p.trim() !== '');
             question = parts[0];
             options = parts.slice(1).map(line => {
-                const match = line.match(/^([A-D])\.\s?(.*)/);
+                const match = line.match(/^([A-D])\)\s?(.*)/);
                 if (match) {
                     return { id: match[1], label: match[2].trim() };
                 }
@@ -197,18 +197,18 @@ export default function DeutschDrillClient() {
         const parts = result.prompt.split('\n').filter(p => p.trim() !== '');
         
         const questionIndex = parts.findIndex(p => p.includes('?'));
-        const textPrompt = parts.slice(0, questionIndex).join('\n');
-        const question = parts[questionIndex];
+        const textPrompt = parts.slice(0, questionIndex + 1).join('\n');
+        const question = textPrompt;
 
         const options = parts.slice(questionIndex + 1).map(line => {
-            const match = line.match(/^([A-D])\.\s?(.*)/);
+            const match = line.match(/^([A-D])\)\s?(.*)/);
             if (match) {
                 return { id: match[1], label: match[2].trim() };
             }
             return { id: '?', label: line };
         }).filter(opt => opt.id !== '?');
 
-        newQuestion = `${textPrompt}\n${question}`;
+        newQuestion = question;
         setExercise({
           prompt: result.prompt,
           answer: result.answer,
@@ -296,7 +296,7 @@ export default function DeutschDrillClient() {
             <CardContent className="space-y-6 px-4 sm:px-6">
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1 space-y-2">
-                        <Label htmlFor="level" className="text-muted-foreground font-bold px-3">Language Level</Label>
+                        <Label htmlFor="level" className="text-muted-foreground font-bold">Language Level</Label>
                         <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
                             <SelectTrigger id="level" className="w-full rounded-full h-12 text-base">
                                 <SelectValue placeholder="Select level" />
@@ -310,7 +310,7 @@ export default function DeutschDrillClient() {
                     </div>
                     {activity === 'grammar' && (
                         <div className="flex-1 space-y-2">
-                             <Label htmlFor="grammar-type" className="text-muted-foreground font-bold px-3">Exercise Type</Label>
+                             <Label htmlFor="grammar-type" className="text-muted-foreground font-bold">Exercise Type</Label>
                              <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
                                 <SelectTrigger id="grammar-type" className="w-full rounded-full h-12 text-base">
                                     <SelectValue placeholder="Select type" />
