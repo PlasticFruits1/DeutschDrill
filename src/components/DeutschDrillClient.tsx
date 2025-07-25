@@ -83,10 +83,10 @@ const hardcodedReadingPrompts = {
 
 const levelSystem = [
   { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute egg', name: 'Eggbert'} },
-  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute creature', name: 'Crackle'} },
-  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute monster', name: 'Sprout'} },
-  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'glowing creature', name: 'Glowy'} },
-  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'shiny monster', name: 'Lumina'} },
+  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute cat', name: 'Catle'} },
+  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute dog', name: 'Doggo'} },
+  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute bird', name: 'Birdie'} },
+  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute fox', name: 'Foxy'} },
 ];
 
 type Pet = {
@@ -226,7 +226,7 @@ export default function DeutschDrillClient() {
       {character && <PlayerCharacter characterSrc={character.src} characterHint={character.hint} />}
       <div className="flex flex-row items-stretch gap-8">
         <div className="w-24">
-          <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
+          <LevelingSystem playerLevel={playerLevel} exp={exp} />
         </div>
         <Card className="flex-1 shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
           <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
@@ -294,7 +294,7 @@ export default function DeutschDrillClient() {
         </Card>
         {pet && (
           <div className="w-48">
-            <PetDisplay petSrc={pet.src} petHint={pet.hint} petName={pet.name} level={playerLevel} />
+            <PetDisplay petSrc={pet.src} petHint={pet.hint} petName={pet.name} level={playerLevel} streak={streak} />
           </div>
         )}
       </div>
