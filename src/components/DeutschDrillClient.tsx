@@ -15,6 +15,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { BookOpen, CheckCircle, Sparkles, XCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
 type Level = 'A1' | 'B1' | 'C1';
 type GrammarType = 'fill-in-the-blank' | 'multiple-choice';
@@ -41,8 +43,8 @@ const hardcodedGrammarExercises = {
       { exercise: 'Wir ___ gern Pizza. (essen)', answer: 'essen' },
     ],
     'multiple-choice': [
-      { exercise: 'Was ist das?\n A) Der Tisch\n B) Die Tisch\n C) Das Tisch\n D) Den Tisch', answer: 'A' },
-      { exercise: 'Wie alt ___ du?\n A) bin\n B) seid\n C) bist\n D) ist', answer: 'C' },
+      { exercise: 'Was ist das?', options: [{id: 'A', label: 'Der Tisch'}, {id: 'B', label: 'Die Tisch'}, {id: 'C', label: 'Das Tisch'}, {id: 'D', label: 'Den Tisch'}], answer: 'A' },
+      { exercise: 'Wie alt ___ du?', options: [{id: 'A', label: 'bin'}, {id: 'B', label: 'seid'}, {id: 'C', label: 'bist'}, {id: 'D', label: 'ist'}], answer: 'C' },
     ],
   },
   B1: {
@@ -51,8 +53,8 @@ const hardcodedGrammarExercises = {
         { exercise: '___ ich jung war, spielte ich oft Fußball. (als)', answer: 'Als' },
     ],
     'multiple-choice': [
-        { exercise: 'Er interessiert sich ___ Politik.\n A) für\n B) an\n C) auf\n D) mit', answer: 'A' },
-        { exercise: 'Ich warte ___ den Bus.\n A) auf\n B) an\n C) für\n D) zu', answer: 'A' },
+        { exercise: 'Er interessiert sich ___ Politik.', options: [{id: 'A', label: 'für'}, {id: 'B', label: 'an'}, {id: 'C', label: 'auf'}, {id: 'D', label: 'mit'}], answer: 'A' },
+        { exercise: 'Ich warte ___ den Bus.', options: [{id: 'A', label: 'auf'}, {id: 'B', label: 'an'}, {id: 'C', label: 'für'}, {id: 'D', label: 'zu'}], answer: 'A' },
     ]
   },
   C1: {
@@ -61,22 +63,22 @@ const hardcodedGrammarExercises = {
           { exercise: 'Er tut so, ___ er alles wüsste. (als ob)', answer: 'als ob' },
       ],
       'multiple-choice': [
-          { exercise: 'Das Buch, ___ ich gelesen habe, war sehr interessant.\n A) das\n B) was\n C) welches\n D) dem', answer: 'A' },
-          { exercise: 'Je mehr man liest, ___ man lernt.\n A) desto mehr\n B) umso viel\n C) je mehr\n D) desto besser', answer: 'A' },
+          { exercise: 'Das Buch, ___ ich gelesen habe, war sehr interessant.', options: [{id: 'A', label: 'das'}, {id: 'B', label: 'was'}, {id: 'C', label: 'welches'}, {id: 'D', label: 'dem'}], answer: 'A' },
+          { exercise: 'Je mehr man liest, ___ man lernt.', options: [{id: 'A', label: 'desto mehr'}, {id: 'B', label: 'umso viel'}, {id: 'C', label: 'je mehr'}, {id: 'D', label: 'desto besser'}], answer: 'A' },
       ]
   },
 };
 
 const hardcodedReadingPrompts = {
     A1: [
-        { prompt: 'Hanna wohnt in Berlin. Sie kommt aus der Schweiz. Sie spricht Deutsch, Französisch und Englisch. Was ist Hannas Muttersprache?\n A) Englisch\n B) Deutsch oder Französisch\n C) Deutsch\n D) Französisch', answer: 'B' },
-        { prompt: 'Leo hat am Samstag Geburtstag. Er macht eine Party. Er lädt seine Freunde ein. Die Party beginnt um 18 Uhr. Wann ist die Party?\n A) Am Sonntag\n B) Am Abend\n C) Am Morgen\n D) Am Samstagabend', answer: 'D' },
+        { prompt: 'Hanna wohnt in Berlin. Sie kommt aus der Schweiz. Sie spricht Deutsch, Französisch und Englisch. Was ist Hannas Muttersprache?', options: [{id: 'A', label: 'Englisch'}, {id: 'B', label: 'Deutsch oder Französisch'}, {id: 'C', label: 'Deutsch'}, {id: 'D', label: 'Französisch'}], answer: 'B' },
+        { prompt: 'Leo hat am Samstag Geburtstag. Er macht eine Party. Er lädt seine Freunde ein. Die Party beginnt um 18 Uhr. Wann ist die Party?', options: [{id: 'A', label: 'Am Sonntag'}, {id: 'B', label: 'Am Abend'}, {id: 'C', label: 'Am Morgen'}, {id: 'D', label: 'Am Samstagabend'}], answer: 'D' },
     ],
     B1: [
-        { prompt: 'Die Globalisierung führt dazu, dass die Weltwirtschaft immer enger zusammenwächst. Einerseits bietet dies viele Chancen, wie zum Beispiel einen größeren Markt für Unternehmen und mehr Produktvielfalt für Verbraucher. Andererseits gibt es auch Risiken, wie die zunehmende Konkurrenz für lokale Anbieter. Was ist ein Vorteil der Globalisierung?\n A) Lokale Anbieter haben weniger Konkurrenz\n B) Unternehmen haben einen kleineren Markt\n C) Verbraucher haben mehr Auswahl\n D) Die Weltwirtschaft schrumpft', answer: 'C' },
+        { prompt: 'Die Globalisierung führt dazu, dass die Weltwirtschaft immer enger zusammenwächst. Einerseits bietet dies viele Chancen, wie zum Beispiel einen größeren Markt für Unternehmen und mehr Produktvielfalt für Verbraucher. Andererseits gibt es auch Risiken, wie die zunehmende Konkurrenz für lokale Anbieter. Was ist ein Vorteil der Globalisierung?', options: [{id: 'A', label: 'Lokale Anbieter haben weniger Konkurrenz'}, {id: 'B', label: 'Unternehmen haben einen kleineren Markt'}, {id: 'C', label: 'Verbraucher haben mehr Auswahl'}, {id: 'D', label: 'Die Weltwirtschaft schrumpft'}], answer: 'C' },
     ],
     C1: [
-        { prompt: 'Künstliche Intelligenz (KI) ist ein transformatives Feld der Informatik, das weitreichende Auswirkungen auf die Gesellschaft hat. Während KI das Potenzial birgt, komplexe Probleme zu lösen und die menschliche Effizienz zu steigern, wirft sie auch ethische Fragen hinsichtlich Datenschutz, Voreingenommenheit von Algorithmen und der Zukunft der Arbeit auf. Welche Herausforderung wird im Text genannt?\n A) Mangel an komplexen Problemen\n B) Steigerung der menschlichen Effizienz\n C) Ethische Bedenken bezüglich KI\n D) Die sinkende Bedeutung der Informatik', answer: 'C' },
+        { prompt: 'Künstliche Intelligenz (KI) ist ein transformatives Feld der Informatik, das weitreichende Auswirkungen auf die Gesellschaft hat. Während KI das Potenzenzial birgt, komplexe Probleme zu lösen und die menschliche Effizienz zu steigern, wirft sie auch ethische Fragen hinsichtlich Datenschutz, Voreingenommenheit von Algorithmen und der Zukunft der Arbeit auf. Welche Herausforderung wird im Text genannt?', options: [{id: 'A', label: 'Mangel an komplexen Problemen'}, {id: 'B', label: 'Steigerung der menschlichen Effizienz'}, {id: 'C', label: 'Ethische Bedenken bezüglich KI'}, {id: 'D', label: 'Die sinkende Bedeutung der Informatik'}], answer: 'C' },
     ]
 };
 
@@ -111,26 +113,6 @@ export default function DeutschDrillClient() {
     }
   };
 
-  const parseMcq = (prompt: string): { isMcq: true; question: string; options: {id: string, label: string}[] } | { isMcq: false } => {
-    const lines = prompt.split('\n').filter(line => line.trim() !== '');
-    if (lines.length <= 1) return { isMcq: false };
-    
-    const question = lines[0];
-    const options = lines.slice(1).map(line => {
-      const match = line.match(/^([A-Z])\)\s(.*)$/);
-      if (match) {
-        return { id: match[1], label: match[2] };
-      }
-      return null;
-    }).filter(Boolean);
-
-    if (options.length > 1 && options.every(opt => opt !== null)) {
-      return { isMcq: true, question: question, options: options as {id: string, label: string}[] };
-    }
-    
-    return { isMcq: false };
-  }
-
   const handleGenerate = async () => {
     playSound('C4');
     setIsLoading(true);
@@ -143,31 +125,28 @@ export default function DeutschDrillClient() {
 
     try {
         let result;
-        let promptText;
         if (activity === 'grammar') {
             const exercisePool = hardcodedGrammarExercises[level][grammarType];
             result = exercisePool[Math.floor(Math.random() * exercisePool.length)];
-            promptText = result.exercise;
         } else {
             const promptPool = hardcodedReadingPrompts[level];
             result = promptPool[Math.floor(Math.random() * promptPool.length)];
-            promptText = result.prompt;
         }
 
-        const mcqParseResult = parseMcq(promptText);
-        
-        if (mcqParseResult.isMcq) {
-          setExercise({
-            prompt: promptText,
-            answer: result.answer,
-            ...mcqParseResult,
-          });
+        if (grammarType === 'multiple-choice' || activity === 'reading') {
+            setExercise({
+                prompt: result.exercise || result.prompt,
+                answer: result.answer,
+                isMcq: true,
+                question: result.exercise || result.prompt,
+                options: result.options
+            });
         } else {
-          setExercise({
-            prompt: promptText,
-            answer: result.answer,
-            isMcq: false
-          });
+            setExercise({
+                prompt: result.exercise,
+                answer: result.answer,
+                isMcq: false
+            });
         }
     } catch (error) {
       console.error('Error generating exercise:', error);
@@ -243,10 +222,15 @@ export default function DeutschDrillClient() {
                     <div className="text-left w-full space-y-4">
                         <p className="text-xl font-medium font-headline whitespace-pre-wrap">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
                         {exercise.isMcq && exercise.options ? (
-                             <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="space-y-3 pt-2" disabled={showResult}>
+                             <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2" disabled={showResult}>
                                 {exercise.options.map((option) => (
-                                    <Label key={option.id} htmlFor={option.id} className={`flex items-center space-x-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${userAnswer === option.id ? 'bg-primary/20 border-primary' : 'border-border hover:border-accent'}`}>
-                                        <RadioGroupItem value={option.id} id={option.id} />
+                                    <Label key={option.id} htmlFor={option.id} className={cn(
+                                        buttonVariants({ variant: 'outline', size: 'lg' }),
+                                        'justify-start h-auto p-4 text-base whitespace-normal',
+                                        userAnswer === option.id && 'bg-primary/20 border-primary ring-2 ring-primary'
+                                    )}>
+                                        <RadioGroupItem value={option.id} id={option.id} className="sr-only" />
+                                        <span className="font-bold mr-2">{option.id})</span>
                                         <span>{option.label}</span>
                                     </Label>
                                 ))}
