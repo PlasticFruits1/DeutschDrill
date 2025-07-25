@@ -72,7 +72,7 @@ const foxyArt = `
 >(')____,
   (\`)    \\
    /\`--' \\
-  \\\\\`----'\\
+  \\\\ \`----'\\
 `;
 
 
@@ -176,7 +176,7 @@ export default function DeutschDrillClient() {
             options = parts.slice(1).map(line => {
                 const match = line.match(/^([A-D])\.\s?(.*)/);
                 if (match) {
-                    return { id: match[1], label: match[2] };
+                    return { id: match[1], label: match[2].trim() };
                 }
                 return { id: '?', label: line };
             }).filter(opt => opt.id !== '?');
@@ -200,7 +200,7 @@ export default function DeutschDrillClient() {
         const options = parts.slice(questionIndex + 1).map(line => {
             const match = line.match(/^([A-D])\.\s?(.*)/);
             if (match) {
-                return { id: match[1], label: match[2] };
+                return { id: match[1], label: match[2].trim() };
             }
             return { id: '?', label: line };
         }).filter(opt => opt.id !== '?');
@@ -232,10 +232,13 @@ export default function DeutschDrillClient() {
     let correct;
 
     if (activity === 'reading') {
-        const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
-        setReadingFeedback(result);
-        correct = result.isCorrect;
-    } else {
+        // For reading, we need to check the selected option against the answer
+        if (exercise.isMcq) {
+            correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+            const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
+            setReadingFeedback(result);
+        }
+    } else { // grammar
         correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
     }
     
@@ -253,7 +256,9 @@ export default function DeutschDrillClient() {
     setIsChecking(false);
   };
   
-  const isCorrect = activity === 'reading' ? readingFeedback?.isCorrect : exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+  const isCorrect = activity === 'reading' 
+    ? readingFeedback?.isCorrect 
+    : exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
     <>

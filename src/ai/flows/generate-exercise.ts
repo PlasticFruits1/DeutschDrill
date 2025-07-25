@@ -21,8 +21,8 @@ const GenerateGrammarExerciseInputSchema = z.object({
 export type GenerateGrammarExerciseInput = z.infer<typeof GenerateGrammarExerciseInputSchema>;
 
 const GenerateGrammarExerciseOutputSchema = z.object({
-  exercise: z.string().describe('The generated grammar exercise.'),
-  answer: z.string().describe('The answer to the generated grammar exercise.'),
+  exercise: z.string().describe('The generated grammar exercise. For multiple choice, this includes the question and four options labeled A, B, C, and D, each on a new line.'),
+  answer: z.string().describe('The answer to the generated grammar exercise. For multiple choice, this is the letter of the correct option.'),
 });
 export type GenerateGrammarExerciseOutput = z.infer<typeof GenerateGrammarExerciseOutputSchema>;
 
@@ -42,7 +42,7 @@ Level: {{{level}}}
 Exercise Type: {{{exerciseType}}}
 
 - For "fill-in-the-blank", provide a sentence with a blank and the correct word for the blank as the answer.
-- For "multiple-choice", provide a question and four options (A, B, C, D). The answer should be the letter of the correct option.
+- For "multiple-choice", provide a question and four options (A, B, C, D), each on a new line. The answer should be the letter of the correct option.
 - The exercise should be appropriate for the specified language level.
 - Provide only the exercise text and the answer.
 - Do not include any explanations or additional text.
