@@ -53,7 +53,7 @@ const hardcodedGrammarExercises = {
     ],
     'multiple-choice': [
         { exercise: 'Er interessiert sich ___ Politik.', options: [{id: 'A', label: 'für'}, {id: 'B', label: 'an'}, {id: 'C', label: 'auf'}, {id: 'D', label: 'mit'}], answer: 'A' },
-        { exercise: 'Ich warte ___ den Bus.', options: [{id: 'A', label: 'auf'}, {id: 'B', label: 'an'}, {id: 'C', label: 'für'}, {id: 'D', label: 'zu'}], answer: 'A' },
+        { exercise: 'Ich warte ___ den Bus.', options: [{id: 'A', label: 'auf'}, {id: 'B', label: 'an'}, {id: 'C', label: 'für'}, {id: 'D', 'label': 'zu'}], answer: 'A' },
     ]
   },
   C1: {
@@ -220,11 +220,6 @@ export default function DeutschDrillClient() {
     <>
       {character && <PlayerCharacter characterSrc={character.src} characterHint={character.hint} />}
       <div className="flex flex-row items-stretch gap-8">
-        {pet && (
-          <div className="w-48">
-            <PetDisplay petSrc={pet.src} petHint={pet.hint} level={playerLevel} />
-          </div>
-        )}
         <div className="w-24">
           <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
         </div>
@@ -292,6 +287,11 @@ export default function DeutschDrillClient() {
             </CardFooter>
           </Tabs>
         </Card>
+        {pet && (
+          <div className="w-48">
+            <PetDisplay petSrc={pet.src} petHint={pet.hint} level={playerLevel} />
+          </div>
+        )}
       </div>
     </>
   );
