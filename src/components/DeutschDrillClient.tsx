@@ -214,7 +214,10 @@ export default function DeutschDrillClient() {
   return (
     <>
       {character && <PlayerCharacter characterSrc={character.src} characterHint={character.hint} />}
-      <div className="flex flex-row-reverse items-start gap-8">
+      <div className="flex flex-row items-stretch gap-8">
+        <div className="w-24">
+          <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
+        </div>
         <Card className="flex-1 shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
           <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
             <CardHeader>
@@ -279,9 +282,6 @@ export default function DeutschDrillClient() {
             </CardFooter>
           </Tabs>
         </Card>
-        <div className="w-64">
-          <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
-        </div>
       </div>
     </>
   );
