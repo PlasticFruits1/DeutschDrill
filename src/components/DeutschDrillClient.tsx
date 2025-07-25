@@ -5,6 +5,7 @@ import type * as Tone from 'tone';
 
 import { generateGrammarExercise } from '@/ai/flows/generate-exercise';
 import { generateReadingPrompt } from '@/ai/flows/generate-prompt';
+import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,7 +17,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { BookOpen, CheckCircle, Sparkles, XCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Sparkles, XCircle, MessageCircle } from 'lucide-react';
 
 type Level = 'A1' | 'B1' | 'C1';
 type GrammarType = 'fill-in-the-blank' | 'multiple-choice';
@@ -30,14 +31,21 @@ type Exercise = {
   question?: string;
 } | null;
 
+type ReadingFeedback = {
+    feedback: string;
+    isCorrect: boolean;
+} | null;
+
 export default function DeutschDrillClient() {
   const [level, setLevel] = useState<Level>('A1');
   const [grammarType, setGrammarType] = useState<GrammarType>('fill-in-the-blank');
   const [activity, setActivity] = useState<Activity>('grammar');
   const [isLoading, setIsLoading] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
   const [exercise, setExercise] = useState<Exercise>(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
+  const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [synth, setSynth] = useState<any>(null);
   const { toast } = useToast();
 
@@ -85,6 +93,7 @@ export default function DeutschDrillClient() {
     setExercise(null);
     setShowResult(false);
     setUserAnswer('');
+    setReadingFeedback(null);
 
     try {
       if (activity === 'grammar') {
@@ -119,9 +128,26 @@ export default function DeutschDrillClient() {
     }
   };
 
-  const handleCheckAnswer = () => {
-    if (!userAnswer) return;
+  const handleCheckAnswer = async () => {
+    if (!userAnswer || !exercise) return;
     playSound('E4');
+    
+    if (activity === 'reading') {
+        setIsChecking(true);
+        try {
+            const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
+            setReadingFeedback(result);
+        } catch (error) {
+            console.error('Error evaluating response:', error);
+            toast({
+                title: 'Error',
+                description: 'Failed to evaluate your response. Please try again.',
+                variant: 'destructive',
+            });
+        } finally {
+            setIsChecking(false);
+        }
+    }
     setShowResult(true);
   };
   
@@ -221,24 +247,31 @@ export default function DeutschDrillClient() {
                 </div>
             )}
              {showResult && activity === 'reading' && (
-                <div className="p-4 rounded-lg flex items-center gap-3 bg-secondary text-secondary-foreground border-border">
-                    <CheckCircle className="h-5 w-5"/>
-                    <p className="font-medium">
-                       Thank you for your response!
-                    </p>
-                </div>
+                isChecking ? (
+                    <div className="space-y-2 w-full">
+                        <Skeleton className="h-4 w-1/4 mx-auto" />
+                        <Skeleton className="h-4 w-1/2 mx-auto" />
+                    </div>
+                ) : readingFeedback && (
+                    <div className={`p-4 rounded-lg flex items-start gap-3 border ${readingFeedback.isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
+                        {readingFeedback.isCorrect ? <CheckCircle className="h-5 w-5 mt-1"/> : <XCircle className="h-5 w-5 mt-1"/>}
+                        <p className="font-medium">
+                            {readingFeedback.feedback}
+                        </p>
+                    </div>
+                )
             )}
         </CardContent>
         <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
           <Button 
             onClick={handleCheckAnswer} 
-            disabled={!userAnswer || showResult || isLoading || activity === 'reading'}
+            disabled={!userAnswer || showResult || isLoading || isChecking}
             className="w-full sm:w-auto"
             variant="outline"
           >
-            Check Answer
+            {isChecking ? 'Checking...' : 'Check Answer'}
           </Button>
-          <Button onClick={handleGenerate} disabled={isLoading} className="w-full sm:w-auto">
+          <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto">
             {isLoading ? "Generating..." : "New Challenge"}
           </Button>
         </CardFooter>
