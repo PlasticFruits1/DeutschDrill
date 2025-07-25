@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import type * as Tone from 'tone';
 
-import { generateGrammarExercise } from '@/ai/flows/generate-exercise';
-import { generateReadingPrompt } from '@/ai/flows/generate-prompt';
 import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -34,6 +32,53 @@ type ReadingFeedback = {
     feedback: string;
     isCorrect: boolean;
 } | null;
+
+const hardcodedGrammarExercises = {
+  A1: {
+    'fill-in-the-blank': [
+      { exercise: 'Ich ___ aus Deutschland. (kommen)', answer: 'komme' },
+      { exercise: 'Er ___ ein Auto. (haben)', answer: 'hat' },
+      { exercise: 'Wir ___ gern Pizza. (essen)', answer: 'essen' },
+    ],
+    'multiple-choice': [
+      { exercise: 'Was ist das?\n A) Der Tisch\n B) Die Tisch\n C) Das Tisch\n D) Den Tisch', answer: 'A' },
+      { exercise: 'Wie alt ___ du?\n A) bin\n B) seid\n C) bist\n D) ist', answer: 'C' },
+    ],
+  },
+  B1: {
+    'fill-in-the-blank': [
+        { exercise: 'Ich würde gern wissen, ___ der Zug ankommt. (wann)', answer: 'wann' },
+        { exercise: '___ ich jung war, spielte ich oft Fußball. (als)', answer: 'Als' },
+    ],
+    'multiple-choice': [
+        { exercise: 'Er interessiert sich ___ Politik.\n A) für\n B) an\n C) auf\n D) mit', answer: 'A' },
+        { exercise: 'Ich warte ___ den Bus.\n A) auf\n B) an\n C) für\n D) zu', answer: 'A' },
+    ]
+  },
+  C1: {
+      'fill-in-the-blank': [
+          { exercise: '___ des schlechten Wetters, gingen wir spazieren. (trotz)', answer: 'Trotz' },
+          { exercise: 'Er tut so, ___ er alles wüsste. (als ob)', answer: 'als ob' },
+      ],
+      'multiple-choice': [
+          { exercise: 'Das Buch, ___ ich gelesen habe, war sehr interessant.\n A) das\n B) was\n C) welches\n D) dem', answer: 'A' },
+          { exercise: 'Je mehr man liest, ___ man lernt.\n A) desto mehr\n B) umso viel\n C) je mehr\n D) desto besser', answer: 'A' },
+      ]
+  },
+};
+
+const hardcodedReadingPrompts = {
+    A1: [
+        { prompt: 'Hanna wohnt in Berlin. Sie kommt aus der Schweiz. Sie spricht Deutsch, Französisch und Englisch. Was ist Hannas Muttersprache?\n A) Englisch\n B) Deutsch oder Französisch\n C) Deutsch\n D) Französisch', answer: 'B' },
+        { prompt: 'Leo hat am Samstag Geburtstag. Er macht eine Party. Er lädt seine Freunde ein. Die Party beginnt um 18 Uhr. Wann ist die Party?\n A) Am Sonntag\n B) Am Abend\n C) Am Morgen\n D) Am Samstagabend', answer: 'D' },
+    ],
+    B1: [
+        { prompt: 'Die Globalisierung führt dazu, dass die Weltwirtschaft immer enger zusammenwächst. Einerseits bietet dies viele Chancen, wie zum Beispiel einen größeren Markt für Unternehmen und mehr Produktvielfalt für Verbraucher. Andererseits gibt es auch Risiken, wie die zunehmende Konkurrenz für lokale Anbieter. Was ist ein Vorteil der Globalisierung?\n A) Lokale Anbieter haben weniger Konkurrenz\n B) Unternehmen haben einen kleineren Markt\n C) Verbraucher haben mehr Auswahl\n D) Die Weltwirtschaft schrumpft', answer: 'C' },
+    ],
+    C1: [
+        { prompt: 'Künstliche Intelligenz (KI) ist ein transformatives Feld der Informatik, das weitreichende Auswirkungen auf die Gesellschaft hat. Während KI das Potenzial birgt, komplexe Probleme zu lösen und die menschliche Effizienz zu steigern, wirft sie auch ethische Fragen hinsichtlich Datenschutz, Voreingenommenheit von Algorithmen und der Zukunft der Arbeit auf. Welche Herausforderung wird im Text genannt?\n A) Mangel an komplexen Problemen\n B) Steigerung der menschlichen Effizienz\n C) Ethische Bedenken bezüglich KI\n D) Die sinkende Bedeutung der Informatik', answer: 'C' },
+    ]
+};
 
 export default function DeutschDrillClient() {
   const [level, setLevel] = useState<Level>('A1');
@@ -94,14 +139,19 @@ export default function DeutschDrillClient() {
     setUserAnswer('');
     setReadingFeedback(null);
 
+    // Short delay to give feedback to the user
+    await new Promise(resolve => setTimeout(resolve, 300));
+
     try {
         let result;
         let promptText;
         if (activity === 'grammar') {
-            result = await generateGrammarExercise({ level, exerciseType: grammarType });
+            const exercisePool = hardcodedGrammarExercises[level][grammarType];
+            result = exercisePool[Math.floor(Math.random() * exercisePool.length)];
             promptText = result.exercise;
         } else {
-            result = await generateReadingPrompt({ level });
+            const promptPool = hardcodedReadingPrompts[level];
+            result = promptPool[Math.floor(Math.random() * promptPool.length)];
             promptText = result.prompt;
         }
 
