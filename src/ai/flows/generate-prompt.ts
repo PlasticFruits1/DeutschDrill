@@ -18,8 +18,8 @@ const GenerateReadingPromptInputSchema = z.object({
 export type GenerateReadingPromptInput = z.infer<typeof GenerateReadingPromptInputSchema>;
 
 const GenerateReadingPromptOutputSchema = z.object({
-  prompt: z.string().describe('The generated reading comprehension prompt.'),
-  answer: z.string().describe('The answer to the generated prompt.'),
+  prompt: z.string().describe('The generated reading comprehension prompt, including the text, question, and four multiple-choice options labeled A, B, C, and D.'),
+  answer: z.string().describe('The letter of the correct option (A, B, C, or D).'),
 });
 export type GenerateReadingPromptOutput = z.infer<typeof GenerateReadingPromptOutputSchema>;
 
@@ -37,11 +37,11 @@ const prompt = ai.definePrompt({
 
 Level: {{{level}}}
 
-- The prompt should consist of a short text in German followed by a multiple-choice question with four options (A, B, C, D).
-- The question should be answerable based on the provided text.
-- The answer should be the letter of the correct option.
-- The text and question should be appropriate for the specified language level.
-- Provide only the prompt (text and question with four options) and the answer.
+- The prompt must consist of a short text in German followed by a multiple-choice question.
+- The question must have exactly four options, labeled A, B, C, and D.
+- The question must be answerable based on the provided text.
+- The answer must be only the letter of the correct option (e.g., "A", "B", "C", or "D").
+- Provide only the prompt (text, question, and four options) and the answer.
 - Do not include any explanations or additional text.
 `,
 });
