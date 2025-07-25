@@ -70,8 +70,8 @@ const birdieArt = `
 const foxyArt = `
 >(')____,
   (\`))    \\
-   /\\\`--' \\
-   \\\\ \\ \`----'\\
+   /\\\\\`--' \\
+   \\\\ \\ \\\`----'\\
 `;
 
 
@@ -220,7 +220,7 @@ export default function DeutschDrillClient() {
 
       if (newQuestion) {
         setQuestionHistory(prev => {
-          const newHistory = [...prev, newQuestion];
+          const newHistory = [...prev, newQuestion!];
           if (newHistory.length > 100) {
             return newHistory.slice(newHistory.length - 100);
           }
@@ -337,7 +337,7 @@ export default function DeutschDrillClient() {
                     started={started}
                 />
             </CardContent>
-            <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
+            <CardFooter className={`flex flex-col-reverse sm:flex-row gap-4 px-4 sm:px-6 pb-6 ${started ? 'justify-between' : 'justify-center'}`}>
             {started && (
                 <Button 
                     onClick={handleCheckAnswer} 
@@ -354,7 +354,7 @@ export default function DeutschDrillClient() {
                 disabled={isLoading || isChecking} 
                 className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
-                {isLoading ? "Generating..." : (started ? "New Challenge" : "Start Challenge")}
+                {isLoading ? "Generating..." : "Start Challenge"}
             </Button>
             </CardFooter>
           </Tabs>
