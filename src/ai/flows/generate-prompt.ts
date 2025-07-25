@@ -41,7 +41,7 @@ Level: {{{level}}}
 - The question should be answerable based on the provided text.
 - The answer should be the letter of the correct option.
 - The text and question should be appropriate for the specified language level.
-- Provide only the prompt (text and question) and the answer.
+- Provide only the prompt (text and question with four options) and the answer.
 - Do not include any explanations or additional text.
 `,
 });
