@@ -11,9 +11,6 @@ export default function Home() {
               DeutschDrill
             </h1>
         </div>
-        <p className="text-center text-muted-foreground mb-8 max-w-md mx-auto">
-          Sharpen your German skills with AI-powered grammar and reading exercises. Select your level and start drilling!
-        </p>
         <DeutschDrillClient />
       </div>
     </main>

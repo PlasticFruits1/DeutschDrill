@@ -80,10 +80,10 @@
   }
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(to bottom right, hsl(var(--background)), hsl(345, 40%, 97%));
+    background: linear-gradient(to bottom right, hsl(50, 100%, 95%), hsl(25, 100%, 95%));
     min-height: 100vh;
   }
   .dark body {
-    background: linear-gradient(to bottom right, hsl(var(--background)), hsl(224, 40%, 10%));
+    background: linear-gradient(to bottom right, hsl(260, 50%, 15%), hsl(220, 50%, 15%));
   }
 }
