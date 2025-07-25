@@ -13,7 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { BookOpen, CheckCircle, Sparkles, XCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Flame, Sparkles, Star, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -93,6 +93,8 @@ export default function DeutschDrillClient() {
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [synth, setSynth] = useState<any>(null);
   const [tone, setTone] = useState<any>(null);
+  const [exp, setExp] = useState(0);
+  const [streak, setStreak] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -108,32 +110,26 @@ export default function DeutschDrillClient() {
     }
   }, []);
 
-  const playSound = (note: string) => {
-    if (synth) {
-      synth.triggerAttackRelease(note, '8n');
-    }
-  };
-
     const playCorrectSound = useCallback(() => {
         if (synth && tone) {
             const now = tone.now();
             synth.triggerAttackRelease('C4', '8n', now);
-            synth.triggerAttackRelease('E4', '8n', now + 0.15);
-            synth.triggerAttackRelease('G4', '8n', now + 0.3);
+            synth.triggerAttackRelease('E4', '8n', now + 0.1);
+            synth.triggerAttackRelease('G4', '8n', now + 0.2);
+            synth.triggerAttackRelease('C5', '8n', now + 0.3);
         }
     }, [synth, tone]);
 
     const playIncorrectSound = useCallback(() => {
         if (synth && tone) {
             const now = tone.now();
-            synth.triggerAttackRelease('G3', '8n', now);
-            synth.triggerAttackRelease('F#3', '4n', now + 0.15);
+            synth.triggerAttackRelease('A3', '8n', now);
+            synth.triggerAttackRelease('G#3', '2n', now + 0.1);
         }
     }, [synth, tone]);
 
 
   const handleGenerate = async () => {
-    playSound('C4');
     setIsLoading(true);
     setExercise(null);
     setShowResult(false);
@@ -151,22 +147,17 @@ export default function DeutschDrillClient() {
             const promptPool = hardcodedReadingPrompts[level];
             result = promptPool[Math.floor(Math.random() * promptPool.length)];
         }
+        
+        const isMcq = grammarType === 'multiple-choice' || activity === 'reading';
 
-        if (grammarType === 'multiple-choice' || activity === 'reading') {
-            setExercise({
-                prompt: result.exercise || result.prompt,
-                answer: result.answer,
-                isMcq: true,
-                question: result.exercise || result.prompt,
-                options: result.options
-            });
-        } else {
-            setExercise({
-                prompt: result.exercise,
-                answer: result.answer,
-                isMcq: false
-            });
-        }
+        setExercise({
+            prompt: result.exercise || result.prompt,
+            answer: result.answer,
+            isMcq: isMcq,
+            question: result.exercise || result.prompt,
+            options: result.options
+        });
+        
     } catch (error) {
       console.error('Error generating exercise:', error);
       toast({
@@ -183,10 +174,15 @@ export default function DeutschDrillClient() {
     if (!userAnswer || !exercise) return;
     
     const correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
-    if(correct) {
+    if (correct) {
         playCorrectSound();
+        const bonus = streak * 5;
+        setExp(exp + 10 + bonus);
+        setStreak(streak + 1);
     } else {
         playIncorrectSound();
+        setExp(Math.max(0, exp - 5));
+        setStreak(0);
     }
     setShowResult(true);
   };
@@ -194,20 +190,30 @@ export default function DeutschDrillClient() {
   const isCorrect = exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
-    <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20">
+    <Card className="w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
       <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
         <CardHeader>
-            <TabsList className="grid w-full grid-cols-2 bg-muted/50">
-                <TabsTrigger value="grammar"><Sparkles className="mr-2 h-4 w-4" /> Grammar</TabsTrigger>
-                <TabsTrigger value="reading"><BookOpen className="mr-2 h-4 w-4" /> Reading</TabsTrigger>
+            <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2 font-bold text-lg bg-primary/10 text-primary px-4 py-2 rounded-full">
+                    <Star className="h-6 w-6"/>
+                    <span>{exp} EXP</span>
+                </div>
+                <div className="flex items-center gap-2 font-bold text-lg bg-orange-400/10 text-orange-500 px-4 py-2 rounded-full">
+                    <Flame className="h-6 w-6"/>
+                    <span>{streak} Streak</span>
+                </div>
+            </div>
+            <TabsList className="grid w-full grid-cols-2 bg-primary/10 rounded-full h-12">
+                <TabsTrigger value="grammar" className="rounded-full text-base font-bold"><Sparkles className="mr-2 h-5 w-5" /> Grammar</TabsTrigger>
+                <TabsTrigger value="reading" className="rounded-full text-base font-bold"><BookOpen className="mr-2 h-5 w-5" /> Reading</TabsTrigger>
             </TabsList>
         </CardHeader>
         <CardContent className="space-y-6 px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 space-y-2">
-                    <Label htmlFor="level" className="text-muted-foreground">Language Level</Label>
+                    <Label htmlFor="level" className="text-muted-foreground font-bold px-3">Language Level</Label>
                     <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
-                        <SelectTrigger id="level" className="w-full">
+                        <SelectTrigger id="level" className="w-full rounded-full h-12 text-base">
                             <SelectValue placeholder="Select level" />
                         </SelectTrigger>
                         <SelectContent>
@@ -219,9 +225,9 @@ export default function DeutschDrillClient() {
                 </div>
                 {activity === 'grammar' && (
                     <div className="flex-1 space-y-2">
-                         <Label htmlFor="grammar-type" className="text-muted-foreground">Exercise Type</Label>
+                         <Label htmlFor="grammar-type" className="text-muted-foreground font-bold px-3">Exercise Type</Label>
                          <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
-                            <SelectTrigger id="grammar-type" className="w-full">
+                            <SelectTrigger id="grammar-type" className="w-full rounded-full h-12 text-base">
                                 <SelectValue placeholder="Select type" />
                             </SelectTrigger>
                             <SelectContent>
@@ -235,7 +241,7 @@ export default function DeutschDrillClient() {
           
             <Separator/>
 
-            <div className="min-h-[200px] p-4 rounded-lg bg-background/70 border-2 border-dashed border-border flex items-center justify-center text-center">
+            <div className="min-h-[200px] p-4 rounded-3xl bg-background/70 border-2 border-dashed border-border flex items-center justify-center text-center">
                 {isLoading ? (
                     <div className="space-y-2 w-full">
                         <Skeleton className="h-4 w-3/4 mx-auto" />
@@ -244,7 +250,7 @@ export default function DeutschDrillClient() {
                     </div>
                 ) : exercise ? (
                     <div className="text-left w-full space-y-4">
-                        <p className="text-xl font-medium font-headline whitespace-pre-wrap">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
+                        <p className="text-xl font-medium font-headline whitespace-pre-wrap">{exercise.question}</p>
                         {exercise.isMcq && exercise.options ? (
                              <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2" disabled={showResult}>
                                 {exercise.options.map((option) => (
@@ -266,12 +272,12 @@ export default function DeutschDrillClient() {
                                 onChange={(e) => setUserAnswer(e.target.value)}
                                 placeholder="Your answer..."
                                 disabled={showResult}
-                                className="text-lg rounded-full"
+                                className="text-lg rounded-full h-12"
                             />
                         )}
                     </div>
                 ) : (
-                    <p className="text-muted-foreground text-lg">Select your options and click "New Challenge" to begin!</p>
+                    <p className="text-muted-foreground text-lg font-bold">Select your options and click "New Challenge" to begin!</p>
                 )}
             </div>
 
@@ -281,6 +287,7 @@ export default function DeutschDrillClient() {
                     <p>
                         {isCorrect ? "Correct! Well done." : `Not quite. The correct answer is: ${exercise.answer}`}
                     </p>
+                    {isCorrect && streak > 1 && <span className="font-bold text-orange-500">+{10 + (streak-1) * 5} EXP!</span>}
                 </div>
             )}
         </CardContent>
@@ -301,3 +308,5 @@ export default function DeutschDrillClient() {
     </Card>
   );
 }
+
+    
