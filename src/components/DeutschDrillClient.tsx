@@ -72,7 +72,7 @@ const foxyArt = `
 >(')____,
   (\`)    \\
    /\`--' \\
-  \\\`----'\\
+  \\\\\`----'\\
 `;
 
 
@@ -171,12 +171,15 @@ export default function DeutschDrillClient() {
         let options;
         let question = result.exercise;
         if (isMcq) {
-            const parts = result.exercise.split('\n');
+            const parts = result.exercise.split('\n').filter(p => p.trim() !== '');
             question = parts[0];
             options = parts.slice(1).map(line => {
-                const [id, label] = line.split('. ');
-                return { id, label };
-            });
+                const match = line.match(/^([A-D])\.\s?(.*)/);
+                if (match) {
+                    return { id: match[1], label: match[2] };
+                }
+                return { id: '?', label: line };
+            }).filter(opt => opt.id !== '?');
         }
 
         setExercise({
@@ -188,18 +191,25 @@ export default function DeutschDrillClient() {
         });
       } else { // reading
         const result = await generateReadingPrompt({ level });
-        const parts = result.prompt.split('\n');
-        const question = parts.find(p => p.includes('?'));
-        const options = parts.slice(parts.indexOf(question!) + 1).map(line => {
-            const [id, label] = line.split('. ');
-            return { id, label };
-        });
+        const parts = result.prompt.split('\n').filter(p => p.trim() !== '');
+        
+        const questionIndex = parts.findIndex(p => p.includes('?'));
+        const textPrompt = parts.slice(0, questionIndex).join('\n');
+        const question = parts[questionIndex];
+
+        const options = parts.slice(questionIndex + 1).map(line => {
+            const match = line.match(/^([A-D])\.\s?(.*)/);
+            if (match) {
+                return { id: match[1], label: match[2] };
+            }
+            return { id: '?', label: line };
+        }).filter(opt => opt.id !== '?');
 
         setExercise({
           prompt: result.prompt,
           answer: result.answer,
           isMcq: true,
-          question: question,
+          question: `${textPrompt}\n${question}`,
           options: options,
         });
       }
