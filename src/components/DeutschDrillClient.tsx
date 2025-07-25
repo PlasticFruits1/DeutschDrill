@@ -15,12 +15,11 @@ import LevelingSystem from '@/components/LevelingSystem';
 import ExerciseArea from '@/components/ExerciseArea';
 import PetDisplay from '@/components/PetDisplay';
 
-import { generateGrammarExercise } from '@/ai/flows/generate-exercise';
-import { generateReadingPrompt } from '@/ai/flows/generate-prompt';
+import { exercises } from '@/lib/exercises';
 import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 
 // Type definitions
-export type Level = 'A1' | 'B1' | 'C1';
+export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
 export type GrammarType = 'fill-in-the-blank' | 'multiple-choice';
 export type Activity = 'grammar' | 'reading';
 
@@ -69,9 +68,9 @@ const birdieArt = `
 
 const foxyArt = `
 >(')____,
-  (\\\`))    \\\\\\\\
+  (\`))    \\\\\\\\
    /\\\\\\\`--' \\\\\\\\
-   \\\\\\\\\\\\ \\\\\\\\\\\\\`----'\\\\\\\\
+   \\\\\\\\\\\\ \\\\\\\\\\\\`----'\\\\\\\\
 `;
 
 
@@ -155,90 +154,83 @@ export default function DeutschDrillClient() {
         }
     }, [synth, tone]);
 
-  const handleGenerate = async () => {
-    setIsLoading(true);
-    setExercise(null);
-    setShowResult(false);
-    setUserAnswer('');
-    setReadingFeedback(null);
-    if (!started) setStarted(true);
-
-    try {
-      let result;
-      let newQuestion;
-
-      if (activity === 'grammar') {
-        result = await generateGrammarExercise({ level, exerciseType: grammarType, history: questionHistory });
-        const isMcq = grammarType === 'multiple-choice';
-        
-        let options;
-        let question = result.exercise;
-        if (isMcq) {
-            const parts = result.exercise.split('\n').filter(p => p.trim() !== '');
-            question = parts[0];
-            options = parts.slice(1).map(line => {
-                const match = line.match(/^([A-D])\)\s?(.*)/);
-                if (match) {
-                    return { id: match[1], label: match[2].trim() };
-                }
-                return { id: '?', label: line };
-            }).filter(opt => opt.id !== '?');
-        }
-        newQuestion = question;
-        setExercise({
-          prompt: result.exercise,
-          answer: result.answer,
-          isMcq: isMcq,
-          question: question,
-          options: options,
-        });
-      } else { // reading
-        result = await generateReadingPrompt({ level, history: questionHistory });
-        const parts = result.prompt.split('\n').filter(p => p.trim() !== '');
-        
-        const questionIndex = parts.findIndex(p => p.includes('?'));
-        const textPrompt = parts.slice(0, questionIndex + 1).join('\n');
-        const question = textPrompt;
-
-        const options = parts.slice(questionIndex + 1).map(line => {
-            const match = line.match(/^([A-D])\)\s?(.*)/);
-            if (match) {
-                return { id: match[1], label: match[2].trim() };
+    const handleGenerate = async () => {
+        setIsLoading(true);
+        setExercise(null);
+        setShowResult(false);
+        setUserAnswer('');
+        setReadingFeedback(null);
+        if (!started) setStarted(true);
+    
+        try {
+            let exercisePool = [];
+            if (activity === 'grammar') {
+                exercisePool = exercises[level].grammar[grammarType];
+            } else {
+                exercisePool = exercises[level].reading;
             }
-            return { id: '?', label: line };
-        }).filter(opt => opt.id !== '?');
+    
+            if (exercisePool.length === 0) {
+                toast({
+                    title: 'No exercises available',
+                    description: `No exercises found for ${level} ${activity}.`,
+                    variant: 'destructive',
+                });
+                setIsLoading(false);
+                return;
+            }
+    
+            let availableQuestions = exercisePool.filter(q => !questionHistory.includes(q.question));
+            if (availableQuestions.length === 0) {
+                // If all questions have been asked, reset history for this pool
+                setQuestionHistory([]); 
+                availableQuestions = exercisePool;
+            }
 
-        newQuestion = question;
-        setExercise({
-          prompt: result.prompt,
-          answer: result.answer,
-          isMcq: true,
-          question: newQuestion,
-          options: options,
-        });
-      }
+            const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            const newExerciseData = availableQuestions[randomIndex];
+    
+            const isMcq = (activity === 'grammar' && grammarType === 'multiple-choice') || activity === 'reading';
+            
+            let options;
+            let question = newExerciseData.question;
+            let prompt = question;
+            if (isMcq && newExerciseData.options) {
+                options = Object.entries(newExerciseData.options).map(([key, value]) => ({
+                    id: key,
+                    label: value
+                }));
+                const optionsText = options.map(o => `${o.id}) ${o.label}`).join('\n');
+                prompt = `${question}\n${optionsText}`;
+            }
 
-      if (newQuestion) {
-        setQuestionHistory(prev => {
-          const newHistory = [...prev, newQuestion!];
-          if (newHistory.length > 100) {
-            return newHistory.slice(newHistory.length - 100);
-          }
-          return newHistory;
-        });
-      }
-
-    } catch (error) {
-      console.error('Error generating exercise:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to generate a new exercise. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+            setExercise({
+              prompt: prompt,
+              answer: newExerciseData.answer,
+              isMcq: isMcq,
+              question: question,
+              options: options,
+            });
+    
+            setQuestionHistory(prev => {
+              const newHistory = [...prev, newExerciseData.question];
+              if (newHistory.length > 100) {
+                return newHistory.slice(newHistory.length - 100);
+              }
+              return newHistory;
+            });
+    
+        } catch (error) {
+          console.error('Error generating exercise:', error);
+          toast({
+            title: 'Error',
+            description: 'Failed to load a new exercise. Please try again.',
+            variant: 'destructive',
+          });
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
   const handleCheckAnswer = async () => {
     if (!userAnswer || !exercise) return;
@@ -303,7 +295,9 @@ export default function DeutschDrillClient() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="A1">A1 (Beginner)</SelectItem>
+                                <SelectItem value="A2">A2 (Elementary)</SelectItem>
                                 <SelectItem value="B1">B1 (Intermediate)</SelectItem>
+                                <SelectItem value="B2">B2 (Upper-Intermediate)</SelectItem>
                                 <SelectItem value="C1">C1 (Advanced)</SelectItem>
                             </SelectContent>
                         </Select>
@@ -381,3 +375,7 @@ export default function DeutschDrillClient() {
     </>
   );
 }
+
+    
+
+    
