@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Input } from '@/components/ui/input';
@@ -6,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CheckCircle2, XCircle, Award } from 'lucide-react';
-import { Exercise } from './DeutschDrillClient';
+import { Exercise, ReadingFeedback, Activity } from './DeutschDrillClient';
 
 interface ExerciseAreaProps {
   isLoading: boolean;
@@ -16,6 +17,8 @@ interface ExerciseAreaProps {
   showResult: boolean;
   isCorrect: boolean | null;
   streak: number;
+  readingFeedback: ReadingFeedback;
+  activity: Activity;
 }
 
 export default function ExerciseArea({
@@ -26,6 +29,8 @@ export default function ExerciseArea({
   showResult,
   isCorrect,
   streak,
+  readingFeedback,
+  activity,
 }: ExerciseAreaProps) {
   if (isLoading) {
     return (
@@ -49,7 +54,7 @@ export default function ExerciseArea({
   return (
     <div className="space-y-4">
       <div className="p-4 bg-primary/10 rounded-lg space-y-2">
-        <p className="text-lg font-semibold text-foreground/90">{exercise.prompt}</p>
+        <p className="text-lg font-semibold text-foreground/90 whitespace-pre-wrap">{exercise.question || exercise.prompt}</p>
       </div>
 
       {exercise.isMcq && exercise.options ? (
@@ -92,7 +97,9 @@ export default function ExerciseArea({
             {isCorrect ? 'Correct!' : 'Incorrect!'}
           </AlertTitle>
           <AlertDescription className="text-base">
-            {isCorrect ? (
+            {activity === 'reading' && readingFeedback ? (
+                readingFeedback.feedback
+            ) : isCorrect ? (
               <div className="flex items-center gap-2">
                 <span>You earned 10 EXP!</span>
                 {bonus > 0 && <span className="flex items-center gap-1"><Award className="h-4 w-4 text-yellow-500" /> +{bonus} streak bonus!</span>}

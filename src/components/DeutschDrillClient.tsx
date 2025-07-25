@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -14,6 +15,10 @@ import PlayerCharacter from '@/components/PlayerCharacter';
 import LevelingSystem from '@/components/LevelingSystem';
 import ExerciseArea from '@/components/ExerciseArea';
 import PetDisplay from '@/components/PetDisplay';
+
+import { generateGrammarExercise } from '@/ai/flows/generate-exercise';
+import { generateReadingPrompt } from '@/ai/flows/generate-prompt';
+import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 
 // Type definitions
 export type Level = 'A1' | 'B1' | 'C1';
@@ -71,54 +76,6 @@ const foxyArt = `
 `;
 
 
-// Hardcoded data
-const hardcodedGrammarExercises = {
-  A1: {
-    'fill-in-the-blank': [
-      { exercise: 'Ich ___ aus Deutschland. (kommen)', answer: 'komme' },
-      { exercise: 'Er ___ ein Auto. (haben)', answer: 'hat' },
-      { exercise: 'Wir ___ gern Pizza. (essen)', answer: 'essen' },
-    ],
-    'multiple-choice': [
-      { exercise: 'Was ist das?', options: [{id: 'A', label: 'Der Tisch'}, {id: 'B', label: 'Die Tisch'}, {id: 'C', label: 'Das Tisch'}, {id: 'D', label: 'Den Tisch'}], answer: 'A' },
-      { exercise: 'Wie alt ___ du?', options: [{id: 'A', label: 'bin'}, {id: 'B', label: 'seid'}, {id: 'C', label: 'bist'}, {id: 'D', 'label': 'ist'}], answer: 'C' },
-    ],
-  },
-  B1: {
-    'fill-in-the-blank': [
-        { exercise: 'Ich würde gern wissen, ___ der Zug ankommt. (wann)', answer: 'wann' },
-        { exercise: '___ ich jung war, spielte ich oft Fußball. (als)', answer: 'Als' },
-    ],
-    'multiple-choice': [
-        { exercise: 'Er interessiert sich ___ Politik.', options: [{id: 'A', label: 'für'}, {id: 'B', label: 'an'}, {id: 'C', label: 'auf'}, {id: 'D', label: 'mit'}], answer: 'A' },
-        { exercise: 'Ich warte ___ den Bus.', options: [{id: 'A', label: 'auf'}, {id: 'B', label: 'an'}, {id: 'C', 'label': 'für'}, {id: 'D', 'label': 'zu'}], answer: 'A' },
-    ]
-  },
-  C1: {
-      'fill-in-the-blank': [
-          { exercise: '___ des schlechten Wetters, gingen wir spazieren. (trotz)', answer: 'Trotz' },
-          { exercise: 'Er tut so, ___ er alles wüsste. (als ob)', answer: 'als ob' },
-      ],
-      'multiple-choice': [
-          { exercise: 'Das Buch, ___ ich gelesen habe, war sehr interessant.', options: [{id: 'A', label: 'das'}, {id: 'B', label: 'was'}, {id: 'C', label: 'welches'}, {id: 'D', 'label': 'dem'}], answer: 'A' },
-          { exercise: 'Je mehr man liest, ___ man lernt.', options: [{id: 'A', label: 'desto mehr'}, {id: 'B', label: 'umso viel'}, {id: 'C', 'label': 'je mehr'}, {id: 'D', 'label': 'desto besser'}], answer: 'A' },
-      ]
-  },
-};
-
-const hardcodedReadingPrompts = {
-    A1: [
-        { prompt: 'Hanna wohnt in Berlin. Sie kommt aus der Schweiz. Sie spricht Deutsch, Französisch und Englisch. Was ist Hannas Muttersprache?', options: [{id: 'A', label: 'Englisch'}, {id: 'B', label: 'Deutsch oder Französisch'}, {id: 'C', label: 'Deutsch'}, {id: 'D', label: 'Französisch'}], answer: 'B' },
-        { prompt: 'Leo hat am Samstag Geburtstag. Er macht eine Party. Er lädt seine Freunde ein. Die Party beginnt um 18 Uhr. Wann ist die Party?', options: [{id: 'A', label: 'Am Sonntag'}, {id: 'B', label: 'Am Abend'}, {id: 'C', label: 'Am Morgen'}, {id: 'D', 'label': 'Am Samstagabend'}], answer: 'D' },
-    ],
-    B1: [
-        { prompt: 'Die Globalisierung führt dazu, dass die Weltwirtschaft immer enger zusammenwächst. Einerseits bietet dies viele Chancen, wie zum Beispiel einen größeren Markt für Unternehmen und mehr Produktvielfalt für Verbraucher. Andererseits gibt es auch Risiken, wie die zunehmende Konkurrenz für lokale Anbieter. Was ist ein Vorteil der Globalisierung?', options: [{id: 'A', label: 'Lokale Anbieter haben weniger Konkurrenz'}, {id: 'B', label: 'Unternehmen haben einen kleineren Markt'}, {id: 'C', label: 'Verbraucher haben mehr Auswahl'}, {id: 'D', 'label': 'Die Weltwirtschaft schrumpft'}], answer: 'C' },
-    ],
-    C1: [
-        { prompt: 'Künstliche Intelligenz (KI) ist ein transformatives Feld der Informatik, das weitreichende Auswirkungen auf die Gesellschaft hat. Während KI das Potenzenzial birgt, komplexe Probleme zu lösen und die menschliche Effizienz zu steigern, wirft sie auch ethische Fragen hinsichtlich Datenschutz, Voreingenommenheit von Algorithmen und der Zukunft der Arbeit auf. Welche Herausforderung wird im Text genannt?', options: [{id: 'A', label: 'Mangel an komplexen Problemen'}, {id: 'B', label: 'Steigerung der menschlichen Effizienz'}, {id: 'C', label: 'Ethische Bedenken bezüglich KI'}, {id: 'D', 'label': 'Die sinkende Bedeutung der Informatik'}], answer: 'C' },
-    ]
-};
-
 const levelSystem = [
   { level: 1, expRequired: 0, character: null, pet: {art: eggbertArt, name: 'Eggbert'} },
   { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {art: catleArt, name: 'Catle'} },
@@ -150,6 +107,7 @@ export default function DeutschDrillClient() {
   const [playerLevel, setPlayerLevel] = useState(1);
   const [character, setCharacter] = useState<{src: string, hint: string} | null>(null);
   const [pet, setPet] = useState<Pet>(levelSystem[0].pet);
+  const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -198,35 +156,53 @@ export default function DeutschDrillClient() {
         }
     }, [synth, tone]);
 
-
   const handleGenerate = async () => {
     setIsLoading(true);
     setExercise(null);
     setShowResult(false);
     setUserAnswer('');
-
-    await new Promise(resolve => setTimeout(resolve, 300));
+    setReadingFeedback(null);
 
     try {
-        let result;
-        if (activity === 'grammar') {
-            const exercisePool = hardcodedGrammarExercises[level][grammarType];
-            result = exercisePool[Math.floor(Math.random() * exercisePool.length)];
-        } else {
-            const promptPool = hardcodedReadingPrompts[level];
-            result = promptPool[Math.floor(Math.random() * promptPool.length)];
-        }
+      if (activity === 'grammar') {
+        const result = await generateGrammarExercise({ level, exerciseType: grammarType });
+        const isMcq = grammarType === 'multiple-choice';
         
-        const isMcq = grammarType === 'multiple-choice' || activity === 'reading';
+        let options;
+        let question = result.exercise;
+        if (isMcq) {
+            const parts = result.exercise.split('\n');
+            question = parts[0];
+            options = parts.slice(1).map(line => {
+                const [id, label] = line.split('. ');
+                return { id, label };
+            });
+        }
 
         setExercise({
-            prompt: result.exercise || result.prompt,
-            answer: result.answer,
-            isMcq: isMcq,
-            question: result.exercise || result.prompt,
-            options: result.options
+          prompt: result.exercise,
+          answer: result.answer,
+          isMcq: isMcq,
+          question: question,
+          options: options,
         });
-        
+      } else { // reading
+        const result = await generateReadingPrompt({ level });
+        const parts = result.prompt.split('\n');
+        const question = parts.find(p => p.includes('?'));
+        const options = parts.slice(parts.indexOf(question!) + 1).map(line => {
+            const [id, label] = line.split('. ');
+            return { id, label };
+        });
+
+        setExercise({
+          prompt: result.prompt,
+          answer: result.answer,
+          isMcq: true,
+          question: question,
+          options: options,
+        });
+      }
     } catch (error) {
       console.error('Error generating exercise:', error);
       toast({
@@ -241,8 +217,18 @@ export default function DeutschDrillClient() {
 
   const handleCheckAnswer = async () => {
     if (!userAnswer || !exercise) return;
+    setIsChecking(true);
+
+    let correct;
+
+    if (activity === 'reading') {
+        const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
+        setReadingFeedback(result);
+        correct = result.isCorrect;
+    } else {
+        correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+    }
     
-    const correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
     if (correct) {
         playCorrectSound();
         const bonus = streak * 5;
@@ -254,9 +240,10 @@ export default function DeutschDrillClient() {
         setStreak(0);
     }
     setShowResult(true);
+    setIsChecking(false);
   };
   
-  const isCorrect = exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+  const isCorrect = activity === 'reading' ? readingFeedback?.isCorrect : exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
     <>
@@ -312,6 +299,8 @@ export default function DeutschDrillClient() {
                     showResult={showResult}
                     isCorrect={isCorrect}
                     streak={streak}
+                    readingFeedback={readingFeedback}
+                    activity={activity}
                 />
             </CardContent>
             <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
