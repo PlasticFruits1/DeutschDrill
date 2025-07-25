@@ -33,6 +33,44 @@ export type ReadingFeedback = {
     isCorrect: boolean;
 } | null;
 
+const eggbertArt = `
+    /\\
+   /  \\
+  |    |
+   \\  /
+    \\/
+`;
+
+const catleArt = `
+  /\\_/\\
+ ( o.o )
+  > ^ <
+`;
+
+const doggoArt = `
+ / \\__
+(    @\\___
+ /         O
+/   (_____/
+/_____/   U
+`;
+
+const birdieArt = `
+   .-.
+  (o.o)
+   |/  \\
+  //|\\\\
+ //_|_\\\\
+`;
+
+const foxyArt = `
+>(')____,
+  (\`)    \\
+   /\`--' \\
+  \\\`----'\\
+`;
+
+
 // Hardcoded data
 const hardcodedGrammarExercises = {
   A1: {
@@ -82,16 +120,15 @@ const hardcodedReadingPrompts = {
 };
 
 const levelSystem = [
-  { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'pixelated egg', name: 'Eggbert'} },
-  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute pixel cat', name: 'Catle'} },
-  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute pixel dog', name: 'Doggo'} },
-  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute pixel bird', name: 'Birdie'} },
-  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute pixel fox', name: 'Foxy'} },
+  { level: 1, expRequired: 0, character: null, pet: {art: eggbertArt, name: 'Eggbert'} },
+  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {art: catleArt, name: 'Catle'} },
+  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {art: doggoArt, name: 'Doggo'} },
+  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {art: birdieArt, name: 'Birdie'} },
+  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {art: foxyArt, name: 'Foxy'} },
 ];
 
 type Pet = {
-  src: string;
-  hint: string;
+  art: string;
   name: string;
 } | null;
 
@@ -294,12 +331,10 @@ export default function DeutschDrillClient() {
         </Card>
         {pet && (
           <div className="w-48">
-            <PetDisplay petSrc={pet.src} petHint={pet.hint} petName={pet.name} level={playerLevel} streak={streak} />
+            <PetDisplay petArt={pet.art} petName={pet.name} level={playerLevel} streak={streak} />
           </div>
         )}
       </div>
     </>
   );
 }
-
-    
