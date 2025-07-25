@@ -69,9 +69,9 @@ const birdieArt = `
 
 const foxyArt = `
 >(')____,
-  (\\\`)    \\
-   /\\\\\`--' \\
-  \\\\ \\\\\`----'\\
+  (\`))    \\
+   /\\\`--' \\
+  \\\\ \\ \`----'\\
 `;
 
 
@@ -106,6 +106,7 @@ export default function DeutschDrillClient() {
   const [playerLevel, setPlayerLevel] = useState(1);
   const [pet, setPet] = useState<Pet>(levelSystem[0].pet);
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -159,6 +160,7 @@ export default function DeutschDrillClient() {
     setShowResult(false);
     setUserAnswer('');
     setReadingFeedback(null);
+    if (!started) setStarted(true);
 
     try {
       if (activity === 'grammar') {
@@ -250,7 +252,11 @@ export default function DeutschDrillClient() {
         setStreak(0);
     }
     setShowResult(true);
-    setIsChecking(false);
+    
+    setTimeout(() => {
+        handleGenerate();
+        setIsChecking(false);
+    }, 2000);
   };
   
   const isCorrect = activity === 'reading' 
@@ -261,7 +267,7 @@ export default function DeutschDrillClient() {
     <>
       <div className="flex flex-row items-stretch gap-8">
         <div className="w-24">
-          <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
+          <LevelingSystem playerLevel={playerLevel} exp={exp} />
         </div>
         <Card className="flex-1 shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
           <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
@@ -312,20 +318,28 @@ export default function DeutschDrillClient() {
                     streak={streak}
                     readingFeedback={readingFeedback}
                     activity={activity}
+                    started={started}
                 />
             </CardContent>
             <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
-              <Button 
-                onClick={handleCheckAnswer} 
-                disabled={!userAnswer || showResult || isLoading || isChecking}
+            {started && (
+                <Button 
+                    onClick={handleCheckAnswer} 
+                    disabled={!userAnswer || showResult || isLoading || isChecking}
+                    className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 scale-100 data-[state=selected]:scale-110"
+                    variant={userAnswer ? 'default' : 'outline'}
+                    data-state={userAnswer ? 'selected' : 'default'}
+                >
+                    {isChecking ? 'Checking...' : 'Check Answer'}
+                </Button>
+            )}
+            <Button 
+                onClick={handleGenerate} 
+                disabled={isLoading || isChecking} 
                 className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-                variant={userAnswer ? 'default' : 'outline'}
-              >
-                {isChecking ? 'Checking...' : 'Check Answer'}
-              </Button>
-              <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                {isLoading ? "Generating..." : "New Challenge"}
-              </Button>
+            >
+                {isLoading ? "Generating..." : (started ? "New Challenge" : "Start Challenge")}
+            </Button>
             </CardFooter>
           </Tabs>
         </Card>

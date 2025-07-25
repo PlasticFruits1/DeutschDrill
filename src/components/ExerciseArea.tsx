@@ -19,6 +19,7 @@ interface ExerciseAreaProps {
   streak: number;
   readingFeedback: ReadingFeedback;
   activity: Activity;
+  started: boolean;
 }
 
 export default function ExerciseArea({
@@ -31,6 +32,7 @@ export default function ExerciseArea({
   streak,
   readingFeedback,
   activity,
+  started,
 }: ExerciseAreaProps) {
   if (isLoading) {
     return (
@@ -41,10 +43,18 @@ export default function ExerciseArea({
     );
   }
 
+  if (!exercise && started) {
+    return (
+      <div className="text-center text-muted-foreground py-10">
+        <p>Generating the next challenge...</p>
+      </div>
+    );
+  }
+  
   if (!exercise) {
     return (
       <div className="text-center text-muted-foreground py-10">
-        <p>Select your level and generate a new challenge!</p>
+        <p>Select your level and start a new challenge!</p>
       </div>
     );
   }
