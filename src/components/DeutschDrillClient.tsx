@@ -319,7 +319,7 @@ export default function DeutschDrillClient() {
                 onClick={handleCheckAnswer} 
                 disabled={!userAnswer || showResult || isLoading || isChecking}
                 className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-                variant="outline"
+                variant={userAnswer ? 'default' : 'outline'}
               >
                 {isChecking ? 'Checking...' : 'Check Answer'}
               </Button>
