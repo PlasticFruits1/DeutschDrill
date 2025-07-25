@@ -82,11 +82,11 @@ const hardcodedReadingPrompts = {
 };
 
 const levelSystem = [
-  { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'pixel egg', name: 'Eggbert'} },
-  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cracked egg', name: 'Crackle'} },
-  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'baby creature', name: 'Sprout'} },
-  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'teen creature', name: 'Glowy'} },
-  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'adult creature', name: 'Lumina'} },
+  { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute egg', name: 'Eggbert'} },
+  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute creature', name: 'Crackle'} },
+  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cute monster', name: 'Sprout'} },
+  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'glowing creature', name: 'Glowy'} },
+  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'shiny monster', name: 'Lumina'} },
 ];
 
 type Pet = {
