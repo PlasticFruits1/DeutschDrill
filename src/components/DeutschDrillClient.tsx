@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type * as Tone from 'tone';
 
-import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -44,7 +43,7 @@ const hardcodedGrammarExercises = {
     ],
     'multiple-choice': [
       { exercise: 'Was ist das?', options: [{id: 'A', label: 'Der Tisch'}, {id: 'B', label: 'Die Tisch'}, {id: 'C', label: 'Das Tisch'}, {id: 'D', label: 'Den Tisch'}], answer: 'A' },
-      { exercise: 'Wie alt ___ du?', options: [{id: 'A', label: 'bin'}, {id: 'B', label: 'seid'}, {id: 'C', label: 'bist'}, {id: 'D', label: 'ist'}], answer: 'C' },
+      { exercise: 'Wie alt ___ du?', options: [{id: 'A', label: 'bin'}, {id: 'B', label: 'seid'}, {id: 'C', label: 'bist'}, {id: 'D', 'label': 'ist'}], answer: 'C' },
     ],
   },
   B1: {
@@ -93,11 +92,13 @@ export default function DeutschDrillClient() {
   const [showResult, setShowResult] = useState(false);
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [synth, setSynth] = useState<any>(null);
+  const [tone, setTone] = useState<any>(null);
   const { toast } = useToast();
 
   useEffect(() => {
-    import('tone').then(Tone => {
-      setSynth(new Tone.Synth().toDestination());
+    import('tone').then(ToneModule => {
+      setSynth(new ToneModule.Synth().toDestination());
+      setTone(ToneModule);
     }).catch(e => console.error("Failed to load Tone.js", e));
     
     return () => {
@@ -112,6 +113,24 @@ export default function DeutschDrillClient() {
       synth.triggerAttackRelease(note, '8n');
     }
   };
+
+    const playCorrectSound = useCallback(() => {
+        if (synth && tone) {
+            const now = tone.now();
+            synth.triggerAttackRelease('C4', '8n', now);
+            synth.triggerAttackRelease('E4', '8n', now + 0.15);
+            synth.triggerAttackRelease('G4', '8n', now + 0.3);
+        }
+    }, [synth, tone]);
+
+    const playIncorrectSound = useCallback(() => {
+        if (synth && tone) {
+            const now = tone.now();
+            synth.triggerAttackRelease('G3', '8n', now);
+            synth.triggerAttackRelease('F#3', '4n', now + 0.15);
+        }
+    }, [synth, tone]);
+
 
   const handleGenerate = async () => {
     playSound('C4');
@@ -162,8 +181,13 @@ export default function DeutschDrillClient() {
 
   const handleCheckAnswer = async () => {
     if (!userAnswer || !exercise) return;
-    playSound('E4');
     
+    const correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+    if(correct) {
+        playCorrectSound();
+    } else {
+        playIncorrectSound();
+    }
     setShowResult(true);
   };
   
@@ -226,7 +250,8 @@ export default function DeutschDrillClient() {
                                 {exercise.options.map((option) => (
                                     <Label key={option.id} htmlFor={option.id} className={cn(
                                         buttonVariants({ variant: 'outline', size: 'lg' }),
-                                        'justify-start h-auto p-4 text-base whitespace-normal',
+                                        'justify-start h-auto p-4 text-base whitespace-normal rounded-full font-bold transition-all duration-300',
+                                        'hover:bg-primary/10 hover:shadow-lg hover:-translate-y-1',
                                         userAnswer === option.id && 'bg-primary/20 border-primary ring-2 ring-primary'
                                     )}>
                                         <RadioGroupItem value={option.id} id={option.id} className="sr-only" />
@@ -241,7 +266,7 @@ export default function DeutschDrillClient() {
                                 onChange={(e) => setUserAnswer(e.target.value)}
                                 placeholder="Your answer..."
                                 disabled={showResult}
-                                className="text-lg"
+                                className="text-lg rounded-full"
                             />
                         )}
                     </div>
@@ -251,7 +276,7 @@ export default function DeutschDrillClient() {
             </div>
 
             {showResult && exercise && (
-                <div className={`p-4 rounded-lg flex items-center gap-3 border-2 font-bold text-lg ${isCorrect ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-red-500/10 text-red-600 border-red-500/20'}`}>
+                <div className={`p-4 rounded-full flex items-center justify-center gap-3 border-2 font-bold text-lg ${isCorrect ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-red-500/10 text-red-600 border-red-500/20'}`}>
                     {isCorrect ? <CheckCircle className="h-6 w-6"/> : <XCircle className="h-6 w-6"/>}
                     <p>
                         {isCorrect ? "Correct! Well done." : `Not quite. The correct answer is: ${exercise.answer}`}
@@ -263,12 +288,12 @@ export default function DeutschDrillClient() {
           <Button 
             onClick={handleCheckAnswer} 
             disabled={!userAnswer || showResult || isLoading || isChecking}
-            className="w-full sm:w-auto text-lg py-6"
+            className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             variant="outline"
           >
             {isChecking ? 'Checking...' : 'Check Answer'}
           </Button>
-          <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto text-lg py-6">
+          <Button onClick={handleGenerate} disabled={isLoading || isChecking} className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
             {isLoading ? "Generating..." : "New Challenge"}
           </Button>
         </CardFooter>
