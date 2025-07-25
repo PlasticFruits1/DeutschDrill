@@ -96,23 +96,26 @@ export default function DeutschDrillClient() {
 
     try {
         let result;
+        let promptText;
         if (activity === 'grammar') {
             result = await generateGrammarExercise({ level, exerciseType: grammarType });
+            promptText = result.exercise;
         } else {
             result = await generateReadingPrompt({ level });
+            promptText = result.prompt;
         }
 
-        const mcqParseResult = parseMcq(result.exercise ?? result.prompt);
+        const mcqParseResult = parseMcq(promptText);
         
         if (mcqParseResult.isMcq) {
           setExercise({
-            prompt: result.exercise ?? result.prompt,
+            prompt: promptText,
             answer: result.answer,
             ...mcqParseResult,
           });
         } else {
           setExercise({
-            prompt: result.exercise ?? result.prompt,
+            prompt: promptText,
             answer: result.answer,
             isMcq: false
           });
@@ -230,7 +233,7 @@ export default function DeutschDrillClient() {
                 )}
             </div>
 
-            {showResult && exercise && (activity === 'grammar' || (activity === 'reading' && exercise.isMcq)) && (
+            {showResult && exercise && (exercise.isMcq) && (
                 <div className={`p-4 rounded-lg flex items-center gap-3 border ${isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
                     {isCorrect ? <CheckCircle className="h-5 w-5"/> : <XCircle className="h-5 w-5"/>}
                     <p className="font-medium">
@@ -252,6 +255,14 @@ export default function DeutschDrillClient() {
                         </p>
                     </div>
                 )
+            )}
+            {showResult && activity === 'grammar' && !exercise?.isMcq && (
+                 <div className={`p-4 rounded-lg flex items-center gap-3 border ${isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
+                    {isCorrect ? <CheckCircle className="h-5 w-5"/> : <XCircle className="h-5 w-5"/>}
+                    <p className="font-medium">
+                        {isCorrect ? "Correct! Well done." : `Not quite. The correct answer is: ${exercise.answer}`}
+                    </p>
+                </div>
             )}
         </CardContent>
         <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
