@@ -71,7 +71,7 @@ const foxyArt = `
 >(')____,
   (\`))    \\
    /\\\`--' \\
-  \\\\ \\ \`----'\\
+   \\\\ \\ \`----'\\
 `;
 
 
@@ -107,6 +107,7 @@ export default function DeutschDrillClient() {
   const [pet, setPet] = useState<Pet>(levelSystem[0].pet);
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [started, setStarted] = useState(false);
+  const [questionHistory, setQuestionHistory] = useState<string[]>([]);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -163,8 +164,11 @@ export default function DeutschDrillClient() {
     if (!started) setStarted(true);
 
     try {
+      let result;
+      let newQuestion;
+
       if (activity === 'grammar') {
-        const result = await generateGrammarExercise({ level, exerciseType: grammarType });
+        result = await generateGrammarExercise({ level, exerciseType: grammarType, history: questionHistory });
         const isMcq = grammarType === 'multiple-choice';
         
         let options;
@@ -180,7 +184,7 @@ export default function DeutschDrillClient() {
                 return { id: '?', label: line };
             }).filter(opt => opt.id !== '?');
         }
-
+        newQuestion = question;
         setExercise({
           prompt: result.exercise,
           answer: result.answer,
@@ -189,7 +193,7 @@ export default function DeutschDrillClient() {
           options: options,
         });
       } else { // reading
-        const result = await generateReadingPrompt({ level });
+        result = await generateReadingPrompt({ level, history: questionHistory });
         const parts = result.prompt.split('\n').filter(p => p.trim() !== '');
         
         const questionIndex = parts.findIndex(p => p.includes('?'));
@@ -204,14 +208,26 @@ export default function DeutschDrillClient() {
             return { id: '?', label: line };
         }).filter(opt => opt.id !== '?');
 
+        newQuestion = `${textPrompt}\n${question}`;
         setExercise({
           prompt: result.prompt,
           answer: result.answer,
           isMcq: true,
-          question: `${textPrompt}\n${question}`,
+          question: newQuestion,
           options: options,
         });
       }
+
+      if (newQuestion) {
+        setQuestionHistory(prev => {
+          const newHistory = [...prev, newQuestion];
+          if (newHistory.length > 100) {
+            return newHistory.slice(newHistory.length - 100);
+          }
+          return newHistory;
+        });
+      }
+
     } catch (error) {
       console.error('Error generating exercise:', error);
       toast({

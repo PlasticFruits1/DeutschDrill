@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A grammar exercise generation AI agent.
@@ -17,6 +18,7 @@ const GenerateGrammarExerciseInputSchema = z.object({
   exerciseType: z
     .enum(['fill-in-the-blank', 'multiple-choice'])
     .describe('The type of grammar exercise to generate.'),
+  history: z.array(z.string()).optional().describe('A list of recently generated questions to avoid repetition.'),
 });
 export type GenerateGrammarExerciseInput = z.infer<typeof GenerateGrammarExerciseInputSchema>;
 
@@ -46,6 +48,12 @@ Exercise Type: {{{exerciseType}}}
 - The exercise should be appropriate for the specified language level.
 - Provide only the exercise text and the answer.
 - Do not include any explanations or additional text.
+{{#if history}}
+- Do not generate any of the following questions that have been asked recently:
+{{#each history}}
+- {{{this}}}
+{{/each}}
+{{/if}}
 `,
 });
 

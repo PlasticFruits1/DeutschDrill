@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A reading prompt generation AI agent.
@@ -14,6 +15,7 @@ const GenerateReadingPromptInputSchema = z.object({
   level: z
     .enum(['A1', 'B1', 'C1'])
     .describe('The German language level for the reading prompt.'),
+  history: z.array(z.string()).optional().describe('A list of recently generated questions to avoid repetition.'),
 });
 export type GenerateReadingPromptInput = z.infer<typeof GenerateReadingPromptInputSchema>;
 
@@ -43,6 +45,12 @@ Level: {{{level}}}
 - The answer must be only the letter of the correct option (e.g., "A", "B", "C", or "D").
 - Provide only the prompt (text, question, and four options) and the answer.
 - Do not include any explanations or additional text.
+{{#if history}}
+- Do not generate any of the following questions that have been asked recently:
+{{#each history}}
+- {{{this}}}
+{{/each}}
+{{/if}}
 `,
 });
 
