@@ -71,7 +71,7 @@ const hardcodedGrammarExercises = {
 const hardcodedReadingPrompts = {
     A1: [
         { prompt: 'Hanna wohnt in Berlin. Sie kommt aus der Schweiz. Sie spricht Deutsch, Französisch und Englisch. Was ist Hannas Muttersprache?', options: [{id: 'A', label: 'Englisch'}, {id: 'B', label: 'Deutsch oder Französisch'}, {id: 'C', label: 'Deutsch'}, {id: 'D', label: 'Französisch'}], answer: 'B' },
-        { prompt: 'Leo hat am Samstag Geburtstag. Er macht eine Party. Er lädt seine Freunde ein. Die Party beginnt um 18 Uhr. Wann ist die Party?', options: [{id: 'A', label: 'Am Sonntag'}, {id: 'B', label: 'Am Abend'}, {id: 'C', label: 'Am Morgen'}, {id: 'D', label: 'Am Samstagabend'}], answer: 'D' },
+        { prompt: 'Leo hat am Samstag Geburtstag. Er macht eine Party. Er lädt seine Freunde ein. Die Party beginnt um 18 Uhr. Wann ist die Party?', options: [{id: 'A', label: 'Am Sonntag'}, {id: 'B', label: 'Am Abend'}, {id: 'C', label: 'Am Morgen'}, {id: 'D', 'label': 'Am Samstagabend'}], answer: 'D' },
     ],
     B1: [
         { prompt: 'Die Globalisierung führt dazu, dass die Weltwirtschaft immer enger zusammenwächst. Einerseits bietet dies viele Chancen, wie zum Beispiel einen größeren Markt für Unternehmen und mehr Produktvielfalt für Verbraucher. Andererseits gibt es auch Risiken, wie die zunehmende Konkurrenz für lokale Anbieter. Was ist ein Vorteil der Globalisierung?', options: [{id: 'A', label: 'Lokale Anbieter haben weniger Konkurrenz'}, {id: 'B', label: 'Unternehmen haben einen kleineren Markt'}, {id: 'C', label: 'Verbraucher haben mehr Auswahl'}, {id: 'D', 'label': 'Die Weltwirtschaft schrumpft'}], answer: 'C' },
@@ -82,13 +82,18 @@ const hardcodedReadingPrompts = {
 };
 
 const levelSystem = [
-  { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'pixel egg'} },
-  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cracked egg'} },
-  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'baby creature'} },
-  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'teen creature'} },
-  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'adult creature'} },
+  { level: 1, expRequired: 0, character: null, pet: {src: 'https://placehold.co/150x150.png', hint: 'pixel egg', name: 'Eggbert'} },
+  { level: 2, expRequired: 100, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel cat'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'cracked egg', name: 'Crackle'} },
+  { level: 3, expRequired: 250, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel dog'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'baby creature', name: 'Sprout'} },
+  { level: 4, expRequired: 500, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel bird'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'teen creature', name: 'Glowy'} },
+  { level: 5, expRequired: 1000, character: {src: 'https://placehold.co/50x50.png', hint: 'pixel fox'}, pet: {src: 'https://placehold.co/150x150.png', hint: 'adult creature', name: 'Lumina'} },
 ];
 
+type Pet = {
+  src: string;
+  hint: string;
+  name: string;
+} | null;
 
 export default function DeutschDrillClient() {
   const [level, setLevel] = useState<Level>('A1');
@@ -107,7 +112,7 @@ export default function DeutschDrillClient() {
   
   const [playerLevel, setPlayerLevel] = useState(1);
   const [character, setCharacter] = useState<{src: string, hint: string} | null>(null);
-  const [pet, setPet] = useState<{src: string, hint: string} | null>(levelSystem[0].pet);
+  const [pet, setPet] = useState<Pet>(levelSystem[0].pet);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -289,7 +294,7 @@ export default function DeutschDrillClient() {
         </Card>
         {pet && (
           <div className="w-48">
-            <PetDisplay petSrc={pet.src} petHint={pet.hint} level={playerLevel} />
+            <PetDisplay petSrc={pet.src} petHint={pet.hint} petName={pet.name} level={playerLevel} />
           </div>
         )}
       </div>

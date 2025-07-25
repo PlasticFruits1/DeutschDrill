@@ -7,14 +7,15 @@ import { Badge } from '@/components/ui/badge';
 interface PetDisplayProps {
   petSrc: string;
   petHint: string;
+  petName: string;
   level: number;
 }
 
-export default function PetDisplay({ petSrc, petHint, level }: PetDisplayProps) {
+export default function PetDisplay({ petSrc, petHint, petName, level }: PetDisplayProps) {
   return (
     <Card className="w-full h-full flex flex-col justify-between p-4 bg-card/80 backdrop-blur-sm border-primary/20 rounded-xl shadow-lg">
       <div className="flex justify-center items-center text-lg font-bold">
-        <Badge className="text-base px-3 py-1 bg-primary/20 text-primary-foreground rounded-md w-full flex justify-center">Your Companion</Badge>
+        <Badge className="text-base px-3 py-1 bg-primary/20 text-primary-foreground rounded-md w-full flex justify-center">{petName}</Badge>
       </div>
       <CardContent className="flex-1 flex items-center justify-center p-0">
         <Image
