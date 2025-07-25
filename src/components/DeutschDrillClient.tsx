@@ -186,7 +186,10 @@ export default function DeutschDrillClient() {
     if (!userAnswer || !exercise) return;
     playSound('E4');
     
-    if (activity === 'reading' && !exercise.isMcq) {
+    if (activity === 'reading' && exercise.isMcq) {
+        // This logic path is for hardcoded MCQ reading questions.
+        // AI evaluation is now only for open questions, which are not currently generated.
+    } else if (activity === 'reading' && !exercise.isMcq) {
         setIsChecking(true);
         try {
             const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
@@ -259,7 +262,7 @@ export default function DeutschDrillClient() {
                 ) : exercise ? (
                     <div className="text-left w-full space-y-4">
                         <p className="text-lg font-medium font-headline whitespace-pre-wrap">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
-                        {exercise.isMcq && exercise.options && (
+                        {exercise.isMcq && exercise.options ? (
                              <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="space-y-2 pt-2" disabled={showResult}>
                                 {exercise.options.map((option) => (
                                     <div key={option.id} className="flex items-center space-x-2">
@@ -268,8 +271,7 @@ export default function DeutschDrillClient() {
                                     </div>
                                 ))}
                              </RadioGroup>
-                        )}
-                        {!exercise.isMcq && (
+                        ) : (
                              <Input 
                                 value={userAnswer}
                                 onChange={(e) => setUserAnswer(e.target.value)}
@@ -283,7 +285,7 @@ export default function DeutschDrillClient() {
                 )}
             </div>
 
-            {showResult && exercise && (exercise.isMcq) && (
+            {showResult && exercise && (
                 <div className={`p-4 rounded-lg flex items-center gap-3 border ${isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
                     {isCorrect ? <CheckCircle className="h-5 w-5"/> : <XCircle className="h-5 w-5"/>}
                     <p className="font-medium">
@@ -305,14 +307,6 @@ export default function DeutschDrillClient() {
                         </p>
                     </div>
                 )
-            )}
-            {showResult && activity === 'grammar' && !exercise?.isMcq && (
-                 <div className={`p-4 rounded-lg flex items-center gap-3 border ${isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
-                    {isCorrect ? <CheckCircle className="h-5 w-5"/> : <XCircle className="h-5 w-5"/>}
-                    <p className="font-medium">
-                        {isCorrect ? "Correct! Well done." : `Not quite. The correct answer is: ${exercise.answer}`}
-                    </p>
-                </div>
             )}
         </CardContent>
         <CardFooter className="flex flex-col-reverse sm:flex-row justify-between gap-4 px-4 sm:px-6 pb-6">
