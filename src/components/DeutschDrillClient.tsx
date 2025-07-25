@@ -15,7 +15,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { BookOpen, CheckCircle, Sparkles, XCircle } from 'lucide-react';
 
@@ -103,17 +102,17 @@ export default function DeutschDrillClient() {
             result = await generateReadingPrompt({ level });
         }
 
-        const mcqParseResult = parseMcq(result.prompt ?? result.exercise);
+        const mcqParseResult = parseMcq(result.exercise ?? result.prompt);
         
         if (mcqParseResult.isMcq) {
           setExercise({
-            prompt: result.prompt ?? result.exercise,
+            prompt: result.exercise ?? result.prompt,
             answer: result.answer,
             ...mcqParseResult,
           });
         } else {
           setExercise({
-            prompt: result.prompt ?? result.exercise,
+            prompt: result.exercise ?? result.prompt,
             answer: result.answer,
             isMcq: false
           });
