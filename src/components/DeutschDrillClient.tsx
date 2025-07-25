@@ -17,7 +17,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { BookOpen, CheckCircle, Sparkles, XCircle, MessageCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, Sparkles, XCircle } from 'lucide-react';
 
 type Level = 'A1' | 'B1' | 'C1';
 type GrammarType = 'fill-in-the-blank' | 'multiple-choice';
@@ -96,26 +96,28 @@ export default function DeutschDrillClient() {
     setReadingFeedback(null);
 
     try {
-      if (activity === 'grammar') {
-        const result = await generateGrammarExercise({ level, exerciseType: grammarType });
-        const mcqParseResult = parseMcq(result.exercise);
+        let result;
+        if (activity === 'grammar') {
+            result = await generateGrammarExercise({ level, exerciseType: grammarType });
+        } else {
+            result = await generateReadingPrompt({ level });
+        }
+
+        const mcqParseResult = parseMcq(result.prompt ?? result.exercise);
+        
         if (mcqParseResult.isMcq) {
           setExercise({
-            prompt: result.exercise,
+            prompt: result.prompt ?? result.exercise,
             answer: result.answer,
             ...mcqParseResult,
           });
         } else {
           setExercise({
-            prompt: result.exercise,
+            prompt: result.prompt ?? result.exercise,
             answer: result.answer,
             isMcq: false
           });
         }
-      } else {
-        const result = await generateReadingPrompt({ level });
-        setExercise({ prompt: result.prompt, answer: '', isMcq: false });
-      }
     } catch (error) {
       console.error('Error generating exercise:', error);
       toast({
@@ -132,7 +134,7 @@ export default function DeutschDrillClient() {
     if (!userAnswer || !exercise) return;
     playSound('E4');
     
-    if (activity === 'reading') {
+    if (activity === 'reading' && !exercise.isMcq) {
         setIsChecking(true);
         try {
             const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
@@ -204,7 +206,7 @@ export default function DeutschDrillClient() {
                     </div>
                 ) : exercise ? (
                     <div className="text-left w-full space-y-4">
-                        <p className="text-lg font-medium font-headline">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
+                        <p className="text-lg font-medium font-headline whitespace-pre-wrap">{exercise.isMcq ? exercise.question : exercise.prompt}</p>
                         {exercise.isMcq && exercise.options && (
                              <RadioGroup value={userAnswer} onValueChange={setUserAnswer} className="space-y-2 pt-2" disabled={showResult}>
                                 {exercise.options.map((option) => (
@@ -215,20 +217,11 @@ export default function DeutschDrillClient() {
                                 ))}
                              </RadioGroup>
                         )}
-                        {!exercise.isMcq && activity === 'grammar' && (
-                            <Input 
+                        {!exercise.isMcq && (
+                             <Input 
                                 value={userAnswer}
                                 onChange={(e) => setUserAnswer(e.target.value)}
                                 placeholder="Your answer..."
-                                disabled={showResult}
-                            />
-                        )}
-                         {!exercise.isMcq && activity === 'reading' && (
-                            <Textarea 
-                                value={userAnswer}
-                                onChange={(e) => setUserAnswer(e.target.value)}
-                                placeholder="Your response..."
-                                rows={4}
                                 disabled={showResult}
                             />
                         )}
@@ -238,7 +231,7 @@ export default function DeutschDrillClient() {
                 )}
             </div>
 
-            {showResult && activity === 'grammar' && exercise && (
+            {showResult && exercise && (activity === 'grammar' || (activity === 'reading' && exercise.isMcq)) && (
                 <div className={`p-4 rounded-lg flex items-center gap-3 border ${isCorrect ? 'bg-primary/10 text-primary border-primary/20' : 'bg-destructive/10 text-destructive border-destructive/20'}`}>
                     {isCorrect ? <CheckCircle className="h-5 w-5"/> : <XCircle className="h-5 w-5"/>}
                     <p className="font-medium">
@@ -246,7 +239,7 @@ export default function DeutschDrillClient() {
                     </p>
                 </div>
             )}
-             {showResult && activity === 'reading' && (
+             {showResult && activity === 'reading' && !exercise?.isMcq && (
                 isChecking ? (
                     <div className="space-y-2 w-full">
                         <Skeleton className="h-4 w-1/4 mx-auto" />
