@@ -70,7 +70,7 @@ const birdieArt = `
 const foxyArt = `
 >(')____,
   (\`))    \\
-   /\\\\\`--' \\
+   /\\\`--' \\
    \\\\\\\\ \\\\\\`----'\\
 `;
 
@@ -90,7 +90,7 @@ type Pet = {
 
 export default function DeutschDrillClient() {
   const [level, setLevel] = useState<Level>('A1');
-  const [grammarType, setGrammarType] = useState<GrammarType>('fill-in-the-blank');
+  const [grammarType, setGrammarType] = useState<GrammarType>('multiple-choice');
   const [activity, setActivity] = useState<Activity>('grammar');
   const [isLoading, setIsLoading] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -125,14 +125,14 @@ export default function DeutschDrillClient() {
     useEffect(() => {
         const currentLevelData = levelSystem.slice().reverse().find(l => exp >= l.expRequired);
         if (currentLevelData) {
-            setPet(currentLevelData.pet);
             if (currentLevelData.level > playerLevel) {
                 setPlayerLevel(currentLevelData.level);
                 toast({
                     title: 'Level Up!',
-                    description: `You've reached level ${currentLevelData.level} and unlocked a new friend!`,
+                    description: "You've reached level " + currentLevelData.level + " and unlocked a new friend!",
                 });
             }
+            setPet(currentLevelData.pet);
         }
     }, [exp, playerLevel, toast]);
 
@@ -368,3 +368,5 @@ export default function DeutschDrillClient() {
     </>
   );
 }
+
+    
