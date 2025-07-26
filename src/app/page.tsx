@@ -1,7 +1,18 @@
+
+'use client';
+
+import { useState } from 'react';
 import DeutschDrillClient from '@/components/DeutschDrillClient';
+import LevelingSystem, { LevelingSystemProps } from '@/components/LevelingSystem';
 import { BrainCircuit } from 'lucide-react';
 
 export default function Home() {
+  const [progress, setProgress] = useState<LevelingSystemProps>({
+    playerLevel: 1,
+    exp: 0,
+    streak: 0,
+  });
+
   return (
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 md:p-12">
       <div className="w-full max-w-3xl mx-auto">
@@ -15,7 +26,10 @@ export default function Home() {
               </h1>
             </div>
         </div>
-        <DeutschDrillClient />
+        <div className="mb-6">
+          <LevelingSystem {...progress} />
+        </div>
+        <DeutschDrillClient onProgressChange={setProgress} />
       </div>
     </main>
   );

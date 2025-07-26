@@ -4,15 +4,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import type * as Tone from 'tone';
 import { useToast } from '@/hooks/use-toast';
-import { BookOpen, Sparkles, Flame } from 'lucide-react';
+import { BookOpen, Sparkles } from 'lucide-react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import LevelingSystem from '@/components/LevelingSystem';
 import ExerciseArea from '@/components/ExerciseArea';
+import { LevelingSystemProps } from '@/components/LevelingSystem';
 
 import { exercises } from '@/lib/exercises';
 import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
@@ -35,16 +35,7 @@ export type ReadingFeedback = {
     isCorrect: boolean;
 } | null;
 
-const levelSystem = [
-  { level: 1, expRequired: 0 },
-  { level: 2, expRequired: 100 },
-  { level: 3, expRequired: 250 },
-  { level: 4, expRequired: 500 },
-  { level: 5, expRequired: 1000 },
-];
-
-
-export default function DeutschDrillClient() {
+export default function DeutschDrillClient({ onProgressChange }: { onProgressChange: (data: LevelingSystemProps) => void }) {
   const [level, setLevel] = useState<Level>('A1');
   const [grammarType, setGrammarType] = useState<GrammarType>('multiple-choice');
   const [activity, setActivity] = useState<Activity>('grammar');
@@ -63,6 +54,13 @@ export default function DeutschDrillClient() {
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [started, setStarted] = useState(false);
   const [questionHistory, setQuestionHistory] = useState<string[]>([]);
+  const levelSystem = [
+    { level: 1, expRequired: 0 },
+    { level: 2, expRequired: 100 },
+    { level: 3, expRequired: 250 },
+    { level: 4, expRequired: 500 },
+    { level: 5, expRequired: 1000 },
+  ];
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -75,20 +73,23 @@ export default function DeutschDrillClient() {
             synth.dispose();
         }
     }
-  }, []);
+  }, [synth]);
 
     useEffect(() => {
         const currentLevelData = levelSystem.slice().reverse().find(l => exp >= l.expRequired);
+        let newLevel = playerLevel;
         if (currentLevelData) {
             if (currentLevelData.level > playerLevel) {
-                setPlayerLevel(currentLevelData.level);
+                newLevel = currentLevelData.level;
+                setPlayerLevel(newLevel);
                 toast({
                     title: 'Level Up!',
-                    description: "You've reached level " + currentLevelData.level + "!",
+                    description: `You've reached level ${currentLevelData.level}!`,
                 });
             }
         }
-    }, [exp, playerLevel, toast]);
+        onProgressChange({ playerLevel: newLevel, exp, streak });
+    }, [exp, playerLevel, streak, onProgressChange, toast, levelSystem]);
 
 
     const playCorrectSound = useCallback(() => {
@@ -109,13 +110,8 @@ export default function DeutschDrillClient() {
         }
     }, [synth, tone]);
 
-    const handleGenerate = async () => {
+    const handleGenerate = useCallback(async () => {
         setIsLoading(true);
-        setExercise(null);
-        setShowResult(false);
-        setUserAnswer('');
-        setReadingFeedback(null);
-        if (!started) setStarted(true);
     
         try {
             let exercisePool = [];
@@ -131,8 +127,7 @@ export default function DeutschDrillClient() {
                     description: `No exercises found for ${level} ${activity}.`,
                     variant: 'destructive',
                 });
-                setIsLoading(false);
-                return;
+                return null;
             }
     
             let availableQuestions = exercisePool.filter(q => !questionHistory.includes(q.question));
@@ -159,14 +154,14 @@ export default function DeutschDrillClient() {
                 prompt = `${question}\n${optionsText}`;
             }
 
-            setExercise({
+            const newExercise = {
               prompt: prompt,
               answer: newExerciseData.answer,
               isMcq: isMcq,
               question: question,
               options: options,
-            });
-    
+            };
+            
             setQuestionHistory(prev => {
               const newHistory = [...prev, newExerciseData.question];
               if (newHistory.length > 100) {
@@ -174,6 +169,7 @@ export default function DeutschDrillClient() {
               }
               return newHistory;
             });
+            return newExercise;
     
         } catch (error) {
           console.error('Error generating exercise:', error);
@@ -182,10 +178,26 @@ export default function DeutschDrillClient() {
             description: 'Failed to load a new exercise. Please try again.',
             variant: 'destructive',
           });
+          return null;
         } finally {
           setIsLoading(false);
         }
-      };
+      }, [activity, level, grammarType, questionHistory, toast]);
+
+    const startNewChallenge = useCallback(async () => {
+        setIsLoading(true);
+        setExercise(null);
+        setShowResult(false);
+        setUserAnswer('');
+        setReadingFeedback(null);
+        if (!started) setStarted(true);
+
+        const newExercise = await handleGenerate();
+        if (newExercise) {
+            setExercise(newExercise);
+        }
+        setIsLoading(false);
+    }, [handleGenerate, started]);
 
   const handleCheckAnswer = async () => {
     if (!userAnswer || !exercise) return;
@@ -216,10 +228,18 @@ export default function DeutschDrillClient() {
     }
     setShowResult(true);
     
-    setTimeout(() => {
-        handleGenerate();
-        setIsChecking(false);
-    }, 2000);
+    const newExercisePromise = handleGenerate();
+    const delayPromise = new Promise(resolve => setTimeout(resolve, 5000));
+
+    const [newExercise] = await Promise.all([newExercisePromise, delayPromise]);
+    
+    setShowResult(false);
+    setUserAnswer('');
+    setReadingFeedback(null);
+    if(newExercise) {
+        setExercise(newExercise);
+    }
+    setIsChecking(false);
   };
   
   const isCorrect = activity === 'reading' 
@@ -227,99 +247,94 @@ export default function DeutschDrillClient() {
     : exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
-    <>
-      <div className="mb-6">
-        <LevelingSystem playerLevel={playerLevel} exp={exp} streak={streak} />
-      </div>
-      <Card className="flex-1 w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
-        <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
-          <CardHeader>
-              <TabsList className="grid w-full grid-cols-2 bg-primary/10 rounded-full h-12">
-                  <TabsTrigger value="grammar" className="rounded-full text-base font-bold"><Sparkles className="mr-2 h-5 w-5" /> Grammar</TabsTrigger>
-                  <TabsTrigger value="reading" className="rounded-full text-base font-bold"><BookOpen className="mr-2 h-5 w-5" /> Reading</TabsTrigger>
-              </TabsList>
-          </CardHeader>
-          <CardContent className="space-y-6 px-4 sm:px-6">
-              <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1 space-y-2">
-                      <Label htmlFor="level" className="text-muted-foreground font-bold">Language Level</Label>
-                      <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
-                          <SelectTrigger id="level" className="w-full rounded-full h-12 text-base">
-                              <SelectValue placeholder="Select level" />
-                          </SelectTrigger>
-                          <SelectContent>
-                              <SelectItem value="A1">A1 (Beginner)</SelectItem>
-                              <SelectItem value="A2">A2 (Elementary)</SelectItem>
-                              <SelectItem value="B1">B1 (Intermediate)</SelectItem>
-                              <SelectItem value="B2">B2 (Upper-Intermediate)</SelectItem>
-                              <SelectItem value="C1">C1 (Advanced)</SelectItem>
-                          </SelectContent>
-                      </Select>
-                  </div>
-                  {activity === 'grammar' && (
-                      <div className="flex-1 space-y-2">
-                           <Label htmlFor="grammar-type" className="text-muted-foreground font-bold">Exercise Type</Label>
-                           <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
-                              <SelectTrigger id="grammar-type" className="w-full rounded-full h-12 text-base">
-                                  <SelectValue placeholder="Select type" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                  <SelectItem value="fill-in-the-blank">Fill-in-the-Blank</SelectItem>
-                                  <SelectItem value="multiple-choice">Multiple Choice</SelectItem>
-                              </SelectContent>
-                          </Select>
-                      </div>
-                  )}
-              </div>
-            
-              <ExerciseArea
-                  isLoading={isLoading}
-                  exercise={exercise}
-                  userAnswer={userAnswer}
-                  setUserAnswer={setUserAnswer}
-                  showResult={showResult}
-                  isCorrect={isCorrect}
-                  streak={streak}
-                  readingFeedback={readingFeedback}
-                  activity={activity}
-                  started={started}
-              />
-          </CardContent>
-          <CardFooter className="flex flex-col-reverse sm:flex-row gap-4 px-4 sm:px-6 pb-6">
-          {!started ? (
-              <div className="flex justify-center w-full">
-                  <Button 
-                      onClick={handleGenerate} 
-                      disabled={isLoading || isChecking} 
-                      className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-                  >
-                      {isLoading ? "Generating..." : "Start Challenge"}
-                  </Button>
-              </div>
-          ) : (
-              <div className="flex justify-between w-full">
-                  <Button 
-                      onClick={handleCheckAnswer} 
-                      disabled={!userAnswer || showResult || isLoading || isChecking}
-                      className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 scale-100 data-[state=selected]:scale-110"
-                      variant={userAnswer ? 'default' : 'outline'}
-                      data-state={userAnswer ? 'selected' : 'default'}
-                  >
-                      {isChecking ? 'Checking...' : 'Check Answer'}
-                  </Button>
-                  <Button 
-                      onClick={handleGenerate} 
-                      disabled={isLoading || isChecking} 
-                      className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-                      variant="secondary"
-                  >
-                      {isLoading ? "Generating..." : "New Challenge"}
-                  </Button>
-              </div>
-          )}
-          </CardFooter>
-        </Tabs>
-      </Card>
-    </>
+    <Card className="flex-1 w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
+      <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
+        <CardHeader>
+            <TabsList className="grid w-full grid-cols-2 bg-primary/10 rounded-full h-12">
+                <TabsTrigger value="grammar" className="rounded-full text-base font-bold"><Sparkles className="mr-2 h-5 w-5" /> Grammar</TabsTrigger>
+                <TabsTrigger value="reading" className="rounded-full text-base font-bold"><BookOpen className="mr-2 h-5 w-5" /> Reading</TabsTrigger>
+            </TabsList>
+        </CardHeader>
+        <CardContent className="space-y-6 px-4 sm:px-6">
+            <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 space-y-2">
+                    <Label htmlFor="level" className="text-muted-foreground font-bold">Language Level</Label>
+                    <Select value={level} onValueChange={(value) => setLevel(value as Level)}>
+                        <SelectTrigger id="level" className="w-full rounded-full h-12 text-base">
+                            <SelectValue placeholder="Select level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="A1">A1 (Beginner)</SelectItem>
+                            <SelectItem value="A2">A2 (Elementary)</SelectItem>
+                            <SelectItem value="B1">B1 (Intermediate)</SelectItem>
+                            <SelectItem value="B2">B2 (Upper-Intermediate)</SelectItem>
+                            <SelectItem value="C1">C1 (Advanced)</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                {activity === 'grammar' && (
+                    <div className="flex-1 space-y-2">
+                         <Label htmlFor="grammar-type" className="text-muted-foreground font-bold">Exercise Type</Label>
+                         <Select value={grammarType} onValueChange={(value) => setGrammarType(value as GrammarType)}>
+                            <SelectTrigger id="grammar-type" className="w-full rounded-full h-12 text-base">
+                                <SelectValue placeholder="Select type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="fill-in-the-blank">Fill-in-the-Blank</SelectItem>
+                                <SelectItem value="multiple-choice">Multiple Choice</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                )}
+            </div>
+          
+            <ExerciseArea
+                isLoading={isLoading}
+                exercise={exercise}
+                userAnswer={userAnswer}
+                setUserAnswer={setUserAnswer}
+                showResult={showResult}
+                isCorrect={isCorrect}
+                streak={streak}
+                readingFeedback={readingFeedback}
+                activity={activity}
+                started={started}
+            />
+        </CardContent>
+        <CardFooter className="flex flex-col-reverse sm:flex-row gap-4 px-4 sm:px-6 pb-6">
+        {!started ? (
+            <div className="flex justify-center w-full">
+                <Button 
+                    onClick={startNewChallenge} 
+                    disabled={isLoading || isChecking} 
+                    className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                >
+                    {isLoading ? "Generating..." : "Start Challenge"}
+                </Button>
+            </div>
+        ) : (
+            <div className="flex justify-between w-full">
+                <Button 
+                    onClick={handleCheckAnswer} 
+                    disabled={!userAnswer || showResult || isLoading || isChecking}
+                    className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 scale-100 data-[state=selected]:scale-110"
+                    variant={userAnswer ? 'default' : 'outline'}
+                    data-state={userAnswer ? 'selected' : 'default'}
+                >
+                    {isChecking ? 'Checking...' : 'Check Answer'}
+                </Button>
+                <Button 
+                    onClick={startNewChallenge} 
+                    disabled={isLoading || isChecking} 
+                    className="w-full sm:w-auto text-lg py-6 rounded-full font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                    variant="secondary"
+                >
+                    {isLoading ? "Generating..." : "New Challenge"}
+                </Button>
+            </div>
+        )}
+        </CardFooter>
+      </Tabs>
+    </Card>
   );
 }
