@@ -13,7 +13,6 @@ import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button';
 import LevelingSystem from '@/components/LevelingSystem';
 import ExerciseArea from '@/components/ExerciseArea';
-import PetDisplay from '@/components/PetDisplay';
 
 import { exercises } from '@/lib/exercises';
 import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
@@ -36,56 +35,14 @@ export type ReadingFeedback = {
     isCorrect: boolean;
 } | null;
 
-const eggbertArt = `
-    /\\
-   /  \\
-  |    |
-   \\  /
-    \\/
-`;
-
-const catleArt = `
-  /\\_/\\
- ( o.o )
-  > ^ <
-`;
-
-const doggoArt = `
- / \\__
-(    @\\___
- /         O
-/   (_____/
-/_____/   U
-`;
-
-const birdieArt = `
-   .-.
-  (o.o)
-   |/  \\
-  //|\\\\
- //_|_\\\\
-`;
-
-const foxyArt = `
->(')____,
-  (\`))    \\\\
-   /\\\`--' \\\\
-   \\\\\\\\ \\\\\`----'\\\\
-`;
-
-
 const levelSystem = [
-  { level: 1, expRequired: 0, pet: {art: eggbertArt, name: 'Eggbert'} },
-  { level: 2, expRequired: 100, pet: {art: catleArt, name: 'Catle'} },
-  { level: 3, expRequired: 250, pet: {art: doggoArt, name: 'Doggo'} },
-  { level: 4, expRequired: 500, pet: {art: birdieArt, name: 'Birdie'} },
-  { level: 5, expRequired: 1000, pet: {art: foxyArt, name: 'Foxy'} },
+  { level: 1, expRequired: 0 },
+  { level: 2, expRequired: 100 },
+  { level: 3, expRequired: 250 },
+  { level: 4, expRequired: 500 },
+  { level: 5, expRequired: 1000 },
 ];
 
-type Pet = {
-  art: string;
-  name: string;
-} | null;
 
 export default function DeutschDrillClient() {
   const [level, setLevel] = useState<Level>('A1');
@@ -103,7 +60,6 @@ export default function DeutschDrillClient() {
   const { toast } = useToast();
   
   const [playerLevel, setPlayerLevel] = useState(1);
-  const [pet, setPet] = useState<Pet>(levelSystem[0].pet);
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [started, setStarted] = useState(false);
   const [questionHistory, setQuestionHistory] = useState<string[]>([]);
@@ -128,10 +84,9 @@ export default function DeutschDrillClient() {
                 setPlayerLevel(currentLevelData.level);
                 toast({
                     title: 'Level Up!',
-                    description: "You've reached level " + currentLevelData.level + " and unlocked a new friend!",
+                    description: "You've reached level " + currentLevelData.level + "!",
                 });
             }
-            setPet(currentLevelData.pet);
         }
     }, [exp, playerLevel, toast]);
 
@@ -276,11 +231,6 @@ export default function DeutschDrillClient() {
       <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-4 lg:gap-8 w-full">
         <div className="w-full lg:w-24 flex flex-row lg:flex-col gap-4">
           <LevelingSystem playerLevel={playerLevel} exp={exp} />
-          {pet && (
-            <div className="block lg:hidden w-full">
-              <PetDisplay petArt={pet.art} petName={pet.name} level={playerLevel} streak={streak} />
-            </div>
-          )}
         </div>
         <Card className="flex-1 w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
           <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
@@ -371,11 +321,6 @@ export default function DeutschDrillClient() {
             </CardFooter>
           </Tabs>
         </Card>
-        {pet && (
-          <div className="hidden lg:block w-48">
-            <PetDisplay petArt={pet.art} petName={pet.name} level={playerLevel} streak={streak} />
-          </div>
-        )}
       </div>
     </>
   );
