@@ -35,6 +35,14 @@ export type ReadingFeedback = {
     isCorrect: boolean;
 } | null;
 
+const levelSystem = [
+  { level: 1, expRequired: 0 },
+  { level: 2, expRequired: 100 },
+  { level: 3, expRequired: 250 },
+  { level: 4, expRequired: 500 },
+  { level: 5, expRequired: 1000 },
+];
+
 export default function DeutschDrillClient({ onProgressChange }: { onProgressChange: (data: LevelingSystemProps) => void }) {
   const [level, setLevel] = useState<Level>('A1');
   const [grammarType, setGrammarType] = useState<GrammarType>('multiple-choice');
@@ -54,13 +62,6 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [started, setStarted] = useState(false);
   const [questionHistory, setQuestionHistory] = useState<string[]>([]);
-  const levelSystem = [
-    { level: 1, expRequired: 0 },
-    { level: 2, expRequired: 100 },
-    { level: 3, expRequired: 250 },
-    { level: 4, expRequired: 500 },
-    { level: 5, expRequired: 1000 },
-  ];
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -73,7 +74,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             synth.dispose();
         }
     }
-  }, [synth]);
+  }, []);
 
     useEffect(() => {
         const currentLevelData = levelSystem.slice().reverse().find(l => exp >= l.expRequired);
@@ -89,7 +90,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             }
         }
         onProgressChange({ playerLevel: newLevel, exp, streak });
-    }, [exp, playerLevel, streak, onProgressChange, toast, levelSystem]);
+    }, [exp, playerLevel, streak, onProgressChange, toast]);
 
 
     const playCorrectSound = useCallback(() => {
