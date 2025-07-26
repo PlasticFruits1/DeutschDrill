@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -21,7 +22,7 @@ export default function PetDisplay({ petArt, petName, level, streak }: PetDispla
             <span className="font-bold text-xl">{streak}</span>
         </div>
       </div>
-      <CardContent className="flex-1 flex items-center justify-center p-0">
+      <CardContent className="flex-1 flex items-center justify-center p-0 min-h-[120px]">
         <pre className="text-center text-muted-foreground text-xs leading-tight">
           {petArt}
         </pre>

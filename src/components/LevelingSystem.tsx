@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Flame } from 'lucide-react';
@@ -21,11 +22,11 @@ export default function LevelingSystem({ playerLevel, exp }: LevelingSystemProps
     const progressPercentage = expForNextLevel > 0 ? (expInCurrentLevel / expForNextLevel) * 100 : 100;
 
     return (
-        <Card className="w-full h-full flex flex-col justify-between p-4 bg-card/80 backdrop-blur-sm border-primary/20 rounded-xl shadow-lg">
+        <Card className="w-full h-full flex lg:flex-col justify-between items-center p-4 bg-card/80 backdrop-blur-sm border-primary/20 rounded-xl shadow-lg">
             <div className="flex justify-center items-center text-lg font-bold">
                 <Badge className="text-base px-3 py-1 bg-primary text-primary-foreground rounded-md w-24 flex justify-center">Level {playerLevel}</Badge>
             </div>
-            <div className="flex-1 flex flex-col items-center justify-end gap-2 py-4">
+            <div className="flex-1 flex flex-row lg:flex-col items-center justify-end gap-2 py-4">
                 <div className="w-4 h-full bg-secondary rounded-full flex flex-col-reverse overflow-hidden">
                     <div 
                         className="bg-primary transition-all duration-500"
@@ -33,7 +34,7 @@ export default function LevelingSystem({ playerLevel, exp }: LevelingSystemProps
                     ></div>
                 </div>
             </div>
-            <div className="text-center text-sm text-muted-foreground">{exp} / {nextLevelExp} EXP</div>
+            <div className="text-center text-sm text-muted-foreground whitespace-nowrap">{exp} / {nextLevelExp} EXP</div>
         </Card>
     )
 }

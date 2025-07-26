@@ -273,11 +273,16 @@ export default function DeutschDrillClient() {
 
   return (
     <>
-      <div className="flex flex-row items-stretch gap-8">
-        <div className="w-24">
+      <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-4 lg:gap-8 w-full">
+        <div className="w-full lg:w-24 flex flex-row lg:flex-col gap-4">
           <LevelingSystem playerLevel={playerLevel} exp={exp} />
+          {pet && (
+            <div className="block lg:hidden w-full">
+              <PetDisplay petArt={pet.art} petName={pet.name} level={playerLevel} streak={streak} />
+            </div>
+          )}
         </div>
-        <Card className="flex-1 shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
+        <Card className="flex-1 w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
           <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
             <CardHeader>
                 <TabsList className="grid w-full grid-cols-2 bg-primary/10 rounded-full h-12">
@@ -367,7 +372,7 @@ export default function DeutschDrillClient() {
           </Tabs>
         </Card>
         {pet && (
-          <div className="w-48">
+          <div className="hidden lg:block w-48">
             <PetDisplay petArt={pet.art} petName={pet.name} level={playerLevel} streak={streak} />
           </div>
         )}
@@ -375,9 +380,3 @@ export default function DeutschDrillClient() {
     </>
   );
 }
-
-    
-
-    
-
-    
