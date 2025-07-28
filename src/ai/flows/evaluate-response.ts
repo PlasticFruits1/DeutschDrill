@@ -11,13 +11,14 @@ import {ai} from '@/ai/genkit';
 import {z} from 'zod';
 
 const EvaluateReadingResponseInputSchema = z.object({
-  prompt: z.string().describe('The reading prompt that was given to the user.'),
-  response: z.string().describe("The user's response to the reading prompt."),
+  prompt: z.string().describe('The full reading prompt given to the user, including the text, question, and options.'),
+  userAnswer: z.string().describe("The user's selected option (e.g., 'A', 'B', 'C', or 'D')."),
+  correctAnswer: z.string().describe("The correct option letter (e.g., 'A', 'B', 'C', or 'D')."),
 });
 export type EvaluateReadingResponseInput = z.infer<typeof EvaluateReadingResponseInputSchema>;
 
 const EvaluateReadingResponseOutputSchema = z.object({
-  feedback: z.string().describe('Feedback on the user\'s response, explaining if it is correct and why.'),
+  feedback: z.string().describe("A very brief, one-sentence piece of feedback for the user. If correct, be encouraging. If incorrect, gently state the correct answer was 'X' and why, based on the text."),
   isCorrect: z.boolean().describe('Whether the user\'s response is correct.'),
 });
 export type EvaluateReadingResponseOutput = z.infer<typeof EvaluateReadingResponseOutputSchema>;
@@ -30,17 +31,19 @@ const prompt = ai.definePrompt({
   name: 'evaluateReadingResponsePrompt',
   input: {schema: EvaluateReadingResponseInputSchema},
   output: {schema: EvaluateReadingResponseOutputSchema},
-  prompt: `You are a German language teacher. Evaluate the user's response to the reading prompt.
+  prompt: `You are a German language teacher. Your task is to evaluate a user's answer to a multiple-choice reading comprehension question.
 
-Determine if the user's response accurately answers the question based on the provided text.
+The full prompt was:
+"{{{prompt}}}"
 
-Provide brief, encouraging feedback on their response. If the user is incorrect, gently explain the correct answer based on the text.
+The correct answer is option {{{correctAnswer}}}.
+The user selected option {{{userAnswer}}}.
 
-Reading Prompt:
-{{{prompt}}}
-
-User's Response:
-{{{response}}}`,
+1.  Compare the user's answer to the correct answer.
+2.  Set the 'isCorrect' field to true if they match, and false otherwise.
+3.  Provide a very brief, one-sentence feedback.
+    - If correct, say something encouraging like "Great job!" or "That's right!".
+    - If incorrect, gently state the correct answer and briefly explain why, based on the text. For example: "Not quite. The correct answer is X, because the text says..."`,
 });
 
 const evaluateReadingResponseFlow = ai.defineFlow(

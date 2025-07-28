@@ -168,7 +168,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                     label: value
                 }));
                 const optionsText = options.map(o => `${o.id}) ${o.label}`).join('\n');
-                prompt = `${question}\n${optionsText}`;
+                prompt = `${text}\n\n${question}\n${optionsText}`;
             }
 
             const newExercise = {
@@ -230,7 +230,11 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
 
     if (activity === 'reading') {
         try {
-            const result = await evaluateReadingResponse({ prompt: exercise.text || exercise.prompt, response: userAnswer });
+            const result = await evaluateReadingResponse({ 
+                prompt: exercise.prompt, 
+                userAnswer: userAnswer,
+                correctAnswer: exercise.answer 
+            });
             setReadingFeedback(result);
             correct = result.isCorrect;
             explanationText = result.feedback;
@@ -273,7 +277,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                 <hr />
                 <div className="text-sm space-y-2 text-muted-foreground">
                     <p className="font-semibold">Your Question:</p>
-                    <p className="whitespace-pre-wrap">{exercise.prompt}</p>
+                    <p className="whitespace-pre-wrap">{exercise.question}</p>
                     <p className="font-semibold">Your Answer:</p>
                     <p>{userAnswer}</p>
                 </div>
