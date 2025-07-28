@@ -171,8 +171,6 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                     id: key,
                     label: value
                 }));
-                const optionsText = options.map(o => `${o.id}) ${o.label}`).join('\n');
-                prompt = `${text}\n\n${question}\n${optionsText}`;
             }
 
             const newExercise = {
@@ -234,12 +232,14 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
 
     if (activity === 'reading') {
         try {
+            const optionsText = exercise.options?.map(o => `${o.id}) ${o.label}`).join('\n') ?? '';
+            const fullPromptForAI = `${exercise.text}\n\n${exercise.question}\n${optionsText}`;
+
             const result = await evaluateReadingResponse({ 
-                prompt: exercise.prompt, 
+                prompt: fullPromptForAI,
                 userAnswer: userAnswer,
                 correctAnswer: exercise.answer 
             });
-            setReadingFeedback(result);
             correct = result.isCorrect;
             explanationText = result.feedback;
         } catch (error) {
@@ -444,3 +444,5 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     </>
   );
 }
+
+    
