@@ -99,187 +99,187 @@ export const exercises: Record<string, LevelExercises> = {
                 text: 'Hallo, ich bin Paul. Ich komme aus Österreich und wohne in Wien. Ich bin 25 Jahre alt und arbeite als Lehrer.',
                 question: 'Woher kommt Paul?',
                 options: { a: 'Deutschland', b: 'Schweiz', c: 'Österreich', d: 'Wien' },
-                answer: 'Österreich'
+                answer: 'c'
             },
             {
                 text: 'Das ist meine Familie. Mein Vater heißt Thomas und meine Mutter heißt Maria. Ich habe eine Schwester. Sie heißt Lena.',
                 question: 'Wie heißt die Schwester?',
                 options: { a: 'Thomas', b: 'Maria', c: 'Paul', d: 'Lena' },
-                answer: 'Lena'
+                answer: 'd'
             },
             {
                 text: 'Mein Name ist Anna. Ich habe einen Hund. Er heißt Bello. Bello ist klein und braun. Er spielt gern im Garten.',
                 question: 'Welche Farbe hat Bello?',
                 options: { a: 'Schwarz', b: 'Weiß', c: 'Braun', d: 'Klein' },
-                answer: 'Braun'
+                answer: 'c'
             },
             {
                 text: 'Heute ist Samstag. Ich gehe einkaufen. Ich kaufe Brot, Milch und Käse. Am Nachmittag treffe ich Freunde. Wir gehen ins Kino.',
                 question: 'Was kauft die Person nicht?',
                 options: { a: 'Brot', b: 'Milch', c: 'Wurst', d: 'Käse' },
-                answer: 'Wurst'
+                answer: 'c'
             },
             {
                 text: 'Peter steht um 7 Uhr auf. Er frühstückt und fährt dann zur Arbeit. Er arbeitet in einem Büro. Um 17 Uhr hat er Feierabend.',
                 question: 'Wann steht Peter auf?',
                 options: { a: 'Um 6 Uhr', b: 'Um 7 Uhr', c: 'Um 8 Uhr', d: 'Um 17 Uhr' },
-                answer: 'Um 7 Uhr'
+                answer: 'b'
             },
             {
                 text: 'Lisa lernt Deutsch. Sie findet die Grammatik schwer. Aber sie spricht gern mit Leuten. Ihr Lieblingswort ist "Schmetterling".',
                 question: 'Was findet Lisa schwer?',
                 options: { a: 'Sprechen', b: 'Leute treffen', c: 'Die Grammatik', d: 'Lieblingswörter' },
-                answer: 'Die Grammatik'
+                answer: 'c'
             },
             {
                 text: 'In meiner Freizeit lese ich gern Bücher. Ich mag Krimis. Mein Lieblingsautor ist Sebastian Fitzek. Ich gehe auch gern schwimmen.',
                 question: 'Was ist das Hobby der Person?',
                 options: { a: 'Kochen', b: 'Singen', c: 'Lesen', d: 'Malen' },
-                answer: 'Lesen'
+                answer: 'c'
             },
             {
                 text: 'Am Wochenende fahre ich oft zu meinen Großeltern. Sie wohnen auf dem Land. Dort gibt es viele Tiere: Kühe, Schweine und Hühner. Es ist immer sehr schön.',
                 question: 'Wo wohnen die Großeltern?',
                 options: { a: 'In der Stadt', b: 'Am Meer', c: 'Auf dem Land', d: 'In den Bergen' },
-                answer: 'Auf dem Land'
+                answer: 'c'
             },
             {
                 text: 'Ich koche heute Abend. Es gibt Nudeln mit Tomatensoße. Das ist mein Lieblingsessen. Es ist einfach und schmeckt immer gut.',
                 question: 'Was ist das Lieblingsessen der Person?',
                 options: { a: 'Pizza', b: 'Salat', c: 'Nudeln mit Tomatensoße', d: 'Suppe' },
-                answer: 'Nudeln mit Tomatensoße'
+                answer: 'c'
             },
             {
                 text: 'Das Wetter ist heute schlecht. Es regnet und es ist kalt. Ich bleibe zu Hause und sehe einen Film. Ich trinke einen heißen Tee.',
                 question: 'Wie ist das Wetter?',
                 options: { a: 'Sonnig und warm', b: 'Regnerisch und kalt', c: 'Windig und sonnig', d: 'Schnee und kalt' },
-                answer: 'Regnerisch und kalt'
+                answer: 'b'
             },
              {
                 text: 'Mein Freund hat Geburtstag. Ich schenke ihm ein Buch. Er liest sehr gern. Wir feiern am Abend eine Party.',
                 question: 'Was schenkt die Person ihrem Freund?',
                 options: { a: 'Einen Film', b: 'Eine CD', c: 'Ein Buch', d: 'Ein Spiel' },
-                answer: 'Ein Buch'
+                answer: 'c'
             },
             {
                 text: 'Ich fahre in den Urlaub. Ich fliege nach Spanien. Dort ist es warm und sonnig. Ich werde viel schwimmen und am Strand liegen.',
                 question: 'Wohin fliegt die Person?',
                 options: { a: 'Italien', b: 'Frankreich', c: 'Spanien', d: 'Griechenland' },
-                answer: 'Spanien'
+                answer: 'c'
             },
             {
                 text: 'Das ist ein Apfel. Der Apfel ist rot. Er ist auch sehr gesund. Ich esse jeden Tag einen Apfel.',
                 question: 'Welche Farbe hat der Apfel?',
                 options: { a: 'Grün', b: 'Gelb', c: 'Rot', d: 'Blau' },
-                answer: 'Rot'
+                answer: 'c'
             },
             {
                 text: 'Das ist ein Auto. Das Auto ist blau und schnell. Es gehört meinem Vater. Er fährt damit zur Arbeit.',
                 question: 'Wem gehört das Auto?',
                 options: { a: 'Meiner Mutter', b: 'Meinem Bruder', c: 'Meinem Vater', d: 'Mir' },
-                answer: 'Meinem Vater'
+                answer: 'c'
 },
             {
                 text: 'Im Winter fahre ich gern Ski. Ich fahre in die Berge. Dort liegt viel Schnee. Es ist kalt, aber macht viel Spaß.',
                 question: 'Was macht die Person im Winter?',
                 options: { a: 'Schwimmen', b: 'Wandern', c: 'Ski fahren', d: 'Lesen' },
-                answer: 'Ski fahren'
+                answer: 'c'
             },
             {
                 text: 'Ich habe eine Katze. Sie heißt Mimi. Sie ist weiß und hat blaue Augen. Sie schläft am liebsten auf meinem Bett.',
                 question: 'Wie heißt die Katze?',
                 options: { a: 'Bello', b: 'Mimi', c: 'Max', d: 'Lisa' },
-                answer: 'Mimi'
+                answer: 'b'
             },
             {
                 text: 'Ich gehe in die Schule. Ich lerne Mathe, Deutsch und Englisch. Mein Lieblingsfach ist Sport. Nach der Schule mache ich meine Hausaufgaben.',
                 question: 'Was ist das Lieblingsfach?',
                 options: { a: 'Mathe', b: 'Deutsch', c: 'Englisch', d: 'Sport' },
-                answer: 'Sport'
+                answer: 'd'
             },
             {
                 text: 'Meine Wohnung hat zwei Zimmer, eine Küche und ein Bad. Sie ist nicht sehr groß, aber gemütlich. Ich wohne im dritten Stock.',
                 question: 'Wie viele Zimmer hat die Wohnung?',
                 options: { a: 'Ein Zimmer', b: 'Zwei Zimmer', c: 'Drei Zimmer', d: 'Vier Zimmer' },
-                answer: 'Zwei Zimmer'
+                answer: 'b'
             },
             {
                 text: 'Ich trinke gern Kaffee. Am liebsten mit Milch und Zucker. Am Morgen trinke ich immer eine Tasse. Das macht mich wach.',
                 question: 'Wie trinkt die Person ihren Kaffee?',
                 options: { a: 'Schwarz', b: 'Mit Milch und Zucker', c: 'Mit Zitrone', d: 'Kalt' },
-                answer: 'Mit Milch und Zucker'
+                answer: 'b'
             },
             {
                 text: 'Mein Bruder ist Arzt. Er arbeitet in einem Krankenhaus. Er hilft kranken Menschen. Sein Job ist anstrengend, aber er mag ihn sehr.',
                 question: 'Was ist mein Bruder von Beruf?',
                 options: { a: 'Lehrer', b: 'Polizist', c: 'Arzt', d: 'Koch' },
-                answer: 'Arzt'
+                answer: 'c'
             },
             {
                 text: 'Ich höre gern Musik. Am liebsten Popmusik. Ich gehe oft auf Konzerte. Mein Lieblingssänger ist Ed Sheeran.',
                 question: 'Welche Musik hört die Person am liebsten?',
                 options: { a: 'Rock', b: 'Klassik', c: 'Popmusik', d: 'Jazz' },
-                answer: 'Popmusik'
+                answer: 'c'
             },
             {
                 text: 'Der Tisch ist aus Holz. Er ist groß und rund. Vier Stühle stehen um den Tisch. Wir essen immer an diesem Tisch.',
                 question: 'Woraus ist der Tisch?',
                 options: { a: 'Metall', b: 'Glas', c: 'Holz', d: 'Plastik' },
-                answer: 'Holz'
+                answer: 'c'
             },
             {
                 text: 'Das Hemd ist weiß. Es ist aus Baumwolle. Es hat lange Ärmel. Ich trage es oft im Büro.',
                 question: 'Welche Farbe hat das Hemd?',
                 options: { a: 'Blau', b: 'Schwarz', c: 'Weiß', d: 'Grün' },
-                answer: 'Weiß'
+                answer: 'c'
             },
             {
                 text: 'Ich backe einen Kuchen. Ich brauche Mehl, Eier, Zucker und Butter. Der Kuchen ist für meine Mutter. Sie hat heute Geburtstag.',
                 question: 'Für wen ist der Kuchen?',
                 options: { a: 'Für meinen Vater', b: 'Für meinen Bruder', c: 'Für meine Mutter', d: 'Für mich' },
-                answer: 'Für meine Mutter'
+                answer: 'c'
             },
             {
                 text: 'Der Zug fährt um 10:15 Uhr ab. Er fährt nach Hamburg. Die Fahrt dauert zwei Stunden. Ich muss pünktlich am Bahnhof sein.',
                 question: 'Wann fährt der Zug ab?',
                 options: { a: '10:00 Uhr', b: '10:15 Uhr', c: '10:30 Uhr', d: '11:00 Uhr' },
-                answer: '10:15 Uhr'
+                answer: 'b'
             },
             {
                 text: 'Im Kühlschrank sind Eier, Milch, Butter und Käse. Es ist kein Joghurt da. Ich muss Joghurt kaufen gehen.',
                 question: 'Was ist nicht im Kühlschrank?',
                 options: { a: 'Eier', b: 'Milch', c: 'Joghurt', d: 'Käse' },
-                answer: 'Joghurt'
+                answer: 'c'
             },
             {
                 text: 'Ich schreibe eine E-Mail an meine Freundin. Ich erzähle ihr von meinem Urlaub. Ich schicke auch ein paar Fotos. Sie wird sich sicher freuen.',
                 question: 'An wen schreibt die Person eine E-Mail?',
                 options: { a: 'An ihre Mutter', b: 'An ihren Freund', c: 'An ihre Freundin', d: 'An ihren Chef' },
-                answer: 'An ihre Freundin'
+                answer: 'c'
             },
             {
                 text: 'Das Telefon klingelt. Es ist meine Tante aus München. Sie fragt, wie es mir geht. Wir telefonieren lange.',
                 question: 'Wer ruft an?',
                 options: { a: 'Meine Mutter', b: 'Mein Onkel', c: 'Meine Tante', d: 'Meine Oma' },
-                answer: 'Meine Tante'
+                answer: 'c'
             },
             {
                 text: 'Ich putze meine Wohnung. Ich sauge Staub, wische den Boden und putze die Fenster. Danach ist alles sauber. Das ist viel Arbeit.',
                 question: 'Was macht die Person nicht?',
                 options: { a: 'Staub saugen', b: 'Boden wischen', c: 'Fenster putzen', d: 'Wäsche waschen' },
-                answer: 'Wäsche waschen'
+                answer: 'd'
             },
             {
                 text: 'Das Baby weint. Es hat Hunger. Die Mutter gibt ihm die Flasche. Dann schläft das Baby wieder ein.',
                 question: 'Warum weint das Baby?',
                 options: { a: 'Es ist müde.', b: 'Es hat Hunger.', c: 'Es ist krank.', d: 'Es will spielen.' },
-                answer: 'Es hat Hunger.'
+                answer: 'b'
             },
             {
                 text: 'Der Wecker klingelt um 6:30 Uhr. Ich bin noch sehr müde. Ich drücke die Schlummertaste. Fünf Minuten später klingelt er wieder.',
                 question: 'Was macht die Person, als der Wecker klingelt?',
                 options: { a: 'Aufstehen', b: 'Frühstücken', c: 'Die Schlummertaste drücken', d: 'Duschen' },
-                answer: 'Die Schlummertaste drücken'
+                answer: 'c'
             },
         ],
     },
@@ -361,187 +361,187 @@ export const exercises: Record<string, LevelExercises> = {
                 text: 'Gestern war ich im Supermarkt. Ich wollte Äpfel, Brot und Milch kaufen. Aber die Äpfel waren nicht frisch, also habe ich nur Brot und Milch gekauft.',
                 question: 'Was hat die Person nicht gekauft?',
                 options: { a: 'Brot', b: 'Milch', c: 'Äpfel', d: 'Käse' },
-                answer: 'Äpfel'
+                answer: 'c'
             },
             {
                 text: 'Meine Freundin Lisa hat bald Geburtstag. Ich möchte ihr ein Geschenk kaufen. Sie liest gerne, also denke ich, ein Buch ist eine gute Idee. Sie mag Kriminalromane.',
                 question: 'Was für ein Geschenk ist eine gute Idee?',
                 options: { a: 'Ein Film', b: 'Ein Buch', c: 'Eine CD', d: 'Ein Spiel' },
-                answer: 'Ein Buch'
+                answer: 'b'
             },
             {
                 text: 'Am Montag habe ich einen Arzttermin. Der Termin ist um 14:30 Uhr. Ich muss vorher noch in die Apotheke gehen, um ein Rezept einzulösen. Ich hoffe, ich bin pünktlich.',
                 question: 'Was muss die Person vor dem Arzttermin machen?',
                 options: { a: 'Einkaufen gehen', b: 'Freunde treffen', c: 'Zur Apotheke gehen', d: 'Zur Arbeit fahren' },
-                answer: 'Zur Apotheke gehen'
+                answer: 'c'
             },
             {
                 text: 'Ich habe meinen Job gewechselt. Früher war ich Kellner, jetzt arbeite ich im Büro. Die Arbeit ist anders, aber sie gefällt mir gut. Die Kollegen sind sehr nett.',
                 question: 'Was war der frühere Job der Person?',
                 options: { a: 'Koch', b: 'Büroangestellter', c: 'Kellner', d: 'Lehrer' },
-                answer: 'Kellner'
+                answer: 'c'
             },
             {
                 text: 'Für meinen Urlaub habe ich einen Flug nach Portugal gebucht. Ich fliege nächste Woche. Ich habe auch schon ein Hotel reserviert. Ich freue mich darauf, am Strand zu liegen und das gute Essen zu genießen.',
                 question: 'Was hat die Person noch nicht gemacht?',
                 options: { a: 'Flug gebucht', b: 'Hotel reserviert', c: 'Koffer gepackt', d: 'Sich auf den Urlaub gefreut' },
-                answer: 'Koffer gepackt'
+                answer: 'c'
             },
             {
                 text: 'Wenn das Wetter am Wochenende gut ist, möchte ich eine Fahrradtour machen. Ich fahre gern durch den Wald. Wenn es regnet, bleibe ich zu Hause und lese ein Buch.',
                 question: 'Was macht die Person bei Regen?',
                 options: { a: 'Fahrradtour', b: 'Im Wald spazieren', c: 'Ein Buch lesen', d: 'Freunde besuchen' },
-                answer: 'Ein Buch lesen'
+                answer: 'c'
             },
             {
                 text: 'Ich lerne seit einem Jahr Spanisch. Es ist nicht einfach, aber ich mache Fortschritte. Ich kann schon einfache Gespräche führen. Nächstes Jahr möchte ich nach Spanien reisen, um meine Sprachkenntnisse zu verbessern.',
                 question: 'Warum möchte die Person nach Spanien reisen?',
                 options: { a: 'Um Urlaub zu machen', b: 'Um zu arbeiten', c: 'Um ihre Sprachkenntnisse zu verbessern', d: 'Um ihre Familie zu besuchen' },
-                answer: 'Um ihre Sprachkenntnisse zu verbessern'
+                answer: 'c'
             },
             {
                 text: 'Die Wohnungssuche in der Stadt ist schwierig. Die Mieten sind sehr hoch und es gibt nur wenige Angebote. Ich habe schon viele Wohnungen angeschaut, aber noch nicht die richtige gefunden. Ich hoffe, ich habe bald Glück.',
                 question: 'Warum ist die Wohnungssuche schwierig?',
                 options: { a: 'Es gibt zu viele Angebote.', b: 'Die Mieten sind niedrig.', c: 'Die Mieten sind hoch und es gibt wenige Angebote.', d: 'Die Wohnungen sind alle zu groß.' },
-                answer: 'Die Mieten sind hoch und es gibt wenige Angebote.'
+                answer: 'c'
             },
             {
                 text: 'Ich habe gestern einen Kuchen gebacken. Ich habe ein neues Rezept ausprobiert. Der Kuchen ist leider nicht so gut geworden, er war zu trocken. Das nächste Mal nehme ich ein anderes Rezept.',
                 question: 'Was war das Problem mit dem Kuchen?',
                 options: { a: 'Er war zu süß.', b: 'Er war verbrannt.', c: 'Er war zu trocken.', d: 'Er war zu klein.' },
-                answer: 'Er war zu trocken.'
+                answer: 'c'
             },
             {
                 text: 'Ich muss mein Auto in die Werkstatt bringen. Der Motor macht komische Geräusche. Die Reparatur wird wahrscheinlich teuer. Ich hoffe, es ist nichts Schlimmes.',
                 question: 'Warum muss das Auto in die Werkstatt?',
                 options: { a: 'Die Reifen sind platt.', b: 'Das Licht ist kaputt.', c: 'Der Motor macht Geräusche.', d: 'Das Benzin ist leer.' },
-                answer: 'Der Motor macht Geräusche.'
+                answer: 'c'
             },
             {
                 text: 'In der Kantine gab es heute Fisch mit Kartoffeln. Ich mag keinen Fisch, deshalb habe ich nur einen Salat gegessen. Morgen gibt es zum Glück Pizza.',
                 question: 'Was hat die Person heute gegessen?',
                 options: { a: 'Fisch mit Kartoffeln', b: 'Pizza', c: 'Einen Salat', d: 'Nichts' },
-                answer: 'Einen Salat'
+                answer: 'c'
             },
             {
                 text: 'Mein Computer ist kaputt. Ich kann ihn nicht mehr starten. Ich brauche ihn dringend für meine Arbeit. Ich werde ihn heute Nachmittag zu einem Spezialisten bringen.',
                 question: 'Was ist das Problem?',
                 options: { a: 'Der Drucker funktioniert nicht.', b: 'Der Computer ist zu langsam.', c: 'Der Computer startet nicht mehr.', d: 'Das Internet geht nicht.' },
-                answer: 'Der Computer startet nicht mehr.'
+                answer: 'c'
             },
             {
                 text: 'Ich habe eine Einladung zu einer Hochzeit bekommen. Die Hochzeit ist in zwei Wochen. Ich weiß noch nicht, was ich anziehen soll. Ich muss mir noch ein schönes Kleid kaufen.',
                 question: 'Was muss die Person noch kaufen?',
                 options: { a: 'Schuhe', b: 'Ein Geschenk', c: 'Ein Kleid', d: 'Eine Handtasche' },
-                answer: 'Ein Kleid'
+                answer: 'c'
             },
             {
                 text: 'Der Wecker hat heute Morgen nicht geklingelt. Deshalb bin ich zu spät aufgewacht. Ich habe mich beeilt, aber ich habe den Bus verpasst. Ich bin zu spät zur Arbeit gekommen.',
                 question: 'Warum ist die Person zu spät gekommen?',
                 options: { a: 'Der Bus hatte Verspätung.', b: 'Sie hat den Bus verpasst.', c: 'Es gab viel Verkehr.', d: 'Sie war krank.' },
-                answer: 'Sie hat den Bus verpasst.'
+                answer: 'b'
             },
             {
                 text: 'Ich möchte einen Hund aus dem Tierheim adoptieren. Dort gibt es viele Hunde, die ein neues Zuhause suchen. Ich denke, es ist besser, einen Hund zu adoptieren, als einen vom Züchter zu kaufen.',
                 question: 'Woher möchte die Person einen Hund haben?',
                 options: { a: 'Vom Züchter', b: 'Aus dem Tierheim', c: 'Von einem Freund', d: 'Aus dem Ausland' },
-                answer: 'Aus dem Tierheim'
+                answer: 'b'
             },
             {
                 text: 'Meine Nachbarn sind sehr laut. Sie hören oft bis spät in die Nacht laute Musik. Ich habe schon mit ihnen gesprochen, aber es hat sich nichts geändert. Ich überlege, mich beim Vermieter zu beschweren.',
                 question: 'Was ist das Problem mit den Nachbarn?',
                 options: { a: 'Sie sind unfreundlich.', b: 'Sie machen viel Müll.', c: 'Sie hören laute Musik.', d: 'Sie haben einen Hund, der bellt.' },
-                answer: 'Sie hören laute Musik.'
+                answer: 'c'
 },
             {
                 text: 'Ich habe versucht, online ein Zugticket zu kaufen, aber die Webseite hat nicht funktioniert. Deshalb bin ich zum Bahnhof gefahren und habe das Ticket am Schalter gekauft. Es war teurer, aber ich habe es bekommen.',
                 question: 'Wo hat die Person das Ticket gekauft?',
                 options: { a: 'Online', b: 'Am Automaten', c: 'Im Reisebüro', d: 'Am Schalter' },
-                answer: 'Am Schalter'
+                answer: 'd'
             },
             {
                 text: 'Das Fitnessstudio hat ein neues Angebot. Wenn man sich jetzt anmeldet, zahlt man für die ersten drei Monate nur die Hälfte. Ich überlege, ob ich das Angebot annehmen soll. Ich möchte mehr Sport machen.',
                 question: 'Was ist das Besondere an dem Angebot?',
                 options: { a: 'Man bekommt ein Handtuch geschenkt.', b: 'Man zahlt für die ersten drei Monate weniger.', c: 'Man kann einen Freund kostenlos mitbringen.', d: 'Die Anmeldung ist kostenlos.' },
-                answer: 'Man zahlt für die ersten drei Monate weniger.'
+                answer: 'b'
             },
             {
                 text: 'Ich habe Kopfschmerzen. Ich glaube, ich habe zu wenig getrunken. Ich werde jetzt ein großes Glas Wasser trinken und mich etwas hinlegen. Normalerweise hilft das.',
                 question: 'Was ist der vermutete Grund für die Kopfschmerzen?',
                 options: { a: 'Zu viel Stress', b: 'Zu wenig Schlaf', c: 'Zu wenig getrunken', d: 'Zu viel gegessen' },
-                answer: 'Zu wenig getrunken'
+                answer: 'c'
             },
             {
                 text: 'Ich habe meine Schlüssel verloren. Ich habe überall gesucht: in meiner Tasche, in meiner Jacke und auf dem Tisch. Ich kann sie nicht finden. Ich hoffe, ich habe sie nicht auf der Straße verloren.',
                 question: 'Was hat die Person verloren?',
                 options: { a: 'Ihr Handy', b: 'Ihr Portemonnaie', c: 'Ihre Schlüssel', d: 'Ihre Brille' },
-                answer: 'Ihre Schlüssel'
+                answer: 'c'
             },
             {
                 text: 'Die Bibliothek ist montags bis freitags von 10 bis 18 Uhr geöffnet. Am Samstag ist sie von 10 bis 14 Uhr geöffnet. Am Sonntag ist sie geschlossen. Ich muss heute noch ein Buch zurückbringen.',
                 question: 'Wann ist die Bibliothek am Sonntag geöffnet?',
                 options: { a: 'Von 10-18 Uhr', b: 'Von 10-14 Uhr', c: 'Ganztägig', d: 'Sie ist geschlossen.' },
-                answer: 'Sie ist geschlossen.'
+                answer: 'd'
             },
             {
                 text: 'Um gesund zu bleiben, sollte man viel Obst und Gemüse essen. Man sollte auch regelmäßig Sport treiben und genug schlafen. Rauchen und zu viel Alkohol sind ungesund.',
                 question: 'Was ist ungesund?',
                 options: { a: 'Obst essen', b: 'Sport treiben', c: 'Genug schlafen', d: 'Rauchen' },
-                answer: 'Rauchen'
+                answer: 'd'
             },
             {
                 text: 'Mein Lieblingsfilm ist "Ziemlich beste Freunde". Es ist eine französische Komödie. Der Film ist sehr lustig, aber auch emotional. Ich habe ihn schon oft gesehen.',
                 question: 'Um welche Art von Film handelt es sich?',
                 options: { a: 'Actionfilm', b: 'Horrorfilm', c: 'Komödie', d: 'Dokumentarfilm' },
-                answer: 'Komödie'
+                answer: 'c'
             },
             {
                 text: 'Ich habe mich an der Hand verletzt. Die Wunde hat geblutet. Ich habe ein Pflaster darauf geklebt. Es tut immer noch ein bisschen weh.',
                 question: 'Was hat die Person auf die Wunde geklebt?',
                 options: { a: 'Einen Verband', b: 'Ein Pflaster', c: 'Eine Creme', d: 'Nichts' },
-                answer: 'Ein Pflaster'
+                answer: 'b'
             },
             {
                 text: 'Ich fahre mit dem Zug nach Berlin. Ich habe einen Sitzplatz am Fenster reserviert. Ich schaue gern aus dem Fenster, während der Zug fährt. Die Fahrt dauert vier Stunden.',
                 question: 'Wo sitzt die Person im Zug?',
                 options: { a: 'Am Gang', b: 'Im Speisewagen', c: 'Am Fenster', d: 'In der ersten Klasse' },
-                answer: 'Am Fenster'
+                answer: 'c'
             },
             {
                 text: 'Das Konzert war fantastisch. Die Band hat super gespielt und die Stimmung war toll. Es waren sehr viele Leute da. Ich habe die ganze Zeit getanzt.',
                 question: 'Wie war das Konzert?',
                 options: { a: 'Langweilig', b: 'Schlecht', c: 'Fantastisch', d: 'Zu laut' },
-                answer: 'Fantastisch'
+                answer: 'c'
             },
             {
                 text: 'Ich habe eine neue Pflanze für mein Wohnzimmer gekauft. Es ist ein Ficus. Ich hoffe, er wächst gut. Ich muss ihn regelmäßig gießen.',
                 question: 'Was hat die Person gekauft?',
                 options: { a: 'Einen Tisch', b: 'Ein Bild', c: 'Eine Lampe', d: 'Eine Pflanze' },
-                answer: 'Eine Pflanze'
+                answer: 'd'
             },
             {
                 text: 'Es hat die ganze Nacht geschneit. Alles ist weiß. Die Kinder freuen sich und wollen einen Schneemann bauen. Ich muss später das Auto vom Schnee befreien.',
                 question: 'Was wollen die Kinder bauen?',
                 options: { a: 'Eine Sandburg', b: 'Einen Schneemann', c: 'Ein Iglu', d: 'Eine Höhle' },
-                answer: 'Einen Schneemann'
+                answer: 'b'
             },
             {
                 text: 'Die Prüfung war sehr schwer. Ich glaube nicht, dass ich sie bestanden habe. Ich habe viele Fragen nicht verstanden. Ich muss das Ergebnis abwarten.',
                 question: 'Wie war die Prüfung?',
                 options: { a: 'Einfach', b: 'Kurz', c: 'Schwer', d: 'Mündlich' },
-                answer: 'Schwer'
+                answer: 'c'
             },
             {
                 text: 'Ich habe eine Postkarte von meiner Freundin aus Italien bekommen. Sie schreibt, dass das Wetter super ist und das Essen sehr lecker. Sie schickt viele Grüße. Ich freue mich sehr darüber.',
                 question: 'Woher kommt die Postkarte?',
                 options: { a: 'Spanien', b: 'Frankreich', c: 'Italien', d: 'Griechenland' },
-                answer: 'Italien'
+                answer: 'c'
             },
             {
                 text: 'Ich habe mir den Fuß verstaucht. Ich kann nicht gut laufen. Der Arzt hat gesagt, ich soll den Fuß kühlen und hochlegen. Ich muss eine Woche lang zu Hause bleiben.',
                 question: 'Was hat der Arzt empfohlen?',
                 options: { a: 'Den Fuß wärmen', b: 'Viel laufen', c: 'Den Fuß kühlen und hochlegen', d: 'Arbeiten gehen' },
-                answer: 'Den Fuß kühlen und hochlegen'
+                answer: 'c'
             },
         ],
     },
@@ -623,194 +623,194 @@ export const exercises: Record<string, LevelExercises> = {
                 text: 'Die Digitalisierung hat die Arbeitswelt stark verändert. Viele Berufe, die früher wichtig waren, gibt es heute nicht mehr. Dafür sind neue Berufsfelder entstanden, die digitale Kompetenzen erfordern. Eine ständige Weiterbildung ist daher unerlässlich geworden.',
                 question: 'Was ist eine Folge der Digitalisierung?',
                 options: { a: 'Es gibt weniger Arbeit.', b: 'Alle alten Berufe sind verschwunden.', c: 'Ständige Weiterbildung ist wichtig geworden.', d: 'Man braucht keine digitalen Kompetenzen.' },
-                answer: 'Ständige Weiterbildung ist wichtig geworden.'
+                answer: 'c'
             },
             {
                 text: 'Umweltbewusstes Leben wird für viele Menschen immer wichtiger. Sie versuchen, Müll zu vermeiden, weniger Plastik zu verwenden und regionale Produkte zu kaufen. Das schont nicht nur die Umwelt, sondern unterstützt auch die lokale Wirtschaft.',
                 question: 'Was ist kein Beispiel für umweltbewusstes Leben?',
                 options: { a: 'Müll vermeiden', b: 'Produkte aus der Region kaufen', c: 'Viel Plastik benutzen', d: 'Lokale Wirtschaft unterstützen' },
-                answer: 'Viel Plastik benutzen'
+                answer: 'c'
             },
             {
                 text: 'Der Online-Handel wächst seit Jahren kontinuierlich. Viele Kunden schätzen die bequeme Bestellung von zu Hause und die große Auswahl. Der stationäre Einzelhandel steht dadurch vor großen Herausforderungen und muss neue Konzepte entwickeln, um Kunden zu halten, z.B. durch bessere Beratung und Einkaufserlebnisse.',
                 question: 'Was ist eine Herausforderung für den stationären Einzelhandel?',
                 options: { a: 'Wachsender Online-Handel', b: 'Kleine Auswahl', c: 'Schlechte Beratung', d: 'Hohe Preise' },
-                answer: 'Wachsender Online-Handel'
+                answer: 'a'
             },
             {
                 text: 'Flexible Arbeitsmodelle wie Homeoffice oder Teilzeitarbeit werden immer beliebter. Sie ermöglichen eine bessere Vereinbarkeit von Beruf und Familie. Allerdings erfordern sie auch ein hohes Maß an Selbstorganisation und Disziplin von den Arbeitnehmern. Zudem kann die soziale Anbindung an das Kollegium verloren gehen.',
                 question: 'Was ist ein Nachteil von flexiblen Arbeitsmodellen?',
                 options: { a: 'Bessere Vereinbarkeit von Beruf und Familie', b: 'Weniger Flexibilität', c: 'Möglicher Verlust des sozialen Kontakts zu Kollegen', d: 'Geringere Anforderungen an die Disziplin' },
-                answer: 'Möglicher Verlust des sozialen Kontakts zu Kollegen'
+                answer: 'c'
             },
             {
                 text: 'Soziale Medien sind aus dem Alltag vieler Menschen nicht mehr wegzudenken. Sie dienen der Kommunikation, Information und Unterhaltung. Kritiker warnen jedoch vor den Gefahren wie Cybermobbing, Falschinformationen und der Entstehung einer Sucht. Ein bewusster und kritischer Umgang mit diesen Plattformen ist daher wichtig.',
                 question: 'Was ist eine Gefahr von sozialen Medien?',
                 options: { a: 'Unterhaltung', b: 'Kommunikation', c: 'Cybermobbing', d: 'Information' },
-                answer: 'Cybermobbing'
+                answer: 'c'
             },
             {
                 text: 'Erneuerbare Energien wie Sonne, Wind und Wasser spielen eine zentrale Rolle im Kampf gegen den Klimawandel. Ihr Ausbau ist notwendig, um die Abhängigkeit von fossilen Brennstoffen wie Kohle und Öl zu reduzieren. Eine Herausforderung dabei ist die Speicherung der Energie, da Sonne und Wind nicht immer verfügbar sind.',
                 question: 'Was ist eine Herausforderung beim Ausbau erneuerbarer Energien?',
                 options: { a: 'Ihre unendliche Verfügbarkeit', b: 'Die Reduzierung von CO2', c: 'Die Speicherung der Energie', d: 'Die Unabhängigkeit von Kohle und Öl' },
-                answer: 'Die Speicherung der Energie'
+                answer: 'c'
             },
             {
                 text: 'Eine ausgewogene Ernährung ist die Grundlage für ein gesundes Leben. Dazu gehören viel Obst und Gemüse, Vollkornprodukte und wenig verarbeitete Lebensmittel. Ausreichend Wasser zu trinken ist ebenfalls essenziell. Mangelernährung kann hingegen zu vielfältigen Gesundheitsproblemen führen.',
                 question: 'Was gehört nicht zu einer ausgewogenen Ernährung?',
                 options: { a: 'Viel Obst und Gemüse', b: 'Vollkornprodukte', c: 'Viel Wasser trinken', d: 'Viele verarbeitete Lebensmittel' },
-                answer: 'Viele verarbeitete Lebensmittel'
+                answer: 'd'
             },
             {
                 text: 'Das Ehrenamt, also die freiwillige und unbezahlte Arbeit für die Gesellschaft, ist eine wichtige Stütze des sozialen Lebens. Menschen engagieren sich in Sportvereinen, bei der Feuerwehr oder in sozialen Projekten. Ohne dieses Engagement wären viele Angebote nicht möglich.',
                 question: 'Was ist ein Merkmal des Ehrenamts?',
                 options: { a: 'Es wird hoch bezahlt.', b: 'Es ist eine verpflichtende Arbeit.', c: 'Es ist freiwillig und unbezahlt.', d: 'Es gibt nur wenige Bereiche für Engagement.' },
-                answer: 'Es ist freiwillig und unbezahlt.'
+                answer: 'c'
             },
             {
                 text: 'Der Tourismus kann für eine Region sowohl Segen als auch Fluch sein. Einerseits schafft er Arbeitsplätze und bringt Geld in die Region. Andererseits kann er zu überfüllten Städten, Umweltproblemen und steigenden Preisen führen. Nachhaltiger Tourismus versucht, diese negativen Effekte zu minimieren.',
                 question: 'Was ist ein negativer Aspekt des Tourismus?',
                 options: { a: 'Schaffung von Arbeitsplätzen', b: 'Wirtschaftlicher Aufschwung', c: 'Umweltprobleme', d: 'Kultureller Austausch' },
-                answer: 'Umweltprobleme'
+                answer: 'c'
             },
             {
                 text: 'Lebenslanges Lernen ist in der heutigen schnelllebigen Welt zu einer Notwendigkeit geworden. Technologische und gesellschaftliche Veränderungen erfordern eine ständige Anpassung und Erweiterung der eigenen Fähigkeiten und Kenntnisse. Dies kann durch Kurse, Weiterbildungen oder auch durch Selbststudium geschehen.',
                 question: 'Warum ist lebenslanges Lernen notwendig?',
                 options: { a: 'Weil sich nichts verändert.', b: 'Aufgrund von technologischen und gesellschaftlichen Veränderungen.', c: 'Weil man in der Schule nicht alles lernt.', d: 'Um weniger arbeiten zu müssen.' },
-                answer: 'Aufgrund von technologischen und gesellschaftlichen Veränderungen.'
+                answer: 'b'
             },
             {
                 text: 'Die Bedeutung von Fremdsprachenkenntnissen in einer globalisierten Welt kann kaum überschätzt werden. Sie erleichtern nicht nur die Kommunikation auf Reisen, sondern sind auch im Berufsleben oft eine Schlüsselqualifikation. Zudem fördert das Erlernen einer Fremdsprache das Verständnis für andere Kulturen.',
                 question: 'Was ist kein Vorteil von Fremdsprachenkenntnissen?',
                 options: { a: 'Bessere Berufschancen', b: 'Einfachere Kommunikation auf Reisen', c: 'Größeres Verständnis für die eigene Kultur', d: 'Förderung des interkulturellen Verständnisses' },
-                answer: 'Größeres Verständnis für die eigene Kultur'
+                answer: 'c'
             },
             {
                 text: 'Urban Gardening, also das Gärtnern in der Stadt, erfreut sich großer Beliebtheit. Auf Balkonen, Dächern oder in Gemeinschaftsgärten bauen Menschen ihr eigenes Gemüse und Kräuter an. Das ist nicht nur ein Hobby, sondern trägt auch zur Artenvielfalt und zu einem besseren Stadtklima bei.',
                 question: 'Was ist ein positiver Effekt von Urban Gardening?',
                 options: { a: 'Es führt zu mehr Verkehr.', b: 'Es verbessert das Stadtklima.', c: 'Es erfordert große Flächen.', d: 'Es ist nur für Profis geeignet.' },
-                answer: 'Es verbessert das Stadtklima.'
+                answer: 'b'
             },
             {
                 text: 'Das duale Ausbildungssystem in Deutschland kombiniert die praktische Arbeit in einem Betrieb mit dem theoretischen Unterricht in einer Berufsschule. Dieser enge Bezug zur Praxis wird international als Stärke des deutschen Bildungssystems angesehen und sorgt für gut qualifizierte Fachkräfte.',
                 question: 'Woraus besteht das duale Ausbildungssystem?',
                 options: { a: 'Nur aus universitärer Lehre.', b: 'Nur aus praktischer Arbeit im Betrieb.', c: 'Aus Arbeit im Betrieb und Unterricht in der Berufsschule.', d: 'Aus einem reinen Online-Studium.' },
-                answer: 'Aus Arbeit im Betrieb und Unterricht in der Berufsschule.'
+                answer: 'c'
             },
             {
                 text: 'Der Schutz persönlicher Daten im Internet ist ein wichtiges Thema. Bei der Nutzung von Online-Diensten hinterlassen wir viele Spuren. Es ist ratsam, sichere Passwörter zu verwenden, vorsichtig mit der Weitergabe von Informationen zu sein und die Datenschutzeinstellungen von Diensten zu überprüfen.',
                 question: 'Was ist keine empfohlene Maßnahme zum Datenschutz?',
                 options: { a: 'Sichere Passwörter verwenden', b: 'Informationen großzügig teilen', c: 'Datenschutzeinstellungen prüfen', d: 'Vorsichtig bei der Weitergabe von Daten sein' },
-                answer: 'Informationen großzügig teilen'
+                answer: 'b'
             },
             {
                 text: 'Das Fahrrad gewinnt als Verkehrsmittel in Städten an Bedeutung. Es ist umweltfreundlich, kostengünstig und fördert die Gesundheit. Voraussetzung für eine stärkere Nutzung ist jedoch eine gut ausgebaute und sichere Infrastruktur mit Radwegen.',
                 question: 'Was ist eine Voraussetzung für mehr Radverkehr?',
                 options: { a: 'Höhere Benzinpreise', b: 'Weniger Autos', c: 'Eine gute Radinfrastruktur', d: 'Schlechtes Wetter' },
-                answer: 'Eine gute Radinfrastruktur'
+                answer: 'c'
             },
             {
                 text: 'Viele Menschen leiden unter Stress im Alltag, ausgelöst durch berufliche oder private Belastungen. Um gesund zu bleiben, sind Entspannungstechniken wie Yoga, Meditation oder einfach nur Spaziergänge in der Natur wichtig. Sie helfen, zur Ruhe zu kommen und neue Energie zu tanken.',
                 question: 'Was hilft gegen Stress?',
                 options: { a: 'Noch mehr arbeiten', b: 'Soziale Kontakte meiden', c: 'Entspannungstechniken wie Yoga', d: 'Ständig erreichbar sein' },
-                answer: 'Entspannungstechniken wie Yoga'
+                answer: 'c'
             },
             {
                 text: 'Die Bedeutung von regionalen Lebensmitteln nimmt zu. Verbraucher legen Wert darauf zu wissen, woher ihre Produkte kommen. Der Kauf regionaler Waren unterstützt lokale Bauern und reduziert durch kurze Transportwege die Umweltbelastung.',
                 question: 'Welchen Vorteil hat der Kauf regionaler Lebensmittel?',
                 options: { a: 'Sie sind immer billiger.', b: 'Sie haben lange Transportwege.', c: 'Sie unterstützen lokale Produzenten.', d: 'Die Auswahl ist geringer.' },
-                answer: 'Sie unterstützen lokale Produzenten.'
+                answer: 'c'
             },
             {
                 text: 'Das Lesen von Büchern hat viele positive Effekte. Es erweitert den Wortschatz, verbessert die Konzentrationsfähigkeit und regt die Fantasie an. In einer Welt voller schneller, digitaler Medien bietet ein Buch die Möglichkeit zur Entschleunigung.',
                 question: 'Welcher Effekt wird nicht durch das Lesen von Büchern gefördert?',
                 options: { a: 'Wortschatzerweiterung', b: 'Verbesserung der Konzentration', c: 'Anregung der Fantasie', d: 'Fähigkeit zum Multitasking' },
-                answer: 'Fähigkeit zum Multitasking'
+                answer: 'd'
             },
             {
                 text: 'Das bedingungslose Grundeinkommen ist ein sozialpolitisches Konzept, bei dem jeder Bürger einen festen Geldbetrag vom Staat erhält, ohne dafür arbeiten zu müssen. Befürworter sehen darin eine Chance zur Armutsbekämpfung und zur Förderung von Kreativität. Kritiker befürchten hohe Kosten und einen Rückgang der Arbeitsmotivation.',
                 question: 'Was ist ein Argument der Kritiker des Grundeinkommens?',
                 options: { a: 'Armutsbekämpfung', b: 'Förderung von Kreativität', c: 'Hohe Kosten', d: 'Mehr Gleichheit' },
-                answer: 'Hohe Kosten'
+                answer: 'c'
             },
             {
                 text: 'Der öffentliche Nahverkehr (ÖPNV) ist eine wichtige Alternative zum Auto, um die Umwelt zu schonen und Verkehrsstaus zu reduzieren. Damit mehr Menschen Busse und Bahnen nutzen, muss der ÖPNV attraktiv sein: also zuverlässig, pünktlich und mit einem dichten Netz an Haltestellen.',
                 question: 'Was macht den ÖPNV attraktiv?',
                 options: { a: 'Hohe Ticketpreise', b: 'Unpünktlichkeit', c: 'Zuverlässigkeit und ein gutes Netz', d: 'Wenige Haltestellen' },
-                answer: 'Zuverlässigkeit und ein gutes Netz'
+                answer: 'c'
             },
             {
                 text: 'Ein Haustier zu haben, kann das Wohlbefinden steigern. Die Verantwortung für ein Tier, zum Beispiel einen Hund, sorgt für eine feste Tagesstruktur und regelmäßige Bewegung an der frischen Luft. Allerdings bedeutet ein Haustier auch viel Arbeit und Kosten.',
                 question: 'Was ist ein Nachteil eines Haustieres?',
                 options: { a: 'Steigerung des Wohlbefindens', b: 'Feste Tagesstruktur', c: 'Regelmäßige Bewegung', d: 'Arbeit und Kosten' },
-                answer: 'Arbeit und Kosten'
+                answer: 'd'
             },
             {
                 text: 'Der Wald ist nicht nur ein Erholungsort für Menschen, sondern auch ein wichtiger Lebensraum für viele Tiere und Pflanzen. Zudem ist er ein entscheidender Faktor für den Klimaschutz, da Bäume CO2 speichern. Die Abholzung der Wälder ist daher ein globales Problem.',
                 question: 'Warum ist der Wald für den Klimaschutz wichtig?',
                 options: { a: 'Er ist ein Erholungsort.', b: 'Bäume speichern CO2.', c: 'Er bietet Lebensraum für Tiere.', d: 'Man kann dort spazieren gehen.' },
-                answer: 'Bäume speichern CO2.'
+                answer: 'b'
             },
             {
                 text: 'Minimalismus ist ein Lebensstil, bei dem man sich bewusst auf wenige Dinge beschränkt. Es geht darum, Besitz zu reduzieren, um sich von unnötigem Ballast zu befreien und sich auf das Wesentliche zu konzentrieren. Das Ziel ist nicht Armut, sondern ein freieres und bewussteres Leben.',
                 question: 'Was ist das Ziel des Minimalismus?',
                 options: { a: 'Möglichst viel zu besitzen.', b: 'Ein freieres und bewussteres Leben.', c: 'Möglichst arm zu sein.', d: 'Unordnung zu schaffen.' },
-                answer: 'Ein freieres und bewussteres Leben.'
+                answer: 'b'
             },
             {
                 text: 'Die Europäische Union (EU) ist ein Zusammenschluss europäischer Staaten. Ein Hauptziel der EU ist die Sicherung des Friedens in Europa. Außerdem fördert sie die wirtschaftliche Zusammenarbeit und ermöglicht den Bürgern, in anderen EU-Ländern zu leben, zu arbeiten und zu reisen.',
                 question: 'Was ist kein Ziel der EU?',
                 options: { a: 'Friedenssicherung', b: 'Wirtschaftliche Zusammenarbeit', c: 'Freies Reisen für Bürger', d: 'Einführung einer einzigen Sprache' },
-                answer: 'Einführung einer einzigen Sprache'
+                answer: 'd'
 
             },
             {
                 text: 'Fake News, also gezielte Falschmeldungen, verbreiten sich besonders schnell über soziale Netzwerke. Sie können die öffentliche Meinung manipulieren und das Vertrauen in traditionelle Medien untergraben. Es ist wichtig, Informationen kritisch zu hinterfragen und Quellen zu überprüfen.',
                 question: 'Was sollte man tun, um sich vor Fake News zu schützen?',
                 options: { a: 'Alles glauben, was man online liest.', b: 'Informationen nicht hinterfragen.', c: 'Nur Überschriften lesen.', d: 'Informationen kritisch hinterfragen und Quellen prüfen.' },
-                answer: 'Informationen kritisch hinterfragen und Quellen prüfen.'
+                answer: 'd'
             },
             {
                 text: 'Die Gentrifizierung beschreibt den Prozess, bei dem in einem Stadtviertel die ursprüngliche, oft einkommensschwächere Bevölkerung durch eine wohlhabendere ersetzt wird. Dies geschieht oft nach Modernisierungen und führt zu steigenden Mieten, die sich die alten Bewohner nicht mehr leisten können.',
                 question: 'Was ist eine Folge der Gentrifizierung?',
                 options: { a: 'Sinkende Mieten', b: 'Die ursprüngliche Bevölkerung bleibt.', c: 'Die Verdrängung der einkommensschwächeren Bevölkerung.', d: 'Weniger Modernisierungen.' },
-                answer: 'Die Verdrängung der einkommensschwächeren Bevölkerung.'
+                answer: 'c'
             },
             {
                 text: 'Das Immunsystem schützt unseren Körper vor Krankheitserregern wie Viren und Bakterien. Ein gesunder Lebensstil mit ausgewogener Ernährung, ausreichend Schlaf und regelmäßiger Bewegung kann das Immunsystem stärken. Stress und Schlafmangel können es hingegen schwächen.',
                 question: 'Was schwächt das Immunsystem?',
                 options: { a: 'Ausgewogene Ernährung', b: 'Ausreichend Schlaf', c: 'Regelmäßige Bewegung', d: 'Stress und Schlafmangel' },
-                answer: 'Stress und Schlafmangel'
+                answer: 'd'
             },
             {
                 text: 'Das Bruttoinlandsprodukt (BIP) ist ein Maß für die wirtschaftliche Leistung eines Landes. Es misst den Wert aller Waren und Dienstleistungen, die in einem Jahr innerhalb eines Landes produziert werden. Das BIP pro Kopf wird oft als Indikator für den Wohlstand der Bevölkerung verwendet.',
                 question: 'Was misst das BIP?',
                 options: { a: 'Die Zufriedenheit der Bevölkerung.', b: 'Die wirtschaftliche Leistung eines Landes.', c: 'Die Anzahl der Einwohner.', d: 'Die Exportrate eines Landes.' },
-                answer: 'Die wirtschaftliche Leistung eines Landes.'
+                answer: 'b'
             },
             {
                 text: 'Crowdfunding ist eine Methode zur Finanzierung von Projekten, bei der eine große Anzahl von Menschen kleine Geldbeträge gibt. Dies geschieht meist über Online-Plattformen. So können Künstler, Erfinder oder soziale Projekte ihre Ideen verwirklichen, ohne auf Bankkredite angewiesen zu sein.',
                 question: 'Wie funktioniert Crowdfunding?',
                 options: { a: 'Ein einzelner Großinvestor finanziert alles.', b: 'Viele Menschen geben kleine Geldbeträge.', c: 'Man bekommt einen Kredit von der Bank.', d: 'Der Staat finanziert das Projekt.' },
-                answer: 'Viele Menschen geben kleine Geldbeträge.'
+                answer: 'b'
             },
             {
                 text: 'Die Inflation beschreibt den Prozess, bei dem das Geld an Wert verliert, was zu einem allgemeinen Anstieg der Preise führt. Bei hoher Inflation kann man sich für die gleiche Menge Geld weniger kaufen als zuvor. Zentralbanken versuchen, die Inflation stabil zu halten.',
                 question: 'Was passiert bei einer Inflation?',
                 options: { a: 'Die Preise sinken.', b: 'Das Geld gewinnt an Wert.', c: 'Man kann sich für sein Geld mehr kaufen.', d: 'Die Preise steigen allgemein an.' },
-                answer: 'Die Preise steigen allgemein an.'
+                answer: 'd'
             },
             {
                 text: 'Der demografische Wandel beschreibt die Veränderung in der Altersstruktur einer Bevölkerung. In vielen westlichen Ländern gibt es immer mehr ältere Menschen und immer weniger junge. Dies stellt die Sozialsysteme, wie die Rentenversicherung, vor große Herausforderungen.',
                 question: 'Was ist eine Herausforderung des demografischen Wandels?',
                 options: { a: 'Es gibt zu viele junge Menschen.', b: 'Die Rentensysteme werden entlastet.', c: 'Die Sozialsysteme stehen vor Problemen.', d: 'Die Bevölkerung wird jünger.' },
-                answer: 'Die Sozialsysteme stehen vor Problemen.'
+                answer: 'c'
             },
             {
                 text: 'Das Lieferkettengesetz verpflichtet Unternehmen dazu, auf die Einhaltung von Menschenrechten und Umweltstandards bei ihren Zulieferern im Ausland zu achten. Ziel ist es, Ausbeutung wie Kinderarbeit und umweltschädliche Produktionsweisen zu verhindern.',
                 question: 'Wozu verpflichtet das Lieferkettengesetz die Unternehmen?',
                 options: { a: 'Möglichst billig zu produzieren.', b: 'Auf Menschenrechte und Umweltstandards bei Zulieferern zu achten.', c: 'Nur im eigenen Land zu produzieren.', d: 'Die Preise für Konsumenten zu erhöhen.' },
-                answer: 'Auf Menschenrechte und Umweltstandards bei Zulieferern zu achten.'
+                answer: 'b'
             },
         ],
     },
@@ -892,181 +892,181 @@ export const exercises: Record<string, LevelExercises> = {
                 text: 'Die Debatte über künstliche Intelligenz (KI) ist vielschichtig. Einerseits bietet KI enorme Chancen in Bereichen wie Medizin und Forschung. Andererseits bestehen Bedenken hinsichtlich des Datenschutzes und des potenziellen Verlusts von Arbeitsplätzen. Eine gesellschaftliche Auseinandersetzung über die ethischen Rahmenbedingungen ist daher dringend geboten.',
                 question: 'Welcher Aspekt gehört nicht zu den Bedenken bei KI?',
                 options: { a: 'Datenschutz', b: 'Verlust von Arbeitsplätzen', c: 'Chancen in der Medizin', d: 'Ethische Rahmenbedingungen' },
-                answer: 'Chancen in der Medizin'
+                answer: 'c'
             },
             {
                 text: 'Der demografische Wandel stellt viele westliche Gesellschaften vor große Herausforderungen. Eine alternde Bevölkerung bei gleichzeitig sinkenden Geburtenraten führt zu Problemen in den sozialen Sicherungssystemen, wie der Renten- und Krankenversicherung. Innovative politische Lösungen sind gefragt, um die Zukunftsfähigkeit dieser Systeme zu gewährleisten.',
                 question: 'Was ist die zentrale Herausforderung des demografischen Wandels?',
                 options: { a: 'Steigende Geburtenraten', b: 'Eine junge Bevölkerung', c: 'Probleme in den sozialen Sicherungssystemen', d: 'Sinkende Lebenserwartung' },
-                answer: 'Probleme in den sozialen Sicherungssystemen'
+                answer: 'c'
             },
             {
                 text: 'Die "Sharing Economy", also das Teilen von Ressourcen wie Autos oder Wohnungen, hat durch digitale Plattformen einen enormen Aufschwung erfahren. Befürworter heben die effizientere Nutzung von Ressourcen und neue Verdienstmöglichkeiten hervor. Kritiker bemängeln jedoch oft die prekären Arbeitsbedingungen und die Umgehung von Regulierungen, die für traditionelle Anbieter gelten.',
                 question: 'Was ist ein Kritikpunkt an der Sharing Economy?',
                 options: { a: 'Effiziente Ressourcennutzung', b: 'Neue Verdienstmöglichkeiten', c: 'Strenge Regulierungen', d: 'Prekäre Arbeitsbedingungen' },
-                answer: 'Prekäre Arbeitsbedingungen'
+                answer: 'd'
             },
             {
                 text: 'Die Energiewende, der Übergang von fossilen zu erneuerbaren Energieträgern, ist eine der größten gesellschaftlichen Aufgaben unserer Zeit. Sie erfordert nicht nur massive Investitionen in Technologien wie Wind- und Solarenergie, sondern auch einen Wandel im Verbraucherverhalten und den Ausbau der Stromnetze, um die schwankende Energieerzeugung auszugleichen.',
                 question: 'Was ist neben technologischen Investitionen für die Energiewende erforderlich?',
                 options: { a: 'Ein höherer Verbrauch fossiler Energien', b: 'Ein Rückbau der Stromnetze', c: 'Ein Wandel im Verbraucherverhalten', d: 'Eine Reduzierung der Energieeffizienz' },
-                answer: 'Ein Wandel im Verbraucherverhalten'
+                answer: 'c'
             },
             {
                 text: 'Das Konzept der "Work-Life-Balance" beschreibt ein ausgewogenes Verhältnis zwischen Berufs- und Privatleben. In einer zunehmend digitalisierten und flexibilisierten Arbeitswelt verschwimmen die Grenzen oft. Unternehmen erkennen jedoch zunehmend, dass eine gute Work-Life-Balance die Motivation und Produktivität der Mitarbeiter steigert und zur langfristigen Bindung beiträgt.',
                 question: 'Warum wird Work-Life-Balance für Unternehmen wichtiger?',
                 options: { a: 'Weil Mitarbeiter dann weniger arbeiten.', b: 'Weil es die Produktivität und Motivation steigern kann.', c: 'Weil dadurch die Grenzen zwischen Arbeit und Freizeit verschwimmen.', d: 'Weil es gesetzlich vorgeschrieben ist.' },
-                answer: 'Weil es die Produktivität und Motivation steigern kann.'
+                answer: 'b'
             },
             {
                 text: 'Unter dem Begriff "Big Data" versteht man die Analyse großer und komplexer Datenmengen, um Muster und Zusammenhänge zu erkennen. Dies bietet Potenziale für Wirtschaft, Wissenschaft und Gesellschaft. Gleichzeitig wirft die Sammlung und Nutzung dieser Daten grundlegende Fragen des Datenschutzes und der informationellen Selbstbestimmung auf.',
                 question: 'Was ist das Hauptpotenzial von Big Data?',
                 options: { a: 'Die Verringerung von Datenmengen', b: 'Die Garantie von absolutem Datenschutz', c: 'Die Erkennung von Mustern und Zusammenhängen', d: 'Die Verlangsamung von Analyseprozessen' },
-                answer: 'Die Erkennung von Mustern und Zusammenhängen'
+                answer: 'c'
             },
             {
                 text: 'Die psychische Gesundheit rückt zunehmend in den Fokus der öffentlichen Aufmerksamkeit. Stress, Burnout und Depressionen sind keine Seltenheit mehr in unserer Leistungsgesellschaft. Es ist von entscheidender Bedeutung, präventive Maßnahmen zu ergreifen, Stigmatisierung abzubauen und den Zugang zu therapeutischer Hilfe zu erleichtern.',
                 question: 'Was ist ein zentraler Aspekt im Umgang mit psychischen Erkrankungen?',
                 options: { a: 'Die Erhöhung des Leistungsdrucks', b: 'Die Stigmatisierung der Betroffenen', c: 'Die Erschwerung des Zugangs zu Therapien', d: 'Der Abbau von Stigmatisierung' },
-                answer: 'Der Abbau von Stigmatisierung'
+                answer: 'd'
             },
             {
                 text: 'Der Föderalismus in Deutschland bedeutet, dass die politische Macht zwischen dem Bund und den 16 Bundesländern aufgeteilt ist. Dies soll Machtkonzentration verhindern und regionale Vielfalt ermöglichen. In Bereichen wie der Bildung führt dies jedoch manchmal zu Uneinheitlichkeit und Koordinationsproblemen.',
                 question: 'Was ist ein potenzieller Nachteil des Föderalismus in Deutschland?',
                 options: { a: 'Machtkonzentration auf Bundesebene', b: 'Regionale Vielfalt', c: 'Uneinheitlichkeit in der Bildungspolitik', d: 'Absolute Einheitlichkeit in allen Gesetzen' },
-                answer: 'Uneinheitlichkeit in der Bildungspolitik'
+                answer: 'c'
             },
             {
                 text: 'Das Urheberrecht schützt das geistige Eigentum von Schöpfern wie Autoren, Musikern oder Programmierern. Im digitalen Zeitalter ist der Schutz vor illegalen Kopien und die gerechte Vergütung der Urheber eine große Herausforderung. Konzepte wie "Creative Commons" bieten flexible Lizenzmodelle als Alternative zum traditionellen "Alle Rechte vorbehalten".',
                 question: 'Womit befasst sich das Urheberrecht?',
                 options: { a: 'Dem Schutz von materiellem Besitz', b: 'Dem Schutz des geistigen Eigentums', c: 'Der Förderung illegaler Kopien', d: 'Der Abschaffung jeglicher Vergütung für Künstler' },
-                answer: 'Dem Schutz des geistigen Eigentums'
+                answer: 'b'
             },
             {
                 text: 'Die Globalisierung der Finanzmärkte hat zu einer engen internationalen Verflechtung geführt. Während dies den Kapitalfluss erleichtert und Investitionen fördert, birgt es auch das Risiko, dass sich Finanzkrisen schnell von einem Land auf andere ausbreiten können. Eine stärkere internationale Regulierung wird daher von vielen Experten gefordert.',
                 question: 'Welches Risiko birgt die Globalisierung der Finanzmärkte?',
                 options: { a: 'Die Isolation nationaler Märkte', b: 'Die langsame Ausbreitung von Krisen', c: 'Die schnelle, globale Ausbreitung von Finanzkrisen', d: 'Ein Mangel an Investitionsmöglichkeiten' },
-                answer: 'Die schnelle, globale Ausbreitung von Finanzkrisen'
+                answer: 'c'
             },
             {
                 text: 'Die Rolle der Medien als "vierte Gewalt" im Staat besteht darin, die Regierung und andere Machtinstitutionen zu kontrollieren und die Öffentlichkeit zu informieren. In Zeiten von Fake News und Desinformationskampagnen ist die Existenz eines unabhängigen, qualitativ hochwertigen Journalismus für eine funktionierende Demokratie essenziell.',
                 question: 'Welche Funktion haben die Medien in einer Demokratie?',
                 options: { a: 'Die Regierung zu unterstützen, egal was sie tut.', b: 'Die Öffentlichkeit gezielt falsch zu informieren.', c: 'Die Machtinstitutionen zu kontrollieren und die Öffentlichkeit zu informieren.', d: 'Sich aus der Politik herauszuhalten.' },
-                answer: 'Die Machtinstitutionen zu kontrollieren und die Öffentlichkeit zu informieren.'
+                answer: 'c'
             },
             {
                 text: 'Der Klimawandel führt zu einer Zunahme von Extremwetterereignissen wie Hitzewellen, Dürren und Starkregen. Städte sind davon besonders betroffen, da versiegelte Flächen die Hitze speichern und Wasser schlecht abfließen kann. Anpassungsstrategien wie die Schaffung von Grünflächen und Wasserspeichern werden daher immer wichtiger.',
                 question: 'Warum sind Städte besonders von Extremwetter betroffen?',
                 options: { a: 'Weil es dort weniger Menschen gibt.', b: 'Wegen der vielen Grünflächen.', c: 'Wegen versiegelter Flächen, die Hitze speichern und Wasserabfluss behindern.', d: 'Weil das Wetter in Städten immer besser ist.' },
-                answer: 'Wegen versiegelter Flächen, die Hitze speichern und Wasserabfluss behindern.'
+                answer: 'c'
             },
             {
                 text: 'Die Automatisierung durch Roboter und Software verändert die Industrieproduktion grundlegend. Während einfache, repetitive Tätigkeiten zunehmend von Maschinen übernommen werden, entstehen neue Aufgaben in der Steuerung, Wartung und Programmierung dieser Systeme. Dies erfordert eine Höherqualifizierung der Arbeitskräfte.',
                 question: 'Welche Auswirkung hat die Automatisierung auf die Arbeitswelt?',
                 options: { a: 'Alle menschliche Arbeit wird überflüssig.', b: 'Es werden keine qualifizierten Arbeitskräfte mehr benötigt.', c: 'Repetitive Tätigkeiten werden von Maschinen übernommen, neue Aufgaben entstehen.', d: 'Die Industrieproduktion wird weniger effizient.' },
-                answer: 'Repetitive Tätigkeiten werden von Maschinen übernommen, neue Aufgaben entstehen.'
+                answer: 'c'
             },
             {
                 text: 'Die soziale Marktwirtschaft, das Wirtschaftsmodell Deutschlands, versucht, die Vorteile des freien Marktes wie Wettbewerb und Innovation mit sozialen Zielen wie Sicherheit und Gerechtigkeit zu verbinden. Der Staat greift also regulierend ein, um soziale Härten abzufedern und für faire Bedingungen zu sorgen.',
                 question: 'Was ist das Kennzeichen der sozialen Marktwirtschaft?',
                 options: { a: 'Ein komplett freier Markt ohne staatliche Eingriffe.', b: 'Eine reine Planwirtschaft, die vom Staat gesteuert wird.', c: 'Eine Verbindung von freiem Markt und sozialem Ausgleich durch den Staat.', d: 'Die Abschaffung des Wettbewerbs.' },
-                answer: 'Eine Verbindung von freiem Markt und sozialem Ausgleich durch den Staat.'
+                answer: 'c'
             },
             {
                 text: 'Die Untersuchung des Mikrobioms, also der Gesamtheit der Mikroorganismen im menschlichen Körper, ist ein relativ neues Forschungsfeld. Es zeigt sich, dass diese Bakterien einen enormen Einfluss auf unsere Gesundheit, von der Verdauung bis zum Immunsystem, haben. Die Ernährung spielt eine entscheidende Rolle für die Zusammensetzung des Mikrobioms.',
                 question: 'Was hat einen großen Einfluss auf die Zusammensetzung des Mikrobioms?',
                 options: { a: 'Die Haarfarbe', b: 'Die Körpergröße', c: 'Die Ernährung', d: 'Das Alter' },
-                answer: 'Die Ernährung'
+                answer: 'c'
             },
             {
                 text: 'Das Phänomen der "Filterblase" beschreibt, dass Algorithmen in sozialen Medien und Suchmaschinen uns vor allem Inhalte zeigen, die unserer bisherigen Meinung entsprechen. Dies kann dazu führen, dass wir kaum noch mit anderen Perspektiven konfrontiert werden und sich unsere eigene Meinung verstärkt, was die gesellschaftliche Polarisierung fördern kann.',
                 question: 'Was ist die Gefahr einer Filterblase?',
                 options: { a: 'Man wird mit zu vielen verschiedenen Meinungen konfrontiert.', b: 'Man sieht nur noch Inhalte, die man nicht mag.', c: 'Man wird kaum noch mit anderen Perspektiven konfrontiert.', d: 'Man verbringt weniger Zeit online.' },
-                answer: 'Man wird kaum noch mit anderen Perspektiven konfrontiert.'
+                answer: 'c'
             },
             {
                 text: 'Die Kreislaufwirtschaft ist ein Gegenmodell zur traditionellen "Wegwerfgesellschaft". Ziel ist es, Produkte und Materialien so lange wie möglich im Wirtschaftskreislauf zu halten, indem sie repariert, wiederverwendet oder recycelt werden. Dies schont Ressourcen und reduziert Abfall.',
                 question: 'Was ist das Hauptziel der Kreislaufwirtschaft?',
                 options: { a: 'Möglichst viele neue Produkte zu produzieren.', b: 'Produkte nach einmaliger Nutzung wegzuwerfen.', c: 'Produkte und Materialien möglichst lange im Kreislauf zu halten.', d: 'Das Recycling abzuschaffen.' },
-                answer: 'Produkte und Materialien möglichst lange im Kreislauf zu halten.'
+                answer: 'c'
             },
             {
                 text: 'Die Aufmerksamkeitsökonomie beschreibt den Wettbewerb um die begrenzte Aufmerksamkeit der Menschen in einer informationsüberfluteten Welt. Unternehmen und Medien nutzen oft reißerische Überschriften oder emotionale Inhalte, um diese Aufmerksamkeit zu gewinnen ("Clickbait"). Ein kritischer Medienkonsum ist daher geboten.',
                 question: 'Worum konkurrieren Akteure in der Aufmerksamkeitsökonomie?',
                 options: { a: 'Um Geld', b: 'Um Produkte', c: 'Um die begrenzte Aufmerksamkeit der Menschen', d: 'Um politische Macht' },
-                answer: 'Um die begrenzte Aufmerksamkeit der Menschen'
+                answer: 'c'
             },
             {
                 text: 'Bürgerwissenschaft (Citizen Science) bezeichnet Forschungsprojekte, bei denen interessierte Laien aktiv mitarbeiten, zum Beispiel indem sie Daten sammeln (Vögel zählen, Wetterdaten erfassen). Dies ermöglicht Forschung in großem Maßstab und fördert gleichzeitig das Wissenschaftsverständnis in der Bevölkerung.',
                 question: 'Was tun Bürger in Citizen-Science-Projekten?',
                 options: { a: 'Sie entwickeln komplexe Theorien.', b: 'Sie arbeiten als bezahlte Forscher an Universitäten.', c: 'Sie arbeiten aktiv an Forschungsprojekten mit, z.B. durch Datensammlung.', d: 'Sie kritisieren die Wissenschaft grundsätzlich.' },
-                answer: 'Sie arbeiten aktiv an Forschungsprojekten mit, z.B. durch Datensammlung.'
+                answer: 'c'
             },
             {
                 text: 'Der Placebo-Effekt bezeichnet das Phänomen, dass eine Scheinbehandlung ohne Wirkstoff dennoch eine positive Wirkung beim Patienten auslösen kann, allein durch die Erwartungshaltung. Dies zeigt die enge Verbindung zwischen Psyche und Körper und spielt in der medizinischen Forschung eine wichtige Rolle bei der Bewertung der Wirksamkeit von Medikamenten.',
                 question: 'Was löst den Placebo-Effekt aus?',
                 options: { a: 'Ein hochwirksames Medikament', b: 'Die Erwartungshaltung des Patienten', c: 'Ein chirurgischer Eingriff', d: 'Ein Zufallsereignis' },
-                answer: 'Die Erwartungshaltung des Patienten'
+                answer: 'b'
             },
             {
                 text: 'Die Resilienzforschung untersucht, warum manche Menschen Krisen und Schicksalsschläge besser bewältigen können als andere. Zu den Faktoren, die die psychische Widerstandsfähigkeit stärken, gehören stabile soziale Beziehungen, eine optimistische Grundhaltung und die Fähigkeit, Probleme aktiv zu lösen. Resilienz ist nicht angeboren, sondern kann erlernt und trainiert werden.',
                 question: 'Was ist ein Faktor, der die Resilienz stärkt?',
                 options: { a: 'Soziale Isolation', b: 'Eine pessimistische Grundhaltung', c: 'Stabile soziale Beziehungen', d: 'Probleme zu vermeiden' },
-                answer: 'Stabile soziale Beziehungen'
+                answer: 'c'
             },
             {
                 text: 'Das "Internet der Dinge" (IoT) bezieht sich auf die Vernetzung von Alltagsgegenständen – vom Kühlschrank bis zur Industrieanlage – mit dem Internet. Diese Geräte können Daten sammeln und austauschen, was zu Effizienzsteigerungen und neuen Dienstleistungen führen kann. Die Sicherheit dieser vernetzten Geräte ist jedoch eine große Herausforderung.',
                 question: 'Was ist eine zentrale Herausforderung beim Internet der Dinge?',
                 options: { a: 'Die mangelnde Konnektivität der Geräte', b: 'Die Sicherheit der vernetzten Geräte', c: 'Die geringe Anzahl an vernetzbaren Gegenständen', d: 'Die langsame Datenübertragung' },
-                answer: 'Die Sicherheit der vernetzten Geräte'
+                answer: 'b'
             },
             {
                 text: 'Der Generationenvertrag ist ein ungeschriebener Vertrag zwischen der jüngeren und der älteren Generation in Bezug auf das Rentensystem in Deutschland. Die arbeitende Generation finanziert mit ihren Beiträgen die Renten der aktuellen Rentnergeneration, in der Erwartung, dass die nachfolgende Generation später für sie dasselbe tun wird.',
                 question: 'Wer finanziert die aktuellen Renten im Generationenvertrag?',
                 options: { a: 'Die Rentner selbst', b: 'Der Staat allein aus Steuermitteln', c: 'Die aktuell arbeitende Generation', d: 'Internationale Investoren' },
-                answer: 'Die aktuell arbeitende Generation'
+                answer: 'c'
             },
             {
                 text: 'Die sogenannte "Cancel Culture" bezeichnet eine Form des öffentlichen Boykotts von Personen oder Organisationen nach als problematisch empfundenen Äußerungen oder Handlungen. Befürworter sehen darin eine Möglichkeit, Verantwortlichkeit einzufordern. Kritiker warnen jedoch vor einer Einschränkung der Meinungsfreiheit und vorschnellen Urteilen.',
                 question: 'Was ist eine Sorge von Kritikern der "Cancel Culture"?',
                 options: { a: 'Mangelnde Verantwortlichkeit', b: 'Eine mögliche Einschränkung der Meinungsfreiheit', c: 'Zu langsame Urteile', d: 'Zu wenig öffentliche Diskussion' },
-                answer: 'Eine mögliche Einschränkung der Meinungsfreiheit'
+                answer: 'b'
             },
             {
                 text: 'Künstliche neuronale Netze sind ein Kernbereich der KI-Forschung, inspiriert von der Funktionsweise des menschlichen Gehirns. Sie können durch das Training mit großen Datenmengen lernen, Muster zu erkennen, und werden beispielsweise in der Bild- und Spracherkennung eingesetzt. Der genaue Entscheidungsprozess eines komplexen Netzes ist jedoch oft schwer nachzuvollziehen (Black-Box-Problem).',
                 question: 'Was ist das "Black-Box-Problem" bei neuronalen Netzen?',
                 options: { a: 'Dass sie keine Muster erkennen können.', b: 'Dass ihr Entscheidungsprozess oft schwer nachvollziehbar ist.', c: 'Dass sie nur mit kleinen Datenmengen trainiert werden können.', d: 'Dass sie nur für die Spracherkennung nützlich sind.' },
-                answer: 'Dass ihr Entscheidungsprozess oft schwer nachvollziehbar ist.'
+                answer: 'b'
             },
             {
                 text: 'Die "Gig Economy" bezieht sich auf einen Arbeitsmarkt, der von kurzfristigen Aufträgen oder "Gigs" geprägt ist, die oft über Online-Plattformen vermittelt werden. Dies bietet hohe Flexibilität für die Auftragnehmer, geht aber oft mit fehlender sozialer Absicherung wie Kranken- oder Rentenversicherung einher.',
                 question: 'Welcher Nachteil ist oft mit der Gig Economy verbunden?',
                 options: { a: 'Geringe Flexibilität', b: 'Feste, langfristige Anstellungen', c: 'Umfassende soziale Absicherung', d: 'Fehlende soziale Absicherung' },
-                answer: 'Fehlende soziale Absicherung'
+                answer: 'd'
             },
             {
                 text: 'Die Verfassung Deutschlands, das Grundgesetz, wurde ursprünglich als Provisorium für Westdeutschland konzipiert. Artikel 1 garantiert die Unantastbarkeit der Menschenwürde. Eine Besonderheit ist die "Ewigkeitsklausel", die besagt, dass grundlegende Prinzipien wie die Demokratie und der Föderalismus nicht abgeschafft werden dürfen.',
                 question: 'Was besagt die "Ewigkeitsklausel" im Grundgesetz?',
                 options: { a: 'Dass das Grundgesetz ewig unverändert bleiben muss.', b: 'Dass das Grundgesetz nur ein Provisorium ist.', c: 'Dass grundlegende Verfassungsprinzipien nicht abgeschafft werden dürfen.', d: 'Dass die Menschenwürde nicht unantastbar ist.' },
-                answer: 'Dass grundlegende Verfassungsprinzipien nicht abgeschafft werden dürfen.'
+                answer: 'c'
             },
             {
                 text: 'Nudging ist eine Methode aus der Verhaltensökonomie, bei der Menschen durch kleine "Stupser" (Nudges) zu einem bestimmten Verhalten bewegt werden sollen, ohne Verbote oder ökonomische Anreize zu nutzen. Ein Beispiel ist die Platzierung von gesundem Essen auf Augenhöhe in einer Kantine. Kritiker sehen darin eine Form der Manipulation.',
                 question: 'Wie funktioniert Nudging?',
                 options: { a: 'Durch strikte Verbote und Gesetze.', b: 'Durch hohe finanzielle Strafen.', c: 'Durch sanfte "Stupser", die das Verhalten beeinflussen.', d: 'Durch das Wegnehmen aller Wahlmöglichkeiten.' },
-                answer: 'Durch sanfte "Stupser", die das Verhalten beeinflussen.'
+                answer: 'c'
             },
             {
                 text: 'Der Begriff "Nachhaltigkeit" umfasst nach dem Drei-Säulen-Modell ökologische, ökonomische und soziale Aspekte. Nachhaltiges Handeln bedeutet demnach, so zu wirtschaften und zu leben, dass die Bedürfnisse der heutigen Generation befriedigt werden, ohne die Möglichkeiten zukünftiger Generationen zu gefährden, ihre eigenen Bedürfnisse zu befriedigen.',
                 question: 'Was gehört nicht zu den drei Säulen der Nachhaltigkeit?',
                 options: { a: 'Ökologie', b: 'Ökonomie', c: 'Soziales', d: 'Technologie' },
-                answer: 'Technologie'
+                answer: 'd'
             },
             {
                 text: 'Die Europäische Zentralbank (EZB) ist für die Geldpolitik im Euroraum zuständig. Ihr vorrangiges Ziel ist die Gewährleistung der Preisstabilität, was in der Regel als eine Inflationsrate von nahe, aber unter 2% definiert wird. Sie ist unabhängig von den nationalen Regierungen.',
                 question: 'Was ist das Hauptziel der EZB?',
                 options: { a: 'Die Finanzierung von Staatsausgaben', b: 'Die Gewährleistung von Preisstabilität', c: 'Die Festlegung von Steuersätzen', d: 'Die Regulierung des Arbeitsmarktes' },
-                answer: 'Die Gewährleistung von Preisstabilität'
+                answer: 'b'
             },
         ],
     },
@@ -1148,187 +1148,187 @@ export const exercises: Record<string, LevelExercises> = {
                 text: 'Die Globalisierung, verstanden als Prozess der zunehmenden internationalen Verflechtung in allen Lebensbereichen, hat zu einer nie dagewesenen Beschleunigung des Austauschs von Waren, Informationen und Kapital geführt. Kritiker bemängeln jedoch die damit einhergehende soziale Ungleichheit und die ökologischen Folgekosten, die eine Neujustierung der globalen Wirtschaftsordnung erforderlich machen.',
                 question: 'Was ist ein Hauptkritikpunkt an der Globalisierung?',
                 options: { a: 'Die Verlangsamung des Warenaustauschs', b: 'Die Zunahme sozialer Ungleichheit', c: 'Die Abnahme internationaler Verflechtungen', d: 'Die Reduzierung ökologischer Kosten' },
-                answer: 'Die Zunahme sozialer Ungleichheit'
+                answer: 'b'
             },
             {
                 text: 'Im Diskurs über die Willensfreiheit prallen deterministische und indeterministische Positionen aufeinander. Während Deterministen argumentieren, dass alle Ereignisse, einschließlich menschlicher Handlungen, durch vorangehende Ursachen vollständig bestimmt sind, postulieren Indeterministen die Existenz eines echten Zufalls oder einer nicht-kausalen Freiheit, was die traditionelle Vorstellung von moralischer Verantwortlichkeit fundamental in Frage stellt.',
                 question: 'Was ist die Kernaussage des Determinismus?',
                 options: { a: 'Menschliche Handlungen sind frei und zufällig.', b: 'Es gibt keine moralische Verantwortlichkeit.', c: 'Alle Ereignisse sind durch Ursachen vorherbestimmt.', d: 'Die Willensfreiheit ist unbestreitbar.' },
-                answer: 'Alle Ereignisse sind durch Ursachen vorherbestimmt.'
+                answer: 'c'
             },
             {
                 text: 'Die postmoderne Philosophie, die sich in der zweiten Hälfte des 20. Jahrhunderts entwickelte, stellt die großen Erzählungen und universellen Wahrheitsansprüche der Moderne in Frage. Konzepte wie Dekonstruktion, entwickelt von Jacques Derrida, zielen darauf ab, die hierarchischen Oppositionen im westlichen Denken aufzudecken und zu destabilisieren. Die Postmoderne betont die Pluralität von Perspektiven und die Unmöglichkeit einer objektiven Gesamtsicht.',
                 question: 'Was kritisiert die postmoderne Philosophie?',
                 options: { a: 'Die Pluralität von Perspektiven', b: 'Die Destabilisierung von Hierarchien', c: 'Universelle Wahrheitsansprüche', d: 'Die Philosophie von Jacques Derrida' },
-                answer: 'Universelle Wahrheitsansprüche'
+                answer: 'c'
             },
             {
                 text: 'Kants kategorischer Imperativ formuliert ein grundlegendes Prinzip der Ethik: "Handle nur nach derjenigen Maxime, durch die du zugleich wollen kannst, dass sie ein allgemeines Gesetz werde." Dieses Moralprinzip basiert auf der Vernunft und ist universell gültig, unabhängig von individuellen Neigungen oder Konsequenzen einer Handlung. Im Zentrum steht die Verallgemeinerbarkeit des Handlungsgrundsatzes.',
                 question: 'Worauf basiert Kants kategorischer Imperativ?',
                 options: { a: 'Auf individuellen Neigungen und Gefühlen.', b: 'Auf den positiven Konsequenzen einer Handlung.', c: 'Auf der Vernunft und der Universalisierbarkeit von Handlungsmaximen.', d: 'Auf religiösen Geboten.' },
-                answer: 'Auf der Vernunft und der Universalisierbarkeit von Handlungsmaximen.'
+                answer: 'c'
             },
             {
                 text: 'Die "strukturelle Transformation des öffentlichen Raums", wie sie von Jürgen Habermas beschrieben wurde, bezeichnet den historischen Wandel der Öffentlichkeit von einem Ort des kritischen, vernunftbasierten Diskurses im bürgerlichen Zeitalter zu einem von kommerziellen und politischen Interessen dominierten Raum der Massenmedien, in dem Öffentlichkeit eher hergestellt und manipuliert als von den Bürgern selbst gebildet wird.',
                 question: 'Was kennzeichnet nach Habermas die moderne Öffentlichkeit?',
                 options: { a: 'Ein Anstieg des kritischen, vernunftbasierten Diskurses.', b: 'Die Dominanz durch kommerzielle und politische Interessen.', c: 'Die abnehmende Rolle der Massenmedien.', d: 'Die Stärkung der bürgerlichen Meinungsbildung.' },
-                answer: 'Die Dominanz durch kommerzielle und politische Interessen.'
+                answer: 'b'
             },
             {
                 text: 'Die Bioethik befasst sich mit den moralischen Fragen, die durch den Fortschritt in der Lebenswissenschaft und Medizin aufgeworfen werden. Themen wie Gentechnik, Klonen oder Sterbehilfe erfordern eine komplexe Abwägung zwischen dem, was technisch machbar ist, und dem, was ethisch vertretbar ist. Dabei müssen Prinzipien wie die Menschenwürde, Autonomie und Gerechtigkeit berücksichtigt werden.',
                 question: 'Welches Thema gehört nicht primär in den Bereich der Bioethik?',
                 options: { a: 'Gentechnik', b: 'Sterbehilfe', c: 'Klonen', d: 'Finanzmarktregulierung' },
-                answer: 'Finanzmarktregulierung'
+                answer: 'd'
             },
             {
                 text: 'Der Paradigmenwechsel, ein von Thomas S. Kuhn geprägter Begriff der Wissenschaftstheorie, beschreibt eine grundlegende Revolution in den wissenschaftlichen Überzeugungen. Ein altes Paradigma (ein System von Theorien und Methoden) wird nicht schrittweise modifiziert, sondern durch ein neues, inkompatibles Paradigma ersetzt, wenn sich zu viele Anomalien, also dem alten Paradigma widersprechende Beobachtungen, angesammelt haben.',
                 question: 'Wie findet laut Kuhn ein Paradigmenwechsel statt?',
                 options: { a: 'Durch schrittweise Anpassung der alten Theorie.', b: 'Durch die Widerlegung einzelner kleiner Fehler.', c: 'Durch eine revolutionäre Ersetzung des alten durch ein neues Paradigma.', d: 'Durch die Bestätigung des alten Paradigmas.' },
-                answer: 'Durch eine revolutionäre Ersetzung des alten durch ein neues Paradigma.'
+                answer: 'c'
             },
             {
                 text: 'Die Dialektik der Aufklärung, ein zentrales Werk von Horkheimer und Adorno, postuliert die These, dass die Aufklärung, die den Menschen durch Vernunft von Mythen befreien sollte, in ihr Gegenteil umschlägt: eine neue Form der Mythologie in Form von instrumenteller Vernunft und totaler Verwaltung der Welt. Die Befreiung führt zu einer neuen, subtileren Form der Beherrschung.',
                 question: 'Was ist die zentrale These der "Dialektik der Aufklärung"?',
                 options: { a: 'Die Aufklärung hat die Menschen vollständig befreit.', b: 'Die Vernunft ist immer ein Instrument der Befreiung.', c: 'Die Aufklärung schlägt in eine neue Form der Beherrschung um.', d: 'Mythen sind der Vernunft überlegen.' },
-                answer: 'Die Aufklärung schlägt in eine neue Form der Beherrschung um.'
+                answer: 'c'
             },
             {
                 text: 'In der Quantenphysik beschreibt das Heisenbergsche Unschärfeprinzip eine fundamentale Grenze der Messgenauigkeit: Bestimmte Paare von physikalischen Eigenschaften, wie der Ort und der Impuls eines Teilchens, können nicht gleichzeitig beliebig genau bestimmt werden. Je genauer der Ort gemessen wird, desto unschärfer wird der Impuls und umgekehrt. Dies ist keine Folge von Messungenauigkeiten, sondern eine prinzipielle Eigenschaft der Natur.',
                 question: 'Was besagt das Heisenbergsche Unschärfeprinzip?',
                 options: { a: 'Alle physikalischen Eigenschaften sind immer exakt messbar.', b: 'Ort und Impuls eines Teilchens sind immer gleichzeitig exakt messbar.', c: 'Die Messgenauigkeit ist nur durch die Qualität der Messgeräte begrenzt.', d: 'Ort und Impuls eines Teilchens können nicht gleichzeitig beliebig genau gemessen werden.' },
-                answer: 'Ort und Impuls eines Teilchens können nicht gleichzeitig beliebig genau gemessen werden.'
+                answer: 'd'
             },
             {
                 text: 'Der "linguistic turn" bezeichnet eine Wende in der Philosophie des 20. Jahrhunderts, die die Sprache in den Mittelpunkt der philosophischen Untersuchung rückt. Statt die Welt direkt zu analysieren, wird argumentiert, dass philosophische Probleme oft auf Missverständnissen der Sprache beruhen und durch eine Analyse der Sprachlogik und des Sprachgebrauchs gelöst oder aufgelöst werden können.',
                 question: 'Welchen Stellenwert hat die Sprache nach dem "linguistic turn"?',
                 options: { a: 'Sie ist ein nebensächliches Werkzeug der Philosophie.', b: 'Sie steht im Zentrum der philosophischen Untersuchung.', c: 'Sie ist die Quelle aller Wahrheit.', d: 'Sie ist irrelevant für die Lösung philosophischer Probleme.' },
-                answer: 'Sie steht im Zentrum der philosophischen Untersuchung.'
+                answer: 'b'
             },
             {
                 text: 'Das "Gefangenendilemma" ist ein Konzept der Spieltheorie, das zeigt, warum zwei rationale Individuen möglicherweise nicht kooperieren, selbst wenn es in ihrem gemeinsamen Interesse wäre. Wenn jeder nur seinen eigenen Vorteil maximiert, führt dies zu einem Ergebnis, das für beide schlechter ist, als wenn sie kooperiert hätten. Dies illustriert den Konflikt zwischen individuellem und kollektivem Interesse.',
                 question: 'Wozu führt rationales, eigennütziges Handeln im Gefangenendilemma?',
                 options: { a: 'Immer zum bestmöglichen Ergebnis für alle.', b: 'Zu einem für beide Seiten suboptimalen Ergebnis.', c: 'Immer zur Kooperation der Individuen.', d: 'Zur Lösung des Konflikts zwischen individuellem und kollektivem Interesse.' },
-                answer: 'Zu einem für beide Seiten suboptimalen Ergebnis.'
+                answer: 'b'
             },
             {
                 text: 'Michel Foucaults Analyse der Macht unterscheidet sich von traditionellen Ansätzen. Macht ist für ihn keine besitzbare Eigenschaft (wie bei einem König), sondern ein produktives Netzwerk von Beziehungen, das überall in der Gesellschaft wirkt und Wissen, Diskurse und Subjekte hervorbringt. Macht ist nicht nur repressiv (unterdrückend), sondern auch konstitutiv (schaffend).',
                 question: 'Wie charakterisiert Foucault die Macht?',
                 options: { a: 'Als repressiven Besitz von Herrschern.', b: 'Als etwas, das außerhalb der Gesellschaft steht.', c: 'Als ein produktives Netzwerk von Beziehungen, das Wissen und Subjekte hervorbringt.', d: 'Als eine rein negative, zerstörerische Kraft.' },
-                answer: 'Als ein produktives Netzwerk von Beziehungen, das Wissen und Subjekte hervorbringt.'
+                answer: 'c'
             },
             {
                 text: 'Die Chaostheorie befasst sich mit Systemen, deren Verhalten zwar deterministischen Gesetzen folgt, aber aufgrund ihrer hohen Empfindlichkeit gegenüber Anfangsbedingungen (Schmetterlingseffekt) nicht langfristig vorhersagbar ist. Kleine Änderungen am Anfang können zu dramatisch unterschiedlichen Ergebnissen führen, was eine exakte Langzeitprognose unmöglich macht.',
                 question: 'Warum ist das Verhalten chaotischer Systeme nicht langfristig vorhersagbar?',
                 options: { a: 'Weil sie keinen deterministischen Gesetzen folgen.', b: 'Wegen ihrer Unempfindlichkeit gegenüber Anfangsbedingungen.', c: 'Wegen ihrer hohen Empfindlichkeit gegenüber Anfangsbedingungen.', d: 'Weil sie keine komplexen Muster aufweisen.' },
-                answer: 'Wegen ihrer hohen Empfindlichkeit gegenüber Anfangsbedingungen.'
+                answer: 'c'
             },
             {
                 text: 'Das Konzept der "kognitiven Dissonanz", entwickelt von Leon Festinger, beschreibt einen unangenehmen Gefühlszustand, der entsteht, wenn eine Person unvereinbare Kognitionen (Gedanken, Überzeugungen, Einstellungen) hat. Menschen sind bestrebt, diese Dissonanz zu reduzieren, indem sie ihre Überzeugungen oder ihr Verhalten ändern oder die widersprüchlichen Informationen uminterpretieren.',
                 question: 'Was tun Menschen, um kognitive Dissonanz zu reduzieren?',
                 options: { a: 'Sie suchen aktiv nach widersprüchlichen Informationen.', b: 'Sie verstärken den Konflikt zwischen ihren Überzeugungen.', c: 'Sie ändern ihre Überzeugungen oder ihr Verhalten.', d: 'Sie akzeptieren den unangenehmen Zustand ohne Veränderung.' },
-                answer: 'Sie ändern ihre Überzeugungen oder ihr Verhalten.'
+                answer: 'c'
             },
             {
                 text: 'Die Phänomenologie, begründet von Edmund Husserl, ist eine philosophische Methode, die versucht, die Strukturen des Bewusstseins und die Phänomene so zu beschreiben, wie sie sich im Bewusstsein zeigen, unabhängig von wissenschaftlichen Theorien oder Alltagsannahmen. Durch die "epoché" (Einklammerung) sollen alle Vorurteile über die Existenz der Außenwelt ausgeschaltet werden, um zum "reinen Bewusstsein" vorzudringen.',
                 question: 'Was ist das Ziel der phänomenologischen Methode?',
                 options: { a: 'Die Bestätigung wissenschaftlicher Theorien.', b: 'Die Beschreibung der Phänomene, wie sie sich im reinen Bewusstsein zeigen.', c: 'Die Analyse der materiellen Außenwelt.', d: 'Die Verstärkung von Alltagsannahmen und Vorurteilen.' },
-                answer: 'Die Beschreibung der Phänomene, wie sie sich im reinen Bewusstsein zeigen.'
+                answer: 'b'
             },
             {
                 text: 'Der "Schleier des Nichtwissens" ist ein Gedankenexperiment des Philosophen John Rawls zur Bestimmung gerechter Grundsätze für eine Gesellschaft. In diesem hypothetischen Urzustand wissen die Individuen nichts über ihre spätere Position in der Gesellschaft (z.B. über ihren Reichtum, ihre Talente oder ihre soziale Stellung). Rawls argumentiert, dass sie sich unter diesem Schleier für Prinzipien entscheiden würden, die auch die am schlechtesten Gestellten schützen.',
                 question: 'Welchem Zweck dient der "Schleier des Nichtwissens" bei Rawls?',
                 options: { a: 'Der Maximierung des eigenen Vorteils auf Kosten anderer.', b: 'Der Auswahl von Prinzipien, die die Reichsten bevorzugen.', c: 'Der Herleitung von gerechten Grundsätzen durch die Ausschaltung von Eigeninteresse.', d: 'Der Kenntnis der eigenen zukünftigen sozialen Position.' },
-                answer: 'Der Herleitung von gerechten Grundsätzen durch die Ausschaltung von Eigeninteresse.'
+                answer: 'c'
             },
             {
                 text: 'Die Systemtheorie nach Niklas Luhmann beschreibt die Gesellschaft als ein System, das aus selbstreferentiellen, operativ geschlossenen Funktionssystemen (wie Wirtschaft, Politik, Recht, Wissenschaft) besteht. Jedes System operiert mit einem eigenen Code (z.B. Wirtschaft: zahlen/nicht zahlen) und kann nicht direkt in ein anderes System eingreifen, sondern es nur durch "Irritationen" beeinflussen.',
                 question: 'Wie interagieren Funktionssysteme nach Luhmann miteinander?',
                 options: { a: 'Durch direkte Eingriffe und Steuerung.', b: 'Sie sind komplett voneinander isoliert und interagieren gar nicht.', c: 'Sie teilen alle denselben Code und dieselbe Logik.', d: 'Durch gegenseitige Irritationen, da sie operativ geschlossen sind.' },
-                answer: 'Durch gegenseitige Irritationen, da sie operativ geschlossen sind.'
+                answer: 'd'
             },
             {
                 text: 'Der kategorische Fehler, ein Begriff des Philosophen Gilbert Ryle, bezeichnet die fehlerhafte Zuordnung einer Eigenschaft zu einer Kategorie, der sie nicht angehören kann. Ein Beispiel wäre, nach dem Besuch aller Gebäude einer Universität zu fragen: "Aber wo ist die Universität?". Man behandelt die Universität fälschlicherweise so, als wäre sie ein weiteres Gebäude und nicht die Organisation der Gebäude.',
                 question: 'Was beschreibt ein kategorischer Fehler?',
                 options: { a: 'Einen einfachen Rechenfehler.', b: 'Eine korrekte logische Schlussfolgerung.', c: 'Die fehlerhafte Zuordnung einer Eigenschaft zu einer falschen logischen Kategorie.', d: 'Einen grammatikalischen Fehler in einem Satz.' },
-                answer: 'Die fehlerhafte Zuordnung einer Eigenschaft zu einer falschen logischen Kategorie.'
+                answer: 'c'
             },
             {
                 text: 'In der Literaturwissenschaft bezeichnet der Begriff "Intertextualität" das Phänomen, dass jeder Text in einem Beziehungsgeflecht zu anderen Texten steht. Texte beziehen sich aufeinander, zitieren, parodieren oder transformieren sich gegenseitig. Ein Text kann daher nie in völliger Isolation verstanden werden, sondern immer nur im Kontext dieses textuellen Netzwerks.',
                 question: 'Was ist die Kernaussage der Intertextualitätstheorie?',
                 options: { a: 'Jeder Text ist einzigartig und muss isoliert betrachtet werden.', b: 'Texte stehen in vielfältigen Beziehungen zueinander.', c: 'Autoren sollten das Zitieren anderer Texte vermeiden.', d: 'Nur der erste Text einer Gattung ist von Bedeutung.' },
-                answer: 'Texte stehen in vielfältigen Beziehungen zueinander.'
+                answer: 'b'
             },
             {
                 text: 'Das "Panopticon", ein von Jeremy Bentham entworfenes und von Foucault analysiertes Architekturschema für Gefängnisse, ermöglicht die ständige Überwachung aller Insassen durch einen einzigen Wärter in einem zentralen Turm. Da die Gefangenen nicht wissen können, ob sie gerade beobachtet werden, verhalten sie sich so, als würden sie es permanent – sie internalisieren die Überwachung. Foucault sieht darin ein Modell für die disziplinierende Macht in der modernen Gesellschaft.',
                 question: 'Welchen Effekt hat die panoptische Struktur auf die Überwachten?',
                 options: { a: 'Sie widersetzen sich aktiv der Überwachung.', b: 'Sie wissen immer genau, wann sie beobachtet werden.', c: 'Sie ignorieren die Möglichkeit der Überwachung.', d: 'Sie internalisieren die Überwachung und disziplinieren sich selbst.' },
-                answer: 'Sie internalisieren die Überwachung und disziplinieren sich selbst.'
+                answer: 'd'
             },
             {
                 text: 'Die Hermeneutik ist die Theorie der Interpretation und des Verstehens. Der "hermeneutische Zirkel" beschreibt den Prozess, dass das Verständnis eines Ganzen (z.B. eines Textes) vom Verständnis seiner Teile abhängt, während das Verständnis der Teile wiederum vom Vorverständnis des Ganzen geprägt ist. Verstehen ist also ein zirkulärer, sich ständig verfeinernder Prozess, kein linearer.',
                 question: 'Was beschreibt der hermeneutische Zirkel?',
                 options: { a: 'Einen logischen Fehler, den es zu vermeiden gilt.', b: 'Einen linearen, schrittweisen Prozess des Verstehens.', c: 'Die wechselseitige Bedingtheit von Teil- und Ganzheitsverständnis.', d: 'Die Unmöglichkeit, einen Text jemals zu verstehen.' },
-                answer: 'Die wechselseitige Bedingtheit von Teil- und Ganzheitsverständnis.'
+                answer: 'c'
             },
             {
                 text: 'Die Memetik, ein von Richard Dawkins vorgeschlagenes Konzept, postuliert die Existenz von "Memen" als kulturelle Analoga zu biologischen Genen. Meme sind sich selbst replizierende Informationseinheiten – Ideen, Melodien, Moden –, die von Gehirn zu Gehirn springen und sich durch Imitation verbreiten. Erfolgreiche Meme verbreiten sich weit, unabhängig von ihrem Wahrheitsgehalt oder Nutzen.',
                 question: 'Was ist ein "Mem" im Sinne der Memetik?',
                 options: { a: 'Eine biologische Erbinformation.', b: 'Eine sich durch Imitation verbreitende kulturelle Informationseinheit.', c: 'Eine immer wahre und nützliche Idee.', d: 'Ein genetischer Defekt.' },
-                answer: 'Eine sich durch Imitation verbreitende kulturelle Informationseinheit.'
+                answer: 'b'
             },
             {
                 text: 'Die Theorie der "Banalität des Bösen" von Hannah Arendt, entwickelt nach der Beobachtung des Prozesses gegen Adolf Eichmann, besagt, dass extreme Bosheit nicht notwendigerweise von monströsen, dämonischen Motiven herrühren muss. Stattdessen kann sie aus Gedankenlosigkeit, Pflichtbewusstsein und der Unfähigkeit, aus der Perspektive anderer zu denken, entstehen – einer Form von bürokratischer Normalität.',
                 question: 'Was ist laut Arendt die Wurzel der "Banalität des Bösen"?',
                 options: { a: 'Dämonische und sadistische Motive.', b: 'Eine außergewöhnliche kriminelle Energie.', c: 'Gedankenlosigkeit und die Unfähigkeit, die Perspektive anderer einzunehmen.', d: 'Ein angeborener Hang zur Grausamkeit.' },
-                answer: 'Gedankenlosigkeit und die Unfähigkeit, die Perspektive anderer einzunehmen.'
+                answer: 'c'
             },
             {
                 text: 'Die Sprechakttheorie, begründet von J.L. Austin, betont, dass wir mit Sprache nicht nur Dinge beschreiben (Konstativa), sondern auch Handlungen vollziehen (Performative). Jede Äußerung hat eine lokutionäre (die wörtliche Bedeutung), eine illokutionäre (die Handlungsabsicht, z.B. warnen, versprechen) und eine perlokutionäre (die Wirkung auf den Hörer) Dimension.',
                 question: 'Was ist die illokutionäre Dimension einer Äußerung?',
                 options: { a: 'Die rein grammatikalische Struktur.', b: 'Die wörtliche Bedeutung der Worte.', c: 'Die Handlungsabsicht, die mit der Äußerung verfolgt wird.', d: 'Die konkrete Wirkung, die beim Hörer erzielt wird.' },
-                answer: 'Die Handlungsabsicht, die mit der Äußerung verfolgt wird.'
+                answer: 'c'
             },
             {
                 text: 'Der Sozialdarwinismus überträgt fälschlicherweise Charles Darwins biologische Evolutionstheorie vom "Überleben des Stärksten" (Survival of the Fittest) auf menschliche Gesellschaften. Diese Ideologie wurde oft zur Rechtfertigung von sozialer Ungleichheit, Imperialismus und Rassismus missbraucht, indem behauptet wurde, der Erfolg bestimmter Gruppen oder Völker sei ein Beweis für ihre angeborene Überlegenheit.',
                 question: 'Wozu wurde der Sozialdarwinismus oft missbraucht?',
                 options: { a: 'Zur Förderung von Gleichheit und sozialer Gerechtigkeit.', b: 'Zur Rechtfertigung von sozialer Ungleichheit und Rassismus.', c: 'Zur exakten Anwendung biologischer Gesetze auf die Gesellschaft.', d: 'Zur Kritik am Kapitalismus.' },
-                answer: 'Zur Rechtfertigung von sozialer Ungleichheit und Rassismus.'
+                answer: 'b'
             },
             {
                 text: 'In der Rechtsphilosophie unterscheidet man zwischen positivem Recht und Naturrecht. Positives Recht ist das vom Menschen gesetzte, geschriebene Recht eines Staates. Naturrecht hingegen postuliert die Existenz von übergeordneten, universellen Rechtsprinzipien, die aus der Natur des Menschen oder der Vernunft abgeleitet werden und dem positiven Recht als Maßstab dienen können.',
                 question: 'Was kennzeichnet positives Recht?',
                 options: { a: 'Es ist universell und ewig gültig.', b: 'Es wird aus der menschlichen Vernunft abgeleitet.', c: 'Es ist das von Menschen gesetzte, geschriebene Recht.', d: 'Es steht immer über dem Naturrecht.' },
-                answer: 'Es ist das von Menschen gesetzte, geschriebene Recht.'
+                answer: 'c'
             },
             {
                 text: 'Die "Tragödie des Allgemeinguts" (Tragedy of the Commons) beschreibt ein Problem, bei dem frei verfügbare, aber begrenzte Ressourcen durch die eigennützige Nutzung durch Individuen übernutzt und zerstört werden, da der Nutzen der Nutzung privatisiert, der Schaden aber sozialisiert wird. Jeder Einzelne handelt rational, aber die Summe der Handlungen führt zur kollektiven Katastrophe.',
                 question: 'Was ist die Ursache der "Tragödie des Allgemeinguts"?',
                 options: { a: 'Strenge staatliche Regulierung der Ressource.', b: 'Das altruistische Handeln aller Individuen.', c: 'Die Privatisierung aller Ressourcen.', d: 'Die Übernutzung einer freien Ressource durch rational handelnde Individuen.' },
-                answer: 'Die Übernutzung einer freien Ressource durch rational handelnde Individuen.'
+                answer: 'd'
             },
             {
                 text: 'Der Begriff des "kulturellen Gedächtnisses", geprägt von Jan und Aleida Assmann, bezeichnet das von einer Gesellschaft geteilte Wissen über ihre Vergangenheit, das durch Medien, Rituale und Institutionen tradiert wird. Im Gegensatz zum kommunikativen Gedächtnis, das auf den Erfahrungen lebender Generationen beruht, reicht das kulturelle Gedächtnis weiter zurück und formt die kollektive Identität.',
                 question: 'Was unterscheidet das kulturelle vom kommunikativen Gedächtnis?',
                 options: { a: 'Das kulturelle Gedächtnis bezieht sich nur auf die nahe Zukunft.', b: 'Das kulturelle Gedächtnis ist auf die Erfahrungen lebender Generationen beschränkt.', c: 'Das kulturelle Gedächtnis reicht weiter in die Vergangenheit zurück und formt die kollektive Identität.', d: 'Das kommunikative Gedächtnis wird nur schriftlich tradiert.' },
-                answer: 'Das kulturelle Gedächtnis reicht weiter in die Vergangenheit zurück und formt die kollektive Identität.'
+                answer: 'c'
             },
             {
                 text: 'Gödelscher Unvollständigkeitssatz ist ein fundamentales Ergebnis der mathematischen Logik. Der erste Satz besagt, dass in jedem ausreichend mächtigen, konsistenten formalen System (wie der Arithmetik) wahre Aussagen existieren, die innerhalb dieses Systems nicht bewiesen werden können. Dies setzt der Vorstellung, dass Mathematik ein vollständig beweisbares, geschlossenes System sein könnte, eine prinzipielle Grenze.',
                 question: 'Was folgt aus Gödels erstem Unvollständigkeitssatz?',
                 options: { a: 'Jede wahre mathematische Aussage ist beweisbar.', b: 'Mathematik ist ein in sich widersprüchliches System.', c: 'Es gibt wahre Aussagen in der Arithmetik, die nicht beweisbar sind.', d: 'Formale Systeme sind für die Mathematik unbrauchbar.' },
-                answer: 'Es gibt wahre Aussagen in der Arithmetik, die nicht beweisbar sind.'
+                answer: 'c'
             },
             {
                 text: 'Die "kognitive Revolution", ein Begriff aus der Evolutionspsychologie, bezeichnet eine Phase vor etwa 70.000 Jahren, in der der Homo sapiens neue kognitive Fähigkeiten entwickelte, insbesondere eine flexible und komplexe Sprache. Diese ermöglichte die Kommunikation über Fiktionen wie Götter, Nationen oder Geld, was die Kooperation in großen Gruppen erlaubte und die Grundlage für die menschliche Zivilisation legte.',
                 question: 'Was war die entscheidende neue Fähigkeit der kognitiven Revolution?',
                 options: { a: 'Der aufrechte Gang.', b: 'Die Herstellung von einfachen Werkzeugen.', c: 'Die Fähigkeit zur Kommunikation über Fiktionen.', d: 'Die Kontrolle des Feuers.' },
-                answer: 'Die Fähigkeit zur Kommunikation über Fiktionen.'
+                answer: 'c'
             },
             {
                 text: 'Die kritische Theorie der Frankfurter Schule übt eine fundamentale Kritik an der modernen kapitalistischen Gesellschaft. Sie argumentiert, dass die Kulturindustrie die Massen durch standardisierte Unterhaltungsprodukte passiviert und manipuliert, wodurch kritisches Denken und emanzipatorisches Potenzial unterdrückt werden. Die scheinbare Freiheit der Wahl ist nur eine Illusion innerhalb eines allumfassenden Systems der Kontrolle.',
                 question: 'Was ist die Funktion der Kulturindustrie nach der kritischen Theorie?',
                 options: { a: 'Die Förderung von kritischem Denken und Emanzipation.', b: 'Die Produktion von individueller, einzigartiger Kunst.', c: 'Die Passivierung und Manipulation der Massen.', d: 'Die Untergrabung des kapitalistischen Systems.' },
-                answer: 'Die Passivierung und Manipulation der Massen.'
+                answer: 'c'
             },
         ],
     },

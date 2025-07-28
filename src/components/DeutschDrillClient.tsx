@@ -25,7 +25,6 @@ import { LevelingSystemProps } from '@/components/LevelingSystem';
 
 import { exercises } from '@/lib/exercises';
 import { quotes } from '@/lib/quotes';
-import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 
 // Type definitions
 export type Level = 'A1' | 'A2' | 'B1' | 'B2' | 'C1';
@@ -161,7 +160,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             let prompt = question;
             let text = ''; 
 
-            if (activity === 'reading') {
+            if (activity === 'reading' && 'text' in newExerciseData) {
                 text = newExerciseData.text;
                 question = newExerciseData.question;
             }
@@ -224,50 +223,31 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     setIsChecking(true);
     setExplanation(null);
 
-    let correct: boolean | null = null;
-    let explanationText = '';
-    
     // Start loading the next question immediately
     const loadNextQuestionPromise = handleGenerate();
 
-    if (activity === 'reading') {
-        try {
-            const result = await evaluateReadingResponse({ 
-                prompt: `${exercise.text}\n\n${exercise.question}`,
-                userAnswer: userAnswer,
-                correctAnswer: exercise.answer 
-            });
-            correct = result.isCorrect;
-            explanationText = result.feedback;
-        } catch (error) {
-            console.error("Error evaluating reading response:", error);
-            toast({
-                title: 'Error',
-                description: 'Could not evaluate your answer. Please try again.',
-                variant: 'destructive',
-            });
-            setIsChecking(false);
-            return;
-        }
-    } else { // grammar
-        correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
-        if (correct) {
-            const bonus = streak * 5;
-            explanationText = `Correct! You earned 10 EXP! ${bonus > 0 ? `+${bonus} streak bonus!` : ''}`;
-        } else {
-            explanationText = `The correct answer is: ${exercise.answer}`;
-        }
-    }
-    
+    const correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+    let explanationText = '';
+
     if (correct) {
         playCorrectSound();
         const bonus = streak * 5;
         setExp(exp + 10 + bonus);
         setStreak(streak + 1);
-    } else if (correct !== null) {
+        explanationText = `Correct! You earned 10 EXP! ${bonus > 0 ? `+${bonus} streak bonus!` : ''}`;
+    } else {
         playIncorrectSound();
         setExp(Math.max(0, exp - 5));
         setStreak(0);
+        
+        let correctAnswerText = exercise.answer;
+        if(exercise.isMcq && exercise.options) {
+            const correctOption = exercise.options.find(opt => opt.id.toLowerCase() === exercise.answer.toLowerCase());
+            if(correctOption) {
+                correctAnswerText = `${exercise.answer}) ${correctOption.label}`;
+            }
+        }
+        explanationText = `The correct answer is: ${correctAnswerText}`;
     }
 
     setExplanation({
@@ -299,9 +279,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     setIsChecking(false);
   };
   
-  const isCorrect = activity === 'reading' 
-    ? readingFeedback?.isCorrect 
-    : exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+  const isCorrect = exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
     <>
@@ -441,5 +419,3 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     </>
   );
 }
-
-    

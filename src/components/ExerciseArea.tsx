@@ -59,7 +59,7 @@ export default function ExerciseArea({
         {activity === 'reading' && exercise.text && (
             <p className="text-lg font-serif leading-relaxed text-foreground/80 whitespace-pre-wrap">{exercise.text}</p>
         )}
-        <p className="text-lg font-bold text-foreground/90 whitespace-pre-wrap">{exercise.question || exercise.prompt}</p>
+        <p className="text-xl font-bold text-foreground/90 whitespace-pre-wrap">{exercise.question || exercise.prompt}</p>
       </div>
 
       {exercise.isMcq && exercise.options ? (
@@ -69,13 +69,13 @@ export default function ExerciseArea({
               key={option.id}
               htmlFor={option.id}
               className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                userAnswer === (activity === 'reading' ? option.label : option.id)
+                userAnswer === option.id
                   ? 'border-primary bg-primary/20'
                   : 'border-border bg-card hover:bg-primary/10'
               }`}
             >
-              <RadioGroupItem value={activity === 'reading' ? option.label : option.id} id={option.id} className="h-6 w-6 mr-4" />
-              <span className="text-base font-medium">{activity === 'reading' ? `${option.id})` : ''} {option.label}</span>
+              <RadioGroupItem value={option.id} id={option.id} className="h-6 w-6 mr-4" />
+              <span className="text-base font-medium">{option.id.toUpperCase()}) {option.label}</span>
             </Label>
           ))}
         </RadioGroup>
