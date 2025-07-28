@@ -37,7 +37,7 @@ export type Exercise = {
   isMcq: boolean;
   options?: { id: string; label: string }[];
   question?: string;
-  text?: string; // Add text property for original reading passage
+  text?: string;
 } | null;
 
 export type ReadingFeedback = {
@@ -155,10 +155,11 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             let options;
             let question = newExerciseData.question;
             let prompt = question;
-            let text = ''; // Hold original text for reading exercises
+            let text = ''; 
 
             if (activity === 'reading') {
-                text = newExerciseData.question;
+                text = newExerciseData.text;
+                question = newExerciseData.question;
             }
 
             if (isMcq && newExerciseData.options) {
@@ -176,7 +177,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
               isMcq: isMcq,
               question: question,
               options: options,
-              text: text, // Store original text
+              text: text,
             };
             
             setQuestionHistory(prev => {
@@ -219,10 +220,12 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   const handleCheckAnswer = async () => {
     if (!userAnswer || !exercise) return;
     setIsChecking(true);
-    setExercise(null); // Clear current exercise to show loading state
+    setExplanation(null);
 
     let correct: boolean | null = null;
     let explanationText = '';
+    
+    // Start loading the next question immediately
     const loadNextQuestionPromise = handleGenerate();
 
     if (activity === 'reading') {
@@ -239,8 +242,6 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                 variant: 'destructive',
             });
             setIsChecking(false);
-            const newExercise = await loadNextQuestionPromise;
-            if(newExercise) setExercise(newExercise);
             return;
         }
     } else { // grammar
@@ -281,6 +282,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
         isCorrect: !!correct,
     });
     
+    // Wait for the next question to be loaded before we clear the old one
     const newExercise = await loadNextQuestionPromise;
     if(newExercise) {
         setExercise(newExercise);
@@ -291,10 +293,6 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     setReadingFeedback(null);
     setIsChecking(false);
   };
-
-  const handleCloseExplanation = () => {
-    setExplanation(null);
-  }
   
   const isCorrect = activity === 'reading' 
     ? readingFeedback?.isCorrect 
@@ -344,7 +342,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             </div>
           
             <ExerciseArea
-                isLoading={isLoading || isChecking}
+                isLoading={isLoading}
                 exercise={exercise}
                 userAnswer={userAnswer}
                 setUserAnswer={setUserAnswer}
@@ -408,7 +406,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogAction onClick={handleCloseExplanation} className="w-full">
+                    <AlertDialogAction onClick={() => setExplanation(null)} className="w-full">
                         Next Question
                     </AlertDialogAction>
                 </AlertDialogFooter>
@@ -418,7 +416,3 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     </>
   );
 }
-
-    
-
-    

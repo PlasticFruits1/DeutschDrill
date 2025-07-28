@@ -55,8 +55,11 @@ export default function ExerciseArea({
 
   return (
     <div className="space-y-4 min-h-[200px]">
-      <div className="p-4 bg-primary/10 rounded-lg space-y-2">
-        <p className="text-lg font-semibold text-foreground/90 whitespace-pre-wrap">{exercise.question || exercise.prompt}</p>
+      <div className="p-4 bg-primary/10 rounded-lg space-y-4">
+        {activity === 'reading' && exercise.text && (
+            <p className="text-lg font-serif leading-relaxed text-foreground/80 whitespace-pre-wrap">{exercise.text}</p>
+        )}
+        <p className="text-lg font-bold text-foreground/90 whitespace-pre-wrap">{exercise.question || exercise.prompt}</p>
       </div>
 
       {exercise.isMcq && exercise.options ? (
@@ -115,5 +118,3 @@ export default function ExerciseArea({
     </div>
   );
 }
-
-    
