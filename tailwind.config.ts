@@ -10,8 +10,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Nunito', 'sans-serif'],
-        headline: ['Nunito', 'sans-serif'],
+        body: ['"PT Sans"', 'sans-serif'],
+        headline: ['"PT Sans"', 'sans-serif'],
+        slogan: ['"Roboto Slab"', 'serif'],
         code: ['monospace'],
       },
       colors: {
