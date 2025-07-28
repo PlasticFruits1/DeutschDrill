@@ -77,17 +77,15 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   }, []);
 
     useEffect(() => {
-        const currentLevelData = levelSystem.slice().reverse().find(l => exp >= l.expRequired);
+        const currentLevelData = levelSystem.find(l => exp >= l.expRequired && l.level > playerLevel);
         let newLevel = playerLevel;
         if (currentLevelData) {
-            if (currentLevelData.level > playerLevel) {
-                newLevel = currentLevelData.level;
-                setPlayerLevel(newLevel);
-                toast({
-                    title: 'Level Up!',
-                    description: `You've reached level ${currentLevelData.level}!`,
-                });
-            }
+            newLevel = currentLevelData.level;
+            setPlayerLevel(newLevel);
+            toast({
+                title: 'Level Up!',
+                description: `You've reached level ${newLevel}!`,
+            });
         }
         onProgressChange({ playerLevel: newLevel, exp, streak });
     }, [exp, playerLevel, streak, onProgressChange, toast]);
@@ -205,26 +203,32 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     setIsChecking(true);
 
     let correct: boolean | null = null;
+    let explanation = '';
 
     if (activity === 'reading') {
-        if (exercise.isMcq) {
-            try {
-                const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
-                setReadingFeedback(result);
-                correct = result.isCorrect;
-            } catch (error) {
-                console.error("Error evaluating reading response:", error);
-                toast({
-                    title: 'Error',
-                    description: 'Could not evaluate your answer. Please try again.',
-                    variant: 'destructive',
-                });
-                setIsChecking(false);
-                return;
-            }
+        try {
+            const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
+            setReadingFeedback(result);
+            correct = result.isCorrect;
+            explanation = result.feedback;
+        } catch (error) {
+            console.error("Error evaluating reading response:", error);
+            toast({
+                title: 'Error',
+                description: 'Could not evaluate your answer. Please try again.',
+                variant: 'destructive',
+            });
+            setIsChecking(false);
+            return;
         }
     } else { // grammar
         correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
+        if (correct) {
+            const bonus = streak * 5;
+            explanation = `Correct! You earned 10 EXP! ${bonus > 0 ? `+${bonus} streak bonus!` : ''}`;
+        } else {
+            explanation = `Incorrect. The correct answer is: ${exercise.answer}`;
+        }
     }
     
     if (correct) {
@@ -237,12 +241,35 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
         setExp(Math.max(0, exp - 5));
         setStreak(0);
     }
-    setShowResult(true);
-    
-    const newExercisePromise = handleGenerate();
-    const delayPromise = new Promise(resolve => setTimeout(resolve, 5000));
 
-    const [newExercise] = await Promise.all([newExercisePromise, delayPromise]);
+    const explanationHtml = `
+        <html>
+            <head>
+                <title>Explanation</title>
+                <style>
+                    body { font-family: sans-serif; padding: 2rem; background-color: ${correct ? '#f0fff4' : '#fff0f0'}; color: #333; }
+                    h1 { color: ${correct ? 'green' : 'red'}; }
+                </style>
+            </head>
+            <body>
+                <h1>${correct ? 'Correct!' : 'Incorrect!'}</h1>
+                <p>${explanation}</p>
+                <hr>
+                <h2>Your Question:</h2>
+                <p style="white-space: pre-wrap;">${exercise.prompt}</p>
+                <h2>Your Answer:</h2>
+                <p>${userAnswer}</p>
+            </body>
+        </html>
+    `;
+
+    const newWindow = window.open("", "Explanation", "width=600,height=400");
+    if(newWindow) {
+        newWindow.document.write(explanationHtml);
+        newWindow.document.close();
+    }
+    
+    const newExercise = await handleGenerate();
     
     setShowResult(false);
     setUserAnswer('');
