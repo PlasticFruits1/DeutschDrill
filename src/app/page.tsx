@@ -6,7 +6,13 @@ import DeutschDrillClient from '@/components/DeutschDrillClient';
 import LevelingSystem, { LevelingSystemProps } from '@/components/LevelingSystem';
 import { BrainCircuit } from 'lucide-react';
 
-export default function Home() {
+export default function Home({
+  params,
+  searchParams,
+}: {
+  params: {};
+  searchParams: {};
+}) {
   const [progress, setProgress] = useState<LevelingSystemProps>({
     playerLevel: 1,
     exp: 0,
