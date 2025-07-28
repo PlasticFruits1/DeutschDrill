@@ -4,8 +4,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import type * as Tone from 'tone';
 import { useToast } from '@/hooks/use-toast';
-import { BookOpen, Sparkles } from 'lucide-react';
+import { BookOpen, Sparkles, CheckCircle, XCircle } from 'lucide-react';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -62,6 +71,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   const [readingFeedback, setReadingFeedback] = useState<ReadingFeedback>(null);
   const [started, setStarted] = useState(false);
   const [questionHistory, setQuestionHistory] = useState<string[]>([]);
+  const [explanation, setExplanation] = useState<{ title: string, content: React.ReactNode, isCorrect: boolean } | null>(null);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -77,7 +87,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   }, []);
 
     useEffect(() => {
-        const currentLevelData = levelSystem.find(l => exp >= l.expRequired && l.level > playerLevel);
+        const currentLevelData = levelSystem.find(l => l.level > playerLevel && exp >= l.expRequired);
         let newLevel = playerLevel;
         if (currentLevelData) {
             newLevel = currentLevelData.level;
@@ -201,16 +211,18 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   const handleCheckAnswer = async () => {
     if (!userAnswer || !exercise) return;
     setIsChecking(true);
+    setExercise(null); // Clear current exercise to show loading state
 
     let correct: boolean | null = null;
-    let explanation = '';
+    let explanationText = '';
+    const loadNextQuestionPromise = handleGenerate();
 
     if (activity === 'reading') {
         try {
             const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
             setReadingFeedback(result);
             correct = result.isCorrect;
-            explanation = result.feedback;
+            explanationText = result.feedback;
         } catch (error) {
             console.error("Error evaluating reading response:", error);
             toast({
@@ -219,15 +231,17 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                 variant: 'destructive',
             });
             setIsChecking(false);
+            const newExercise = await loadNextQuestionPromise;
+            if(newExercise) setExercise(newExercise);
             return;
         }
     } else { // grammar
         correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
         if (correct) {
             const bonus = streak * 5;
-            explanation = `Correct! You earned 10 EXP! ${bonus > 0 ? `+${bonus} streak bonus!` : ''}`;
+            explanationText = `Correct! You earned 10 EXP! ${bonus > 0 ? `+${bonus} streak bonus!` : ''}`;
         } else {
-            explanation = `Incorrect. The correct answer is: ${exercise.answer}`;
+            explanationText = `The correct answer is: ${exercise.answer}`;
         }
     }
     
@@ -242,49 +256,44 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
         setStreak(0);
     }
 
-    const explanationHtml = `
-        <html>
-            <head>
-                <title>Explanation</title>
-                <style>
-                    body { font-family: sans-serif; padding: 2rem; background-color: ${correct ? '#f0fff4' : '#fff0f0'}; color: #333; }
-                    h1 { color: ${correct ? 'green' : 'red'}; }
-                </style>
-            </head>
-            <body>
-                <h1>${correct ? 'Correct!' : 'Incorrect!'}</h1>
-                <p>${explanation}</p>
-                <hr>
-                <h2>Your Question:</h2>
-                <p style="white-space: pre-wrap;">${exercise.prompt}</p>
-                <h2>Your Answer:</h2>
-                <p>${userAnswer}</p>
-            </body>
-        </html>
-    `;
-
-    const newWindow = window.open("", "Explanation", "width=600,height=400");
-    if(newWindow) {
-        newWindow.document.write(explanationHtml);
-        newWindow.document.close();
-    }
+    setExplanation({
+        title: correct ? 'Correct!' : 'Incorrect!',
+        content: (
+            <div className="space-y-4">
+                <p>{explanationText}</p>
+                <hr />
+                <div className="text-sm space-y-2 text-muted-foreground">
+                    <p className="font-semibold">Your Question:</p>
+                    <p className="whitespace-pre-wrap">{exercise.prompt}</p>
+                    <p className="font-semibold">Your Answer:</p>
+                    <p>{userAnswer}</p>
+                </div>
+            </div>
+        ),
+        isCorrect: !!correct,
+    });
     
-    const newExercise = await handleGenerate();
+    const newExercise = await loadNextQuestionPromise;
+    if(newExercise) {
+        setExercise(newExercise);
+    }
     
     setShowResult(false);
     setUserAnswer('');
     setReadingFeedback(null);
-    if(newExercise) {
-        setExercise(newExercise);
-    }
     setIsChecking(false);
   };
+
+  const handleCloseExplanation = () => {
+    setExplanation(null);
+  }
   
   const isCorrect = activity === 'reading' 
     ? readingFeedback?.isCorrect 
     : exercise && userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
 
   return (
+    <>
     <Card className="flex-1 w-full shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20 transition-all duration-300 hover:shadow-primary/20 rounded-[2rem]">
       <Tabs value={activity} onValueChange={(value) => setActivity(value as Activity)} className="w-full">
         <CardHeader>
@@ -327,7 +336,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             </div>
           
             <ExerciseArea
-                isLoading={isLoading}
+                isLoading={isLoading || isChecking}
                 exercise={exercise}
                 userAnswer={userAnswer}
                 setUserAnswer={setUserAnswer}
@@ -374,5 +383,32 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
         </CardFooter>
       </Tabs>
     </Card>
+    {explanation && (
+        <AlertDialog open={!!explanation} onOpenChange={(open) => !open && setExplanation(null)}>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle className="flex items-center gap-2">
+                        {explanation.isCorrect ? (
+                            <CheckCircle className="h-6 w-6 text-green-500" />
+                        ) : (
+                            <XCircle className="h-6 w-6 text-red-500" />
+                        )}
+                        {explanation.title}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription asChild>
+                         <div className="text-base text-foreground/90 pt-2">{explanation.content}</div>
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogAction onClick={handleCloseExplanation} className="w-full">
+                        Next Question
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    )}
+    </>
   );
 }
+
+    

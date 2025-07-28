@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CheckCircle2, XCircle, Award } from 'lucide-react';
+import { CheckCircle2, XCircle, Award, Loader2 } from 'lucide-react';
 import { Exercise, ReadingFeedback, Activity } from './DeutschDrillClient';
 
 interface ExerciseAreaProps {
@@ -34,26 +34,18 @@ export default function ExerciseArea({
   activity,
   started,
 }: ExerciseAreaProps) {
-  if (isLoading) {
+  if (isLoading || (!exercise && started)) {
     return (
-      <div className="space-y-4">
-        <Skeleton className="h-8 w-3/4" />
-        <Skeleton className="h-10 w-full" />
-      </div>
-    );
-  }
-
-  if (!exercise && started) {
-    return (
-      <div className="text-center text-muted-foreground py-10">
-        <p>Generating the next challenge...</p>
+      <div className="space-y-4 min-h-[200px] flex flex-col items-center justify-center text-center text-muted-foreground py-10">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p>Loading the next challenge...</p>
       </div>
     );
   }
   
   if (!exercise) {
     return (
-      <div className="text-center text-muted-foreground py-10">
+      <div className="text-center text-muted-foreground py-10 min-h-[200px] flex items-center justify-center">
         <p>Select your level and start a new challenge!</p>
       </div>
     );
@@ -62,7 +54,7 @@ export default function ExerciseArea({
   const bonus = streak > 0 ? streak * 5 : 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 min-h-[200px]">
       <div className="p-4 bg-primary/10 rounded-lg space-y-2">
         <p className="text-lg font-semibold text-foreground/90 whitespace-pre-wrap">{exercise.question || exercise.prompt}</p>
       </div>
@@ -123,3 +115,5 @@ export default function ExerciseArea({
     </div>
   );
 }
+
+    
