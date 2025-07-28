@@ -232,11 +232,8 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
 
     if (activity === 'reading') {
         try {
-            const optionsText = exercise.options?.map(o => `${o.id}) ${o.label}`).join('\n') ?? '';
-            const fullPromptForAI = `${exercise.text}\n\n${exercise.question}\n${optionsText}`;
-
             const result = await evaluateReadingResponse({ 
-                prompt: fullPromptForAI,
+                prompt: `${exercise.text}\n\n${exercise.question}`,
                 userAnswer: userAnswer,
                 correctAnswer: exercise.answer 
             });

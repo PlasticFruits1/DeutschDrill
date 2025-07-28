@@ -69,13 +69,13 @@ export default function ExerciseArea({
               key={option.id}
               htmlFor={option.id}
               className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                userAnswer === option.id
+                userAnswer === (activity === 'reading' ? option.label : option.id)
                   ? 'border-primary bg-primary/20'
                   : 'border-border bg-card hover:bg-primary/10'
               }`}
             >
-              <RadioGroupItem value={option.id} id={option.id} className="h-6 w-6 mr-4" />
-              <span className="text-base font-medium">{option.label}</span>
+              <RadioGroupItem value={activity === 'reading' ? option.label : option.id} id={option.id} className="h-6 w-6 mr-4" />
+              <span className="text-base font-medium">{activity === 'reading' ? `${option.id})` : ''} {option.label}</span>
             </Label>
           ))}
         </RadioGroup>

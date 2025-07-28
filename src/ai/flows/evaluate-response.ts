@@ -11,9 +11,9 @@ import {ai} from '@/ai/genkit';
 import {z} from 'zod';
 
 const EvaluateReadingResponseInputSchema = z.object({
-  prompt: z.string().describe('The full reading prompt given to the user, including the text, question, and options.'),
-  userAnswer: z.string().describe("The user's selected option (e.g., 'A', 'B', 'C', or 'D')."),
-  correctAnswer: z.string().describe("The correct option letter (e.g., 'A', 'B', 'C', or 'D')."),
+  prompt: z.string().describe('The full reading prompt given to the user, including the text and question.'),
+  userAnswer: z.string().describe("The user's selected answer text."),
+  correctAnswer: z.string().describe("The correct answer text."),
 });
 export type EvaluateReadingResponseInput = z.infer<typeof EvaluateReadingResponseInputSchema>;
 
@@ -31,19 +31,19 @@ const prompt = ai.definePrompt({
   name: 'evaluateReadingResponsePrompt',
   input: {schema: EvaluateReadingResponseInputSchema},
   output: {schema: EvaluateReadingResponseOutputSchema},
-  prompt: `You are a German language teacher. Your task is to evaluate a user's answer to a multiple-choice reading comprehension question.
+  prompt: `You are a German language teacher. Your task is to evaluate a user's answer to a reading comprehension question based on the provided text.
 
-The full prompt was:
+The prompt was:
 "{{{prompt}}}"
 
-The correct answer is option {{{correctAnswer}}}.
-The user selected option {{{userAnswer}}}.
+The correct answer is: "{{{correctAnswer}}}"
+The user selected: "{{{userAnswer}}}"
 
-1.  Compare the user's answer to the correct answer.
-2.  Set the 'isCorrect' field to true if they match, and false otherwise.
+1.  Compare the user's answer to the correct answer. The user is correct if their answer means the same thing as the correct answer in the context of the text.
+2.  Set the 'isCorrect' field to true if they are correct, and false otherwise.
 3.  Provide a very brief, one-sentence feedback.
     - If correct, say something encouraging like "Great job!" or "That's right!".
-    - If incorrect, gently state the correct answer and briefly explain why, based on the text. For example: "Not quite. The correct answer is X, because the text says..."`,
+    - If incorrect, gently state the correct answer and briefly explain why, based on the text. For example: "Not quite. The correct answer is '...', because the text says..."`,
 });
 
 const evaluateReadingResponseFlow = ai.defineFlow(
