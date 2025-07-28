@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type * as Tone from 'tone';
 import { useToast } from '@/hooks/use-toast';
-import { BookOpen, Sparkles, CheckCircle, XCircle } from 'lucide-react';
+import { BookOpen, Sparkles, CheckCircle, XCircle, Award } from 'lucide-react';
 
 import {
   AlertDialog,
@@ -24,6 +24,7 @@ import ExerciseArea from '@/components/ExerciseArea';
 import { LevelingSystemProps } from '@/components/LevelingSystem';
 
 import { exercises } from '@/lib/exercises';
+import { quotes } from '@/lib/quotes';
 import { evaluateReadingResponse } from '@/ai/flows/evaluate-response';
 
 // Type definitions
@@ -73,6 +74,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   const [started, setStarted] = useState(false);
   const [questionHistory, setQuestionHistory] = useState<string[]>([]);
   const [explanation, setExplanation] = useState<{ title: string, content: React.ReactNode, isCorrect: boolean } | null>(null);
+  const [motivationalQuote, setMotivationalQuote] = useState<{ title: string, quote: string } | null>(null);
 
   useEffect(() => {
     import('tone').then(ToneModule => {
@@ -88,18 +90,20 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
   }, []);
 
     useEffect(() => {
-        const currentLevelData = levelSystem.find(l => l.level > playerLevel && exp >= l.expRequired);
         let newLevel = playerLevel;
-        if (currentLevelData) {
-            newLevel = currentLevelData.level;
+        const nextLevelData = levelSystem.find(l => l.level === playerLevel + 1);
+
+        if (nextLevelData && exp >= nextLevelData.expRequired) {
+            newLevel = playerLevel + 1;
             setPlayerLevel(newLevel);
-            toast({
-                title: 'Level Up!',
-                description: `You've reached level ${newLevel}!`,
+            const quoteIndex = (newLevel - 2) % quotes.length;
+            setMotivationalQuote({
+                title: `You've reached Level ${newLevel}!`,
+                quote: quotes[quoteIndex]
             });
         }
         onProgressChange({ playerLevel: newLevel, exp, streak });
-    }, [exp, playerLevel, streak, onProgressChange, toast]);
+    }, [exp, playerLevel, streak, onProgressChange]);
 
 
     const playCorrectSound = useCallback(() => {
@@ -412,6 +416,26 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
                 <AlertDialogFooter>
                     <AlertDialogAction onClick={() => setExplanation(null)} className="w-full">
                         Next Question
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    )}
+    {motivationalQuote && (
+        <AlertDialog open={!!motivationalQuote} onOpenChange={(open) => !open && setMotivationalQuote(null)}>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle className="flex items-center gap-2">
+                        <Award className="h-6 w-6 text-yellow-500" />
+                        {motivationalQuote.title}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription asChild>
+                         <div className="text-base text-foreground/90 pt-4 italic text-center">"{motivationalQuote.quote}"</div>
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogAction onClick={() => setMotivationalQuote(null)} className="w-full">
+                        Continue
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

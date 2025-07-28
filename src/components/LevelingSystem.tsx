@@ -5,13 +5,22 @@ import { Flame } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 
-interface LevelingSystemProps {
+export interface LevelingSystemProps {
   playerLevel: number;
   exp: number;
   streak: number;
 }
 
-const levelExpRequirements = [0, 100, 250, 500, 1000, 9999];
+const levelExpRequirements = [0, 100, 250, 500, 1000, 1750, 2750, 4000, 5500, 7500, 10000];
+
+function getLevelFromExp(exp: number) {
+    for (let i = levelExpRequirements.length - 1; i >= 0; i--) {
+        if (exp >= levelExpRequirements[i]) {
+            return i + 1;
+        }
+    }
+    return 1;
+}
 
 export default function LevelingSystem({ playerLevel, exp, streak }: LevelingSystemProps) {
     const currentLevelExp = levelExpRequirements[playerLevel - 1] ?? 0;
