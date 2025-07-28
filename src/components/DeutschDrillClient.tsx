@@ -204,14 +204,24 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     if (!userAnswer || !exercise) return;
     setIsChecking(true);
 
-    let correct;
+    let correct: boolean | null = null;
 
     if (activity === 'reading') {
-        // For reading, we need to check the selected option against the answer
         if (exercise.isMcq) {
-            correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
-            const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
-            setReadingFeedback(result);
+            try {
+                const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
+                setReadingFeedback(result);
+                correct = result.isCorrect;
+            } catch (error) {
+                console.error("Error evaluating reading response:", error);
+                toast({
+                    title: 'Error',
+                    description: 'Could not evaluate your answer. Please try again.',
+                    variant: 'destructive',
+                });
+                setIsChecking(false);
+                return;
+            }
         }
     } else { // grammar
         correct = userAnswer.trim().toLowerCase() === exercise.answer.trim().toLowerCase();
@@ -222,7 +232,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
         const bonus = streak * 5;
         setExp(exp + 10 + bonus);
         setStreak(streak + 1);
-    } else {
+    } else if (correct !== null) {
         playIncorrectSound();
         setExp(Math.max(0, exp - 5));
         setStreak(0);
