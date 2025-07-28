@@ -37,6 +37,7 @@ export type Exercise = {
   isMcq: boolean;
   options?: { id: string; label: string }[];
   question?: string;
+  text?: string; // Add text property for original reading passage
 } | null;
 
 export type ReadingFeedback = {
@@ -154,6 +155,12 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
             let options;
             let question = newExerciseData.question;
             let prompt = question;
+            let text = ''; // Hold original text for reading exercises
+
+            if (activity === 'reading') {
+                text = newExerciseData.question;
+            }
+
             if (isMcq && newExerciseData.options) {
                 options = Object.entries(newExerciseData.options).map(([key, value]) => ({
                     id: key,
@@ -169,6 +176,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
               isMcq: isMcq,
               question: question,
               options: options,
+              text: text, // Store original text
             };
             
             setQuestionHistory(prev => {
@@ -219,7 +227,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
 
     if (activity === 'reading') {
         try {
-            const result = await evaluateReadingResponse({ prompt: exercise.prompt, response: userAnswer });
+            const result = await evaluateReadingResponse({ prompt: exercise.text || exercise.prompt, response: userAnswer });
             setReadingFeedback(result);
             correct = result.isCorrect;
             explanationText = result.feedback;
@@ -410,5 +418,7 @@ export default function DeutschDrillClient({ onProgressChange }: { onProgressCha
     </>
   );
 }
+
+    
 
     
